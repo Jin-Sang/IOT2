@@ -19,8 +19,8 @@
 #define dot "/dev/dot"
 #define fnd_dev	"/dev/fnd"
 
-unsigned char rps[1][8] = {	// dot matrix¿¡ Ãâ·ÂÀ» ÇÒ ¿É¼Ç
-	{ 0x00,0x38,0x38,0x38,0x38,0x00,0x00,0x00 }, // ÃÊ±â È­¸é 
+unsigned char rps[1][8] = {	// dot matrixì— ì¶œë ¥ì„ í•  ì˜µì…˜
+	{ 0x00,0x38,0x38,0x38,0x38,0x00,0x00,0x00 }, // ì´ˆê¸° í™”ë©´ 
 
 };
 
@@ -29,10 +29,10 @@ void DOT_control(int rps_col, int time_sleep) {
 	int dot_d;
 
 	dot_d = open(dot, O_RDWR);
-	if (dot_d < 0) { printf("dot Error\n"); } // ¿¹¿ÜÃ³¸®
+	if (dot_d < 0) { printf("dot Error\n"); } // ì˜ˆì™¸ì²˜ë¦¬
 
-	write(dot_d, &rps[rps_col], sizeof(rps)); // Ãâ·Â
-	sleep(time_sleep); // ¸îÃÊµ¿¾È Á¡µîÇÒÁö
+	write(dot_d, &rps[rps_col], sizeof(rps)); // ì¶œë ¥
+	sleep(time_sleep); // ëª‡ì´ˆë™ì•ˆ ì ë“±í• ì§€
 
 	close(dot_d);
 }
