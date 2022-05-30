@@ -81,7 +81,7 @@ void show_map(void) {
 	printf("\n");
 	int i;
 	for (i=0; i<12; i++){
-		if(i%4==0){
+		if(i%3==0){
 			printf("\n");
 		}
 		printf("%c ", qmap[i]);
