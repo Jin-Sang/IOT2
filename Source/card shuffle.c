@@ -55,7 +55,7 @@ void map1(void) {
 	for (i=0; i<12; i++){
 		qmap[i]='?';
 	}
-}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¹ö·Á¾ßµÇ´Â ÄÚµå
+}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ë²„ë ¤ì•¼ë˜ëŠ” ì½”ë“œ
  
 
 void card_shuffle(void) {
@@ -87,14 +87,14 @@ void show_map(void) {
 		printf("%c ", qmap[i]);
 		}
 	printf("\n");
-}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¹ö·Á¾ßµÇ´Â ÄÚµå
+}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ë²„ë ¤ì•¼ë˜ëŠ” ì½”ë“œ
 
 void show_num(int a, int b){
 		c1=card_in[a]+'0';
 		c2=card_in[b]+'0';
 		qmap[a]=c1;
 		qmap[b]=c2;
-}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¹ö·Á¾ßµÇ´Â ÄÚµå
+}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ë²„ë ¤ì•¼ë˜ëŠ” ì½”ë“œ
 
 void reset_check (void) {
 		check_card[0]=0;
@@ -106,19 +106,19 @@ void reset_check (void) {
 void print_please(void) {
 	if(ordernum==1){
 		printf("\n");
-		printf("µÎ¹øÂ° Ä«µå¸¦ °ñ¶óÁÖ¼¼¿ä: "); 
+		printf("ë‘ë²ˆì§¸ ì¹´ë“œë¥¼ ê³¨ë¼ì£¼ì„¸ìš”: "); 
 	}
 	else{
 		printf("\n");
-		printf("Ã¹¹øÂ° Ä«µå¸¦ °ñ¶óÁÖ¼¼¿ä: "); 
-	}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¼öÁ¤ÇØ¾ßµÇ´Â ÄÚµå 
+		printf("ì²«ë²ˆì§¸ ì¹´ë“œë¥¼ ê³¨ë¼ì£¼ì„¸ìš”: "); 
+	}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ìˆ˜ì •í•´ì•¼ë˜ëŠ” ì½”ë“œ 
 }
 
 void print_waiting(void) {
 	printf("----------------\n");
 	printf("  shuffling...\n");
 	printf("----------------\n");
-}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¼öÁ¤ÇØ¾ßµÇ´Â ÄÚµå 
+}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ìˆ˜ì •í•´ì•¼ë˜ëŠ” ì½”ë“œ 
 
 void change_player(void) {
 	if(player==0){
@@ -130,7 +130,7 @@ void change_player(void) {
 		player2_score=answer;
 		answer=player1_score;
 		player=0;
-	}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¼öÁ¤ÇØ¾ßµÇ´Â ÄÚµå 
+	}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ìˆ˜ì •í•´ì•¼ë˜ëŠ” ì½”ë“œ 
 }
 
 void checkcard(int a, int b) {
@@ -141,9 +141,9 @@ void checkcard(int a, int b) {
 		answer++;
 		count++;
 		printf("\n");
-		printf("Â¦À» ¸ÂÃè½À´Ï´Ù!\n");
+		printf("ì§ì„ ë§ì·„ìŠµë‹ˆë‹¤!\n");
 		printf("\n");
-		printf("½ÃµµÈ½¼ö: %d ¸ÂÃáÈ½¼ö: %d",count,answer);
+		printf("ì‹œë„íšŸìˆ˜: %d ë§ì¶˜íšŸìˆ˜: %d",count,answer);
 		show_num(a,b);
 		reset_check();
 		card_in[a]=0;
@@ -153,34 +153,34 @@ void checkcard(int a, int b) {
 	else {
 		count++;
 		printf("\n");
-		printf("Æ²·È½À´Ï´Ù Â÷·Ê°¡ ³Ñ¾î°©´Ï´Ù.\n");
+		printf("í‹€ë ¸ìŠµë‹ˆë‹¤ ì°¨ë¡€ê°€ ë„˜ì–´ê°‘ë‹ˆë‹¤.\n");
 		printf("\n");
 		change_player();
 		reset_check();
-		printf("ÇÃ·¹ÀÌ¾î%dÀÇ Â÷·ÊÀÔ´Ï´Ù.\n",player+1);
-		printf("½Ãµµ È½¼ö: %d",count);
+		printf("í”Œë ˆì´ì–´%dì˜ ì°¨ë¡€ì…ë‹ˆë‹¤.\n",player+1);
+		printf("ì‹œë„ íšŸìˆ˜: %d",count);
 		
 	}
-}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¼öÁ¤ÇØ¾ßµÇ´Â ÄÚµå 
+}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ìˆ˜ì •í•´ì•¼ë˜ëŠ” ì½”ë“œ 
 
 void sum_score(void) {
 	if(player1_score>player2_score){
 		printf("\n");
-		printf("ÇÃ·¹ÀÌ¾î1ÀÌ ½Â¸®ÇÏ¿´½À´Ï´Ù!");
+		printf("í”Œë ˆì´ì–´1ì´ ìŠ¹ë¦¬í•˜ì˜€ìŠµë‹ˆë‹¤!");
 		printf("\n");
 	}
 	else if(player1_score==player2_score){
 		printf("\n");
-		printf("¾Æ½±½À´Ï´Ù ºñ°å½À´Ï´Ù...");
+		printf("ì•„ì‰½ìŠµë‹ˆë‹¤ ë¹„ê²¼ìŠµë‹ˆë‹¤...");
 		printf("\n");
 	}
 
-}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¼öÁ¤ÇØ¾ßµÇ´Â ÄÚµå 
+}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ìˆ˜ì •í•´ì•¼ë˜ëŠ” ì½”ë“œ 
 
 void put_num(int check) { 
 	if(card_in[check-1]==0){
 		printf("\n");
-		printf("ÀÌ¹Ì¸ÂÃáÄ«µåÀÔ´Ï´Ù\n");
+		printf("ì´ë¯¸ë§ì¶˜ì¹´ë“œì…ë‹ˆë‹¤\n");
 		if(select[0]==0){	
 			ordernum=0;		
 		}
@@ -194,7 +194,7 @@ void put_num(int check) {
 			check_card[0]=card_in[check-1];
 			select[0]=check;
 			printf("\n");
-			printf("Ã¹¹øÂ° Ä«µå ³»¿ë: %d",check_card[0]);
+			printf("ì²«ë²ˆì§¸ ì¹´ë“œ ë‚´ìš©: %d",check_card[0]);
 			printf("\n");
 			ordernum=1; 
 		}
@@ -202,18 +202,18 @@ void put_num(int check) {
 			if(card_in[check-1]==0){
 				ordernum=1;
 				printf("\n");
-				printf("ÀÌ¹Ì¸ÂÃáÄ«µåÀÔ´Ï´Ù\n");
+				printf("ì´ë¯¸ë§ì¶˜ì¹´ë“œì…ë‹ˆë‹¤\n");
 			}
 			else{
 				check_card[1]=card_in[check-1];
 				select[1]=check;
 				printf("\n");
-				printf("Ã¹¹øÂ° Ä«µå ³»¿ë: %d",check_card[1]);
+				printf("ì²«ë²ˆì§¸ ì¹´ë“œ ë‚´ìš©: %d",check_card[1]);
 				printf("\n");
 		
 				if(select[0]==select[1]){
 					printf("\n");
-					printf("Áßº¹µÈ Ä«µå¸¦ °ñ¶ú½À´Ï´Ù ´Ù½Ã °í¸£¼¼¿ä\n");
+					printf("ì¤‘ë³µëœ ì¹´ë“œë¥¼ ê³¨ëìŠµë‹ˆë‹¤ ë‹¤ì‹œ ê³ ë¥´ì„¸ìš”\n");
 					printf("\n");
 					check_card[1]=0;
 					select[1]=0;
@@ -221,14 +221,14 @@ void put_num(int check) {
 						}			
 			if(select[0]!=0&&select[1]!=0){
 				printf("\n");
-				printf("Ä«µå µÎ°³¸¦ °ñ¶ú½À´Ï´Ù");
+				printf("ì¹´ë“œ ë‘ê°œë¥¼ ê³¨ëìŠµë‹ˆë‹¤");
 				printf("\n");
 				ordernum=0;
 				checkcard(select[0],select[1]);
 			}
 		}		
 	}		
-}//Å¸°Ù½Ã½ºÅÛÀ¸·Î ¿Å±æ¶§ ¼öÁ¤ÇØ¾ßµÇ´Â ÄÚµå 
+}//íƒ€ê²Ÿì‹œìŠ¤í…œìœ¼ë¡œ ì˜®ê¸¸ë•Œ ìˆ˜ì •í•´ì•¼ë˜ëŠ” ì½”ë“œ 
 
 
 int main(void){
@@ -237,7 +237,7 @@ int main(void){
 	map1();
 	show_map();
 	printf("\n");
-	printf("ÇÃ·¹ÀÌ¾î%dÀÇ Â÷·ÊÀÔ´Ï´Ù",player+1);
+	printf("í”Œë ˆì´ì–´%dì˜ ì°¨ë¡€ì…ë‹ˆë‹¤",player+1);
 	printf("\n");
 	while(bools)
 	{
