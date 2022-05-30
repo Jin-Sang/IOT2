@@ -36,3 +36,10 @@ void DOT_control(int rps_col, int time_sleep) {
 
 	close(dot_d);
 }
+
+int main() {
+
+	DOT_control(0, 100);
+
+	return 0;
+}
