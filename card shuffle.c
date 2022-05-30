@@ -8,7 +8,7 @@
 //#include <sys/types.h>
 //#include <sys/ioctl.h>
 //#include <sys/stat.h>
-#include <string.h>
+//#include <string.h>
 #include <stdbool.h>
 //#include <asm/ioctls.h>
 
@@ -84,7 +84,7 @@ void show_map(void) {
 		if(i%4==0){
 			printf("\n");
 		}
-		printf("%d ", card_in[i]);
+		printf("%c ", qmap[i]);
 		}
 	printf("\n");
 }//타겟시스템으로 옮길때 버려야되는 코드
@@ -193,6 +193,9 @@ void put_num(int check) {
 		if(select[0]==0){
 			check_card[0]=card_in[check-1];
 			select[0]=check;
+			printf("\n");
+			printf("첫번째 카드 내용: %d",check_card[0]);
+			printf("\n");
 			ordernum=1; 
 		}
 		else{
@@ -204,7 +207,10 @@ void put_num(int check) {
 			else{
 				check_card[1]=card_in[check-1];
 				select[1]=check;
-	
+				printf("\n");
+				printf("첫번째 카드 내용: %d",check_card[1]);
+				printf("\n");
+		
 				if(select[0]==select[1]){
 					printf("\n");
 					printf("중복된 카드를 골랐습니다 다시 고르세요\n");
