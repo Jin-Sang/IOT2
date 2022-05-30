@@ -32,6 +32,10 @@ IoT 프로그래밍 프로젝트 2조 3주차 보고서
 
 https://user-images.githubusercontent.com/80252681/171009302-d55f3833-0401-425c-b9ad-178cbfd29168.mp4
 
-![KakaoTalk_20220530_230811801](https://user-images.githubusercontent.com/80252681/171009461-19e1b4b7-fa66-4c13-bbae-76a0b166e6f3.gif)
+## 4. 다음 주 계획
 
+- 구현한 카드 뒤집기 프로그램을 타겟 시스템의 입출력 장치를 이용하여 구현해보기.
+- 다른 추가할 기능을 생각해 보기 
+- 다양한 기능들을 입출력장치와 연결시켜 추가할 계획.
+- 
 
