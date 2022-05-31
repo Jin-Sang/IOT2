@@ -25,6 +25,8 @@ IoT 프로그래밍 프로젝트 2조 3주차 보고서
 
 먼저, 카드 뒤집기 게임의 논리에 맞게 PC에서 작동하는 프로그램을 작성하였습니다.
 
+### 4x3 카드를 랜덤으로 배치하고 뒷면으로 돌립니다.
+
 ```C
 void map1(void) {
 	int i;
@@ -69,8 +71,8 @@ void show_map(void) {
 
 ![1](https://user-images.githubusercontent.com/80252681/171071214-ba0fe04d-b057-4ef0-b44f-1a1707cbe9fe.png)
 
-4x3 카드를 랜덤으로 배치하고 뒷면으로 돌립니다.
 
+### 짝 
 
 
 ```C
@@ -112,6 +114,8 @@ void change_player(void) {
 
 짝을 못 찾는다면 차례가 다음 플레이어로 넘어갑니다.
 짝을 찾는다면 찾은 카드는 앞면으로 뒤집고 차례는 유지됩니다.
+
+### 점수 합산 및 승자 결정
 
 ```C
 void sum_score(void) {
