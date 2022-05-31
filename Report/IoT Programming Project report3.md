@@ -72,7 +72,7 @@ void show_map(void) {
 ![1](https://user-images.githubusercontent.com/80252681/171071214-ba0fe04d-b057-4ef0-b44f-1a1707cbe9fe.png)
 
 
-### 짝 
+### 짝 찾기
 
 
 ```C
