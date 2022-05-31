@@ -142,7 +142,9 @@ void sum_score(void) {
 
 카드를 모두 뒤집었다면 점수를 합산하여 승자를 결정합니다.
 
+### 예외 처리
 
+다양한 상황에서 발생하는 예외들을 처리하는 코드도 구현하였습니다. ( card shuffle.c )
 
 
 ## 3. DOT MATRIX START 화면 조작
