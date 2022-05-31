@@ -156,5 +156,12 @@ https://user-images.githubusercontent.com/80252681/171009302-d55f3833-0401-425c-
 - 구현한 카드 뒤집기 프로그램을 타겟 시스템의 입출력 장치를 이용하여 구현해보기.
 - 다른 추가할 기능을 생각해 보기 
 - 다양한 기능들을 입출력장치와 연결시켜 추가할 계획.
-- 
 
+
+## 5. 참고 링크
+
+https://blockdmask.tistory.com/400
+
+https://hayate1212.tistory.com/19
+
+https://codepractice.tistory.com/107
