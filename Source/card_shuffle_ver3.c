@@ -499,19 +499,19 @@ int main(void){
 						put_num(12);
 						break;
 				}
-			     if ((tactend.tv_usec - tactst.tv_usec > 200000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 200000)) || t)
+			    if ((tactend.tv_usec - tactst.tv_usec > 200000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 200000)) || t)
                 {
                     tact = close(tact);
                     break;
                 }
 			}
-
-	}
+		gettimeofday(&dotst, NULL);
+		}
 		if(num1==6){
 		bools=false;
 		}
 		sleep(1);
-}
+	}
 	sum_score();
 
 	return 0;
