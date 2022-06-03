@@ -352,15 +352,8 @@ void dot_num(int choice) {
 								{0x3c,0x04,0x04,0x08,0x10,0x10,0x10,0x00},
 								{0x18,0x24,0x24,0x18,0x24,0x24,0x18,0x00},
 								{0x18,0x24,0x24,0x1c,0x04,0x04,0x18,0x00}, };
-	if ((dot_d = open(dot, O_RDWR)) < 0){
-		printf("Can't Open\n");
-		exit(0);
-	}
+
 	write(dot_d, &c[choice], sizeof(c[choice]));
-	sleep(1);
-	close(dot_d);
-
-
 }
 
 void put_num(int check) { 
@@ -444,6 +437,7 @@ int main(void){
 	printf("\n");
 	while(bools)
 	{	
+		write(dot_d,&rps,sizeof(rps));
 		if(dot_d==0){
 			dot_d= open(dot,O_RDWR);
 		}
