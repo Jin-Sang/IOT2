@@ -183,6 +183,7 @@ void DOT_control(int rps_col, int time_sleep) {
 	if (dot_d < 0) { printf("dot Error\n"); } // 오류 
 
 	write(dot_d, &rps[rps_col], sizeof(rps)); // 입력 
+	sleep(time_sleep);
 	close(dot_d);
 }
 
