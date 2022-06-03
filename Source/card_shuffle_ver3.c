@@ -432,12 +432,14 @@ int main(void){
 	printf("플레이어%d의 차례입니다.",player+1);
 	printf("\n");
 	while(bools)
-	{	
+	{	printf("테스트123");
 		if(dot_d==0){
 			dot_d= open(dot,O_RDWR);
 		}
 		gettimeofday(&dotend, NULL);
+		
 		write(dot_d,&rps,sizeof(rps));
+		
 		if ((dotend.tv_usec - dotst.tv_usec > 200000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 200000)))
         {
             dot_d = close(dot_d);
@@ -447,6 +449,7 @@ int main(void){
             }
             gettimeofday(&tactst, NULL);
 			while (1){
+				printf("스위치입력 ");
 				gettimeofday(&tactend,NULL);
 				read(tact,&t,sizeof(t));
 				switch(t){
@@ -504,13 +507,10 @@ int main(void){
                     tact = close(tact);
                     break;
                 }
+                printf("두번째 while문 끝");
 			}
 		gettimeofday(&dotst, NULL);
 		}
-		if(num1==6){
-		bools=false;
-		}
-		sleep(1);
 	}
 	sum_score();
 
