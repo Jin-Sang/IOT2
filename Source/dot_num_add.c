@@ -33,40 +33,157 @@
 #define dbg(x...)       printf(x)
 
 #define CARDSIZE 12
-int card_in[12]; //ì¹´ë“œ ë‚´ìš©ì„ ë‹´ëŠ” ë°°ì—´ 
-int check_card[2]; // ì„ íƒí•œ ì¹´ë“œê°€ ì§ì´ ë§ëŠ”ì§€ ë‹¤ë¥¸ì§€ í™•ì¸í•˜ê¸° ìœ„í•œ ë°°ì—´ 
-int check;//í”Œë ˆì´ì–´ê°€ ì„ íƒí•œ ì¹´ë“œ ë²ˆí˜¸ 
-int card_select[2];//í”Œë ˆì´ì–´ê°€ ì„ íƒí•œ ì¹´ë“œ ë²ˆí˜¸ ë‘ê°œ ë‹´ëŠ” ë°°ì—´ 
-int ordernum; //ì§€ê¸ˆ ê³ ë¥´ëŠ” ì¹´ë“œê°€ ì²«ë²ˆì§¸ ì¸ì§€ ë‘ë²ˆì§¸ì¸ì§€ í™•ì¸
-int count; //ì‹œë„íšŸìˆ˜  
-int answer;//ë§ì¶˜íšŸìˆ˜  
-int num1;//ì¹´ë“œ 12ê°œ ë‹¤ë§ì·„ì„ ì‹œ ê²Œì„ì„ ì¢…ë£Œí•˜ë„ë¡ í•¨ 
-int player1_score;//í”Œë ˆì´ì–´1 ì ìˆ˜ 
-int player2_score; //í”Œë ˆì´ì–´2 ì ìˆ˜ 
-int player;//ë‘ í”Œë ˆì´ì–´ êµ¬ë¶„ í•˜ê¸° ìœ„í•œ ë³€ìˆ˜ 
-
-char c1,c2; //ë§ì·„ì„ ì‹œ í™”ë©´ì— ì¹´ë“œ ë‚´ìš©ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ë³€ìˆ˜ 
-char qmap[12];//ì¹´ë“œ ë’·ë©´ 
-bool bools=true;// while í•¨ìˆ˜ ì¢…ë£Œí•˜ê¸° ìœ„í•œ ë…¼ë¦¬ê°’ 
+int card_in[12]; //Ä«µå ³»¿ëÀ» ´ã´Â ¹è¿­ 
+int check_card[2]; // ¼±ÅÃÇÑ Ä«µå°¡ Â¦ÀÌ ¸Â´ÂÁö ´Ù¸¥Áö È®ÀÎÇÏ±â À§ÇÑ ¹è¿­ 
+int check;//ÇÃ·¹ÀÌ¾î°¡ ¼±ÅÃÇÑ Ä«µå ¹øÈ£ 
+int card_select[2];//ÇÃ·¹ÀÌ¾î°¡ ¼±ÅÃÇÑ Ä«µå ¹øÈ£ µÎ°³ ´ã´Â ¹è¿­ 
+int ordernum; //Áö±İ °í¸£´Â Ä«µå°¡ Ã¹¹øÂ° ÀÎÁö µÎ¹øÂ°ÀÎÁö È®ÀÎ
+int count; //½ÃµµÈ½¼ö  
+int answer;//¸ÂÃáÈ½¼ö  
+int num1;//Ä«µå 12°³ ´Ù¸ÂÃèÀ» ½Ã °ÔÀÓÀ» Á¾·áÇÏµµ·Ï ÇÔ 
+int player1_score;//ÇÃ·¹ÀÌ¾î1 Á¡¼ö 
+int player2_score; //ÇÃ·¹ÀÌ¾î2 Á¡¼ö 
+int player;//µÎ ÇÃ·¹ÀÌ¾î ±¸ºĞ ÇÏ±â À§ÇÑ º¯¼ö 
+int dot_d;
+char c1,c2; //¸ÂÃèÀ» ½Ã È­¸é¿¡ Ä«µå ³»¿ëÀ» º¸¿©ÁÖ±â À§ÇÑ º¯¼ö 
+char qmap[12];//Ä«µå µŞ¸é 
+bool bools=true;// while ÇÔ¼ö Á¾·áÇÏ±â À§ÇÑ ³í¸®°ª 
 static char tactswDev[] = "/dev/tactsw";
 static int  tactswFd = (-1);
 static char lcdDev[] = "/dev/clcd";
 static int  lcdFd = (-1);
 
 unsigned char rps[1][8] = {	// dot matrix
-	{ 0x00,0x38,0x38,0x38,0x38,0x00,0x00,0x00 }, // ì´ˆê¸°ê°’ 
+	{ 0x00,0x54,0x00,0x54,0x00,0x54,0x00,0x54 }, // ÃÊ±â°ª 
 
 };
+unsigned char card_led[1][3] = {
+	{0x40,0x10,0x04},
+};
+void card_off(int a) {
+	int a1=a;
+	int back1,back2,back3;
+	if (a1<4){
+		back1=rps[0][1];
+	}
+	else if(a1<7){
+		back1=rps[0][3];
+	}
+	else if(a1<10){
+		back1=rps[0][5];
+	}
+	else {
+		back1=rps[0][7];
+	}
+	switch(a1){
+		case(1):{
+			back2=card_led[0][0];
+			back3=back1-back2;
+			rps[0][1]=back3;
+			break;
+			}
+		case(2):{
+			back2=card_led[0][1];
+			back3=back1-back2;
+			rps[0][1]=back3;
+			break;
+			}
+		case(3):{
+			back2=card_led[0][2];
+			back3=back1-back2;
+			rps[0][1]=back3;
+			break;
+			}
+		case(4):{
+			back2=card_led[0][0];
+			back3=back1-back2;
+			rps[0][3]=back3;
+			break;
+			}
+		case(5):{
+			back2=card_led[0][1];
+			back3=back1-back2;
+			rps[0][3]=back3;
+			break;
+			}
+		case(6):{
+			back2=card_led[0][2];
+			back3=back1-back2;
+			rps[0][3]=back3;
+			break;
+			}
+		case(7):{
+			back2=card_led[0][0];
+			back3=back1-back2;
+			rps[0][5]=back3;
+			break;
+			}
+		case(8):{
+			back2=card_led[0][1];
+			back3=back1-back2;
+			rps[0][5]=back3;
+			break;
+			}
+		case(9):{
+			back2=card_led[0][2];
+			back3=back1-back2;
+			rps[0][5]=back3;
+			break;
+			}
+		case(10):{
+			back2=card_led[0][0];
+			back3=back1-back2;
+			rps[0][7]=back3;
+			break;
+			}
+		case(11):{
+			back2=card_led[0][1];
+			back3=back1-back2;
+			rps[0][7]=back3;
+			break;
+			}
+		case(12):{
+			back2=card_led[0][2];
+			back3=back1-back2;
+			rps[0][7]=back3;
+			break;
+			}			
+	}
+}
 
+int FND_Out(int a, int b, int c, int d) {
+
+	unsigned char FND_DATA_TBL[] = {
+			0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0x88,
+			0x83,0xC6,0xA1,0x86,0x8E,0xC0,0xF9,0xA4,0xB0,0x99,0x89
+	};
+
+	int fnd_fd = 0;
+
+	unsigned char fnd_num[4];
+
+	fnd_num[0] = FND_DATA_TBL[a];
+	fnd_num[1] = FND_DATA_TBL[b];
+	fnd_num[2] = FND_DATA_TBL[c];
+	fnd_num[3] = FND_DATA_TBL[d];
+
+	fnd_fd = open(fnd_dev, O_RDWR);
+
+	if (fnd_fd < 0) {
+		printf("Can't Open Device\n");
+	}
+	write(fnd_fd, &fnd_num, sizeof(fnd_num));
+	sleep(1);
+	close(fnd_fd);
+}
 
 void DOT_control(int rps_col, int time_sleep) {
-	int dot_d;
 
 	dot_d = open(dot, O_RDWR);
-	if (dot_d < 0) { printf("dot Error\n"); } // ì˜¤ë¥˜ 
+	if (dot_d < 0) { printf("dot Error\n"); } // ¿À·ù 
 
-	write(dot_d, &rps[rps_col], sizeof(rps)); // ì…ë ¥ 
-	sleep(time_sleep); // ì ë©¸ì‹œê°„ 
+	write(dot_d, &rps[rps_col], sizeof(rps)); // ÀÔ·Â 
+	sleep(time_sleep); // Á¡¸ê½Ã°£ 
 
 	close(dot_d);
 }
@@ -124,16 +241,16 @@ void map1(void) {
 	for (i=0; i<12; i++){
 		qmap[i]='?';
 	}
-}//ì¹´ë“œ ë‚´ìš©ì„ ê°€ë¦¬ê¸° ìœ„í•´ ì¹´ë“œ ë’·ë©´ìœ¼ë¡œ ì‚¬ìš©í•  '?' ë°°ì—´ 
+}//Ä«µå ³»¿ëÀ» °¡¸®±â À§ÇØ Ä«µå µŞ¸éÀ¸·Î »ç¿ëÇÒ '?' ¹è¿­ 
  
 
 void card_shuffle(void) {
-	srand(time(NULL));//ê²Œì„ì„ ì‹œì‘í• ë•Œë§ˆë‹¤ ë‹¤ë¥´ê²Œ ì„ì´ë„ë¡ í•˜ê¸° ìœ„í•œ srand()í•¨ìˆ˜ 
+	srand(time(NULL));//°ÔÀÓÀ» ½ÃÀÛÇÒ¶§¸¶´Ù ´Ù¸£°Ô ¼¯ÀÌµµ·Ï ÇÏ±â À§ÇÑ srand()ÇÔ¼ö 
 	int i,j,x;
 	memset(card_in,0,sizeof(card_in));
-	for(i=1; i<7; i++) //1~6 ìˆ«ìë¥¼  
+	for(i=1; i<7; i++) //1~6 ¼ıÀÚ¸¦  
 	{
-		for(j=0; j<2; j++)//ë‘ ê°œì˜ ì¹´ë“œì— ì§‘ì–´ ë„£ìŒ 
+		for(j=0; j<2; j++)//µÎ °³ÀÇ Ä«µå¿¡ Áı¾î ³ÖÀ½ 
 		{
 			do
 			{
@@ -144,7 +261,7 @@ void card_shuffle(void) {
 
 		}
 	}
-} //12ê°œì˜ ì¹´ë“œì— 1~6ì˜ ìˆ«ìë¥¼ ë‘ë²ˆì”© ì´ 12ë²ˆ ë„£ì–´ ì¹´ë“œë¥¼ ì„ëŠ” ì½”ë“œ
+} //12°³ÀÇ Ä«µå¿¡ 1~6ÀÇ ¼ıÀÚ¸¦ µÎ¹ø¾¿ ÃÑ 12¹ø ³Ö¾î Ä«µå¸¦ ¼¯´Â ÄÚµå
 
 void show_map(void) {
 	printf("\n");
@@ -156,38 +273,38 @@ void show_map(void) {
 		printf("%c ", qmap[i]);
 		}
 	printf("\n");
-}//í”Œë ˆì´ì–´ì—ê²Œ ì¹´ë“œë‚˜ì—´í•œê±¸ ë³´ì—¬ì£¼ëŠ” ë§µ. ì²˜ìŒ ì‹œì‘ì‹œì—ëŠ” ì¹´ë“œ ë’·ë©´ '?'ë¥¼ ë³´ì—¬ì¤Œ 
+}//ÇÃ·¹ÀÌ¾î¿¡°Ô Ä«µå³ª¿­ÇÑ°É º¸¿©ÁÖ´Â ¸Ê. Ã³À½ ½ÃÀÛ½Ã¿¡´Â Ä«µå µŞ¸é '?'¸¦ º¸¿©ÁÜ 
 
 void show_num(int a, int b){
 		c1=card_in[a]+'0';
 		c2=card_in[b]+'0';
 		qmap[a]=c1;
 		qmap[b]=c2;
-}//í”Œë ˆì´ì–´ê°€ ì¹´ë“œ ì§ì„ ë§ì·„ì„ ì‹œ '?" ë¥¼ ì§€ìš°ê³  ì¹´ë“œ ë‚´ìš©ì„ ë³´ì—¬ì¤Œ 
+}//ÇÃ·¹ÀÌ¾î°¡ Ä«µå Â¦À» ¸ÂÃèÀ» ½Ã '?" ¸¦ Áö¿ì°í Ä«µå ³»¿ëÀ» º¸¿©ÁÜ 
 
 void reset_check (void) {
 		check_card[0]=0;
 		check_card[1]=0;
 		card_select[0]=0;
 		card_select[1]=0;
-} //ì§ì„ ë§ì·„ê±°ë‚˜ í‹€ë ¸ì„ê²½ìš° ì„ íƒí•œ ì¹´ë“œë¥¼ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜ 
+} //Â¦À» ¸ÂÃè°Å³ª Æ²·ÈÀ»°æ¿ì ¼±ÅÃÇÑ Ä«µå¸¦ ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö 
 
 void print_please(void) {
 	if(ordernum==1){
 		printf("\n");
-		printf("ë‘ë²ˆì§¸ ì¹´ë“œë¥¼ ê³¨ë¼ì£¼ì„¸ìš”:  "); 
+		printf("µÎ¹øÂ° Ä«µå¸¦ °ñ¶óÁÖ¼¼¿ä:  "); 
 	}
 	else{
 		printf("\n");
-		printf("ì²«ë²ˆì§¸ ì¹´ë“œë¥¼ ê³¨ë¼ì£¼ì„¸ìš”: "); 
-	}//ì§€ê¸ˆ ê³ ë¥´ëŠ” ê²Œ ëª‡ë²ˆì§¸ì¸ì§€ ë³´ì—¬ì£¼ê¸° ìœ„í•œ í•¨ìˆ˜ 
+		printf("Ã¹¹øÂ° Ä«µå¸¦ °ñ¶óÁÖ¼¼¿ä: "); 
+	}//Áö±İ °í¸£´Â °Ô ¸î¹øÂ°ÀÎÁö º¸¿©ÁÖ±â À§ÇÑ ÇÔ¼ö 
 }
 
 void print_waiting(void) {
 	printf("----------------\n");
 	printf("  shuffling...\n");
 	printf("----------------\n");
-}//ê²Œì„ ì‹œì‘ì‹œ ì¹´ë“œ ì„ëŠ”ê²ƒì²˜ëŸ¼ ë³´ì—¬ì¤Œ 
+}//°ÔÀÓ ½ÃÀÛ½Ã Ä«µå ¼¯´Â°ÍÃ³·³ º¸¿©ÁÜ 
 
 void change_player(void) {
 	if(player==0){
@@ -199,134 +316,137 @@ void change_player(void) {
 		player2_score=answer;
 		answer=player1_score;
 		player=0;
-	}//í”Œë ˆì´ì–´ê°€ ì§ì´ ë§ëŠ” ì¹´ë“œë¥¼ ê³ ë¥´ì§€ ëª»í–ˆì„ ê²½ìš° ë‹¤ë¥¸ í”Œë ˆì´ì–´ì—ê²Œ ì°¨ë¡€ë¥¼ ë„˜ê¸°ëŠ” í•¨ìˆ˜ 
+	}//ÇÃ·¹ÀÌ¾î°¡ Â¦ÀÌ ¸Â´Â Ä«µå¸¦ °í¸£Áö ¸øÇßÀ» °æ¿ì ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿¡°Ô Â÷·Ê¸¦ ³Ñ±â´Â ÇÔ¼ö 
 }
 
 void checkcard(int a, int b) {
-	a=a-1;//ì²«ë²ˆì§¸ ì¹´ë“œ 
-	b=b-1;//ë‘ë²ˆì§¸ ì¹´ë“œ  
+	a=a-1;//Ã¹¹øÂ° Ä«µå 
+	b=b-1;//µÎ¹øÂ° Ä«µå  
 	if(card_in[a]==card_in[b]) {
 		num1++;
 		answer++;
 		count++;
 		printf("\n");
-		printf("ì§ì„ ë§ì·„ìŠµë‹ˆë‹¤!\n");
+		printf("Â¦À» ¸ÂÃè½À´Ï´Ù!\n");
 		printf("\n");
-		printf("ì‹œë„íšŸìˆ˜: %d ë§ì¶˜íšŸìˆ˜: %d",count, answer);
+		printf("½ÃµµÈ½¼ö: %d ¸ÂÃáÈ½¼ö: %d",count, answer);
+		card_off(a+1);
+		card_off(b+1);
 		show_num(a,b);
-		reset_check();//check_card[],card_select[] ì´ˆê¸°í™” 
-		card_in[a]=0;//ì´ë¯¸ ë§ì¶˜ ì¹´ë“œë¥¼ ê³ ë¥´ì§€ ëª»í•˜ë„ë¡ ì¹´ë“œë‚´ìš©ì„ 0ìœ¼ë¡œ ì„¤ì • 
-		card_in[b]=0;//ì´ë¯¸ ë§ì¶˜ ì¹´ë“œë¥¼ ê³ ë¥´ì§€ ëª»í•˜ë„ë¡ ì¹´ë“œë‚´ìš©ì„ 0ìœ¼ë¡œ ì„¤ì • 
-		show_map();//í˜„ì¬ ë‚¨ì€ ì¹´ë“œ ë°°ì¹˜ë¥¼ ë³´ì—¬ì¤Œ 
-	}//ì§ì´ ë§ì„ê²½ìš° ì¹´ë“œë¥¼ ë’¤ì§‘ì–´ ìˆ«ìë¥¼ ë³´ì—¬ì£¼ê³  check_card[],card_select[] ì´ˆê¸°í™”  
+		reset_check();//check_card[],card_select[] ÃÊ±âÈ­ 
+		card_in[a]=0;//ÀÌ¹Ì ¸ÂÃá Ä«µå¸¦ °í¸£Áö ¸øÇÏµµ·Ï Ä«µå³»¿ëÀ» 0À¸·Î ¼³Á¤ 
+		card_in[b]=0;//ÀÌ¹Ì ¸ÂÃá Ä«µå¸¦ °í¸£Áö ¸øÇÏµµ·Ï Ä«µå³»¿ëÀ» 0À¸·Î ¼³Á¤ 
+		show_map();//ÇöÀç ³²Àº Ä«µå ¹èÄ¡¸¦ º¸¿©ÁÜ 
+	}//Â¦ÀÌ ¸ÂÀ»°æ¿ì Ä«µå¸¦ µÚÁı¾î ¼ıÀÚ¸¦ º¸¿©ÁÖ°í check_card[],card_select[] ÃÊ±âÈ­  
 	else {
 		count++;
 		printf("\n");
-		printf("í‹€ë ¸ìŠµë‹ˆë‹¤ ì°¨ë¡€ê°€ ë„˜ì–´ê°‘ë‹ˆë‹¤.\n");
+		printf("Æ²·È½À´Ï´Ù Â÷·Ê°¡ ³Ñ¾î°©´Ï´Ù.\n");
 		printf("\n");
-		change_player();//ìƒëŒ€ë°©ì—ê²Œ ìˆœì„œë¥¼ ë„˜ê²¨ì¤Œ 
-		reset_check();//check_card[],card_select[] ì´ˆê¸°í™”
-		printf("í”Œë ˆì´ì–´%dì˜ ì°¨ë¡€ì…ë‹ˆë‹¤.\n",player+1);
-		printf("ì‹œë„ íšŸìˆ˜: %d",count);
+		change_player();//»ó´ë¹æ¿¡°Ô ¼ø¼­¸¦ ³Ñ°ÜÁÜ 
+		reset_check();//check_card[],card_select[] ÃÊ±âÈ­
+		printf("ÇÃ·¹ÀÌ¾î%dÀÇ Â÷·ÊÀÔ´Ï´Ù.\n",player+1);
+		printf("½Ãµµ È½¼ö: %d",count);
 		
 	}
-}//ê³ ë¥¸ ë‘ ê°œì˜ ì¹´ë“œê°€ ì§ì´ ë§ëŠ”ì§€ ì²´í¬í•˜ëŠ” í•¨ìˆ˜ 
+}//°í¸¥ µÎ °³ÀÇ Ä«µå°¡ Â¦ÀÌ ¸Â´ÂÁö Ã¼Å©ÇÏ´Â ÇÔ¼ö 
 
 void sum_score(void) {
 	if(player1_score>player2_score){
 		printf("\n");
-		printf("í”Œë ˆì´ì–´1ì´ ìŠ¹ë¦¬í•˜ì˜€ìŠµë‹ˆë‹¤!");
+		printf("ÇÃ·¹ÀÌ¾î1ÀÌ ½Â¸®ÇÏ¿´½À´Ï´Ù!");
 		printf("\n");
 	}
 	else if(player1_score==player2_score){
 		printf("\n");
-		printf("ì•„ì‰½ìŠµë‹ˆë‹¤ ë¹„ê²¼ìŠµë‹ˆë‹¤...");
+		printf("¾Æ½±½À´Ï´Ù ºñ°å½À´Ï´Ù...");
 		printf("\n");
 	}
 	else {
 		printf("\n");
-		printf("í”Œë ˆì´ì–´2ê°€ ìŠ¹ë¦¬í•˜ì˜€ìŠµë‹ˆë‹¤!");
+		printf("ÇÃ·¹ÀÌ¾î2°¡ ½Â¸®ÇÏ¿´½À´Ï´Ù!");
 		printf("\n");
 	}
 
-}//ë‹¤ ë§ì¶˜ í›„ ì ìˆ˜ ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜ 
+}//´Ù ¸ÂÃá ÈÄ Á¡¼ö °è»êÇÏ´Â ÇÔ¼ö 
 
 void put_num(int check) { 
 	if(card_in[check-1]==0){
 		printf("\n");
-		printf("ì´ë¯¸ ë§ì¶˜ ì¹´ë“œì…ë‹ˆë‹¤.\n");
+		printf("ÀÌ¹Ì ¸ÂÃá Ä«µåÀÔ´Ï´Ù.\n");
 		if(card_select[0]==0){	
 			ordernum=0;		
 		}
 		else{
 			ordernum=1;
 		}
-	}//ê³ ë¥¸ ì¹´ë“œê°€ ì´ë¯¸ ì§ì„ ë§ì¶˜ ì¹´ë“œì¸ì§€ë¥¼ ì²´í¬í•˜ëŠ” ì¡°ê±´ ë¬¸ 
+	}//°í¸¥ Ä«µå°¡ ÀÌ¹Ì Â¦À» ¸ÂÃá Ä«µåÀÎÁö¸¦ Ã¼Å©ÇÏ´Â Á¶°Ç ¹® 
 	else{
 		if(card_select[0]==0){
 			check_card[0]=card_in[check-1];
 			card_select[0]=check;
 			printf("\n");
-			printf("ì²«ë²ˆì§¸ ì¹´ë“œ ë‚´ìš©: %d", check_card[0]);
+			printf("Ã¹¹øÂ° Ä«µå ³»¿ë: %d", check_card[0]);
 			printf("\n");
-			print_lcd("First card");
+			print_lcd("First card: ");
 			ordernum=1; 
-		}//ì²«ë²ˆì§¸ ì¹´ë“œë¥¼ ê³ ë¥´ì§€ ì•Šì•˜ì„ ê²½ìš° ì²«ë²ˆì§¸ ì¹´ë“œë¥¼  card_select[0]ì— ì¹´ë“œë²ˆí˜¸ë¥¼, check_card[0]ì— ì¹´ë“œ ì•ë©´ì„ ì €ì¥ 
+		}//Ã¹¹øÂ° Ä«µå¸¦ °í¸£Áö ¾Ê¾ÒÀ» °æ¿ì Ã¹¹øÂ° Ä«µå¸¦  card_select[0]¿¡ Ä«µå¹øÈ£¸¦, check_card[0]¿¡ Ä«µå ¾Õ¸éÀ» ÀúÀå 
 		else{
 			if(card_in[check-1]==0){
 				ordernum=1;
 				printf("\n");
-				printf("ì´ë¯¸ ë§ì¶˜ ì¹´ë“œì…ë‹ˆë‹¤.\n");
-			}//ê³ ë¥¸ ì¹´ë“œê°€ ì´ë¯¸ ì§ì„ ë§ì¶˜ ì¹´ë“œì¸ì§€ë¥¼ ì²´í¬í•˜ëŠ” ì¡°ê±´ ë¬¸
+				printf("ÀÌ¹Ì ¸ÂÃá Ä«µåÀÔ´Ï´Ù.\n");
+			}//°í¸¥ Ä«µå°¡ ÀÌ¹Ì Â¦À» ¸ÂÃá Ä«µåÀÎÁö¸¦ Ã¼Å©ÇÏ´Â Á¶°Ç ¹®
 			else{
 				check_card[1]=card_in[check-1];
 				card_select[1]=check;
 				printf("\n");
-				printf("ë‘ë²ˆì§¸ ì¹´ë“œ ë‚´ìš©: %d",check_card[1]);
+				printf("µÎ¹øÂ° Ä«µå ³»¿ë: %d",check_card[1]);
 				printf("\n");
-				print_lcd("Second card");
+				print_lcd("Second card: ");
 		
 				if(card_select[0]==card_select[1]){
 					printf("\n");
-					printf("ì¤‘ë³µëœ ì¹´ë“œë¥¼ ê³¨ëìŠµë‹ˆë‹¤ ë‹¤ì‹œ ê³ ë¥´ì„¸ìš”.\n");
+					printf("Áßº¹µÈ Ä«µå¸¦ °ñ¶ú½À´Ï´Ù ´Ù½Ã °í¸£¼¼¿ä.\n");
 					printf("\n");
 					check_card[1]=0;
 					card_select[1]=0;
 					}			
-						}//ì²«ë²ˆì§¸ì™€ ë‘ë²ˆì§¸ ì¹´ë“œë¥¼ ê°™ì€ ì¹´ë“œë¥¼ ê³¨ëì„ ê²½ìš° ë‘ë²ˆì§¸ ì¹´ë“œ ì •ë³´ë¥¼ ë‹´ì€ check_card[1],card_select[1]ì„ ì´ˆê¸°í™”í›„ ë‹¤ì‹œ ê³ ë¥´ë„ë¡ í•¨ 
+						}//Ã¹¹øÂ°¿Í µÎ¹øÂ° Ä«µå¸¦ °°Àº Ä«µå¸¦ °ñ¶úÀ» °æ¿ì µÎ¹øÂ° Ä«µå Á¤º¸¸¦ ´ãÀº check_card[1],card_select[1]À» ÃÊ±âÈ­ÈÄ ´Ù½Ã °í¸£µµ·Ï ÇÔ 
 								
 			if(card_select[0]!=0&&card_select[1]!=0){
 				printf("\n");
-				printf("ì¹´ë“œ ë‘ê°œë¥¼ ê³¨ëìŠµë‹ˆë‹¤");
+				printf("Ä«µå µÎ°³¸¦ °ñ¶ú½À´Ï´Ù");
 				printf("\n");
 				ordernum=0;
 				checkcard(card_select[0],card_select[1]);
-			}//ì„œë¡œ ë‹¤ë¥¸ ì¹´ë“œ ë‘ê°œë¥¼ ê³¨ëìœ¼ë©´ ë‘ ì¹´ë“œë¥¼ ë¹„êµ 
+			}//¼­·Î ´Ù¸¥ Ä«µå µÎ°³¸¦ °ñ¶úÀ¸¸é µÎ Ä«µå¸¦ ºñ±³ 
 		}		
 	}		
-}//ì¹´ë“œë¥¼ ê³ ë¥´ëŠ” í•¨ìˆ˜ 
+}//Ä«µå¸¦ °í¸£´Â ÇÔ¼ö 
 
 void dot_num(int choice) {
 	unsigned char c[10][8] = { {0x3c,0x42,0x42,0x42,0x42,0x42,0x3c,0x00},
 								{0x18,0x28,0x08,0x08,0x08,0x08,0x3c,0x00},
-								{0x18,0x24,0x24,0x04,0x08,0x10,0x3c,0x00},Â Â  Â Â Â  Â Â 
-								{0x18,0x24,0x04,0x18,0x04,0x24,0x18,0x00},Â Â  
-								{0x08,0x18,0x28,0x48,0xfc,0x08,0x08,0x00},Â Â  Â Â 
-								{0x2c,0x20,0x20,0x18,0x04,0x24,0x18,0x00},Â Â 
-								{0x18,0x24,0x20,0x38,0x24,0x24,0x18,0x00},Â Â 
-								{0x3c,0x04,0x04,0x08,0x10,0x10,0x10,0x00},Â Â 
+								{0x18,0x24,0x24,0x04,0x08,0x10,0x3c,0x00},
+								{0x18,0x24,0x04,0x18,0x04,0x24,0x18,0x00},
+								{0x08,0x18,0x28,0x48,0xfc,0x08,0x08,0x00},
+								{0x2c,0x20,0x20,0x18,0x04,0x24,0x18,0x00},
+								{0x18,0x24,0x20,0x38,0x24,0x24,0x18,0x00},
+								{0x3c,0x04,0x04,0x08,0x10,0x10,0x10,0x00},
 								{0x18,0x24,0x24,0x18,0x24,0x24,0x18,0x00},
-								{0x18,0x24,0x24,0x1c,0x04,0x04,0x18,0x00}, };Â Â 
+								{0x18,0x24,0x24,0x1c,0x04,0x04,0x18,0x00}, };
 	if ((dot_d = open(dot, O_RDWR)) < 0){
 		printf("Can't Open\n");
 		exit(0);
 	}
 	write(dot_d, &c[choice], sizeof(c[choice]));
 	sleep(1);
-Â Â   close(dot_d);
+	close(dot_d);
 
 
 }
+
 int main(void){
 	unsigned char c;
 	unsigned char d;
@@ -343,82 +463,84 @@ int main(void){
 		fprintf(stderr, "cannot open LED Device (%d)", dev);
 		exit(2);
 	}
-	DOT_control(0, 100);
+	DOT_control(0, 2);
 	print_waiting();
 	card_shuffle();
 	map1();
 	show_map();
 	
 	printf("\n");
-	printf("í”Œë ˆì´ì–´%dì˜ ì°¨ë¡€ì…ë‹ˆë‹¤.",player+1);
+	printf("ÇÃ·¹ÀÌ¾î%dÀÇ Â÷·ÊÀÔ´Ï´Ù.",player+1);
 	printf("\n");
 	
 	while(bools)
 	{
+		DOT_control(0, 1);
+		FND_Out(0,player1_score,0,player2_score);
 		print_please();		
 		d = tactsw_get(10);
 		switch(d){
 			case KEY_NUM1:
 				printf("%d",1);
 				put_num(1);
-				dot_num(1)
+				dot_num(1);
 				break;
 			case KEY_NUM2:
 				printf("%d",2);
 				put_num(2);
-				dot_num(2)
+				dot_num(1);
 				break;
 			case KEY_NUM3:
 				printf("%d",3);
 				put_num(3);
-				dot_num(3)
+				dot_num(3);
 				break;
 			case KEY_NUM4:
 				printf("%d",4);
 				put_num(4);
-				dot_num(4)
+				dot_num(4);
 				break;
 			case KEY_NUM5:
 				printf("%d",5);
 				put_num(5);
-				dot_num(5)
+				dot_num(5);
 				break;	
 			case KEY_NUM6:
 				printf("%d",6);
 				put_num(6);
-				dot_num(6)
+				dot_num(6);
 				break;
 			case KEY_NUM7:
 				printf("%d",7);
 				put_num(7);
-				dot_num(7)
+				dot_num(7);
 				break;
 			case KEY_NUM8:
 				printf("%d",8);
 				put_num(8);
-				dot_num(8)
+				dot_num(8);
 				break;
 			case KEY_NUM9:
 				printf("%d",9);
 				put_num(9);
-				dot_num(0)
+				dot_num(9);
 				break;
 			case KEY_NUM10:
 				printf("%d",10);
 				put_num(10);
-				dot_num(0)
+				dot_num(0);
 				break;
 			case KEY_NUM11:
 				printf("%d",11);
 				put_num(11);
-				dot_num(0)
+				dot_num(0);
 				break;
 			case KEY_NUM12:
 				printf("%d",12);
 				put_num(12);
-				dot_num(0)
+				dot_num(0);
 				break;
-		}
+			}
 		if(num1==6){
 			bools=false;
 		}
