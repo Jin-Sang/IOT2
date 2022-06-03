@@ -378,7 +378,6 @@ void put_num(int check) {
 			printf("\n");
 			print_lcd("First card: ");
 			ordernum=1; 
-			dot_num(x);
 		}//첫번째 카드를 고르지 않았을 경우 첫번째 카드를  card_select[0]에 카드번호를, check_card[0]에 카드 앞면을 저장 
 		else{
 			if(card_in[check-1]==0){
@@ -394,7 +393,6 @@ void put_num(int check) {
 				printf("두번째 카드 내용: %d",check_card[1]);
 				printf("\n");
 				print_lcd("Second card: ");
-				dot_num(y);
 		
 				if(card_select[0]==card_select[1]){
 					printf("\n");
@@ -450,61 +448,60 @@ int main(void){
                 tact = open(tact_d, O_RDWR);
             }
             gettimeofday(&tactst, NULL);
-		print_please();	
-		while (1){
-			gettimeofday(&tactend,NULL);
-			read(tact,&t,sizeof(t));
-			switch(t){
-				case KEY_NUM1:
-					printf("%d",1);
-					put_num(1);
-					break;
-				case KEY_NUM2:
-					printf("%d",2);
-					put_num(2);
-					break;
-				case KEY_NUM3:
-					printf("%d",3);				
-					put_num(3);
-					break;
-				case KEY_NUM4:
-					printf("%d",4);
-					put_num(4);
-					close(dot_d);
-					break;
-				case KEY_NUM5:
-					printf("%d",5);
-					put_num(5);
-					break;	
-				case KEY_NUM6:
-					printf("%d",6);
-					put_num(6);
-					break;
-				case KEY_NUM7:
-					printf("%d",7);
-					put_num(7);
-					break;
-				case KEY_NUM8:
-					printf("%d",8);
-					put_num(8);
-					break;
-				case KEY_NUM9:
-					printf("%d",9);
-					put_num(9);
-					break;
-				case KEY_NUM10:
-					printf("%d",10);
-					put_num(10);
-					break;
-				case KEY_NUM11:
-					printf("%d",11);
-					put_num(11);
-					break;
-				case KEY_NUM12:
-					printf("%d",12);
-					put_num(12);
-					break;
-			}
+			while (1){
+				gettimeofday(&tactend,NULL);
+				read(tact,&t,sizeof(t));
+				switch(t){
+					case KEY_NUM1:
+						printf("%d",1);
+						put_num(1);
+						break;
+					case KEY_NUM2:
+						printf("%d",2);
+						put_num(2);
+						break;
+					case KEY_NUM3:
+						printf("%d",3);				
+						put_num(3);
+						break;
+					case KEY_NUM4:
+						printf("%d",4);
+						put_num(4);
+						close(dot_d);
+						break;
+					case KEY_NUM5:
+						printf("%d",5);
+						put_num(5);
+						break;	
+					case KEY_NUM6:
+						printf("%d",6);
+						put_num(6);
+						break;
+					case KEY_NUM7:
+						printf("%d",7);
+						put_num(7);
+						break;
+					case KEY_NUM8:
+						printf("%d",8);
+						put_num(8);
+						break;
+					case KEY_NUM9:
+						printf("%d",9);
+						put_num(9);
+						break;
+					case KEY_NUM10:
+						printf("%d",10);
+						put_num(10);
+						break;
+					case KEY_NUM11:
+						printf("%d",11);
+						put_num(11);
+						break;
+					case KEY_NUM12:
+						printf("%d",12);
+						put_num(12);
+						break;
+				}
 			     if ((tactend.tv_usec - tactst.tv_usec > 200000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 200000)) || t)
                 {
                     tact = close(tact);
