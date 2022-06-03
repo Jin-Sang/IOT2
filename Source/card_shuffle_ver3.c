@@ -183,8 +183,8 @@ void DOT_control(int rps_col, int time_sleep) {
 	if (dot_d < 0) { printf("dot Error\n"); } // 오류 
 
 	write(dot_d, &rps[rps_col], sizeof(rps)); // 입력 
-	usleep(100000);
-	
+	sleep(time_sleep);
+	close(dot_d);
 }
 
 void print_lcd(char* av) {
@@ -320,17 +320,18 @@ void checkcard(int a, int b) {
 	b=b-1;//두번째 카드  
 	if(card_in[a]==card_in[b]) {
 		num1++;
-		count++;
 		if(player==0){
 			player1_score++;
+			answer=player1_score;
 		}
 		else{
 			player2_score++;
+			answer=player2_score;
 		}
 		printf("\n");
 		printf("짝을 맞췄습니다!\n");
 		printf("\n");
-		printf("시도횟수: %d 맞춘횟수: %d",count, answer);
+		printf("플레이어%d의 점수: %d",player+1, answer);
 		card_off(a+1);
 		card_off(b+1);
 		show_num(a,b);
@@ -340,14 +341,12 @@ void checkcard(int a, int b) {
 		show_map();//현재 남은 카드 배치를 보여줌 
 	}//짝이 맞을경우 카드를 뒤집어 숫자를 보여주고 check_card[],card_select[] 초기화  
 	else {
-		count++;
 		printf("\n");
 		printf("틀렸습니다 차례가 넘어갑니다.\n");
 		printf("\n");
 		change_player();//상대방에게 순서를 넘겨줌 
 		reset_check();//check_card[],card_select[] 초기화
 		printf("플레이어%d의 차례입니다.\n",player+1);
-		printf("시도 횟수: %d",count);
 		
 	}
 }//고른 두 개의 카드가 짝이 맞는지 체크하는 함수 
@@ -371,7 +370,30 @@ void sum_score(void) {
 
 }//다 맞춘 후 점수 계산하는 함수 
 
+void dot_num(int choice) {
+	unsigned char c[10][8] = { {0x3c,0x42,0x42,0x42,0x42,0x42,0x3c,0x00},
+								{0x18,0x28,0x08,0x08,0x08,0x08,0x3c,0x00},
+								{0x18,0x24,0x24,0x04,0x08,0x10,0x3c,0x00},
+								{0x18,0x24,0x04,0x18,0x04,0x24,0x18,0x00},
+								{0x04,0x0C,0x14,0x24,0x7E,0x04,0x04,0x00},
+								{0x3c,0x20,0x20,0x18,0x04,0x24,0x18,0x00},
+								{0x18,0x24,0x20,0x38,0x24,0x24,0x18,0x00},
+								{0x3c,0x04,0x04,0x08,0x10,0x10,0x10,0x00},
+								{0x18,0x24,0x24,0x18,0x24,0x24,0x18,0x00},
+								{0x18,0x24,0x24,0x1c,0x04,0x04,0x18,0x00}, };
+	if ((dot_d = open(dot, O_RDWR)) < 0){
+		printf("Can't Open\n");
+		exit(0);
+	}
+	write(dot_d, &c[choice], sizeof(c[choice]));
+	sleep(1);
+	close(dot_d);
+
+
+}
+
 void put_num(int check) { 
+	int x,y;
 	if(card_in[check-1]==0){
 		printf("\n");
 		printf("이미 맞춘 카드입니다.\n");
@@ -386,11 +408,13 @@ void put_num(int check) {
 		if(card_select[0]==0){
 			check_card[0]=card_in[check-1];
 			card_select[0]=check;
+			x=check_card[0];
 			printf("\n");
 			printf("첫번째 카드 내용: %d", check_card[0]);
 			printf("\n");
 			print_lcd("First card: ");
 			ordernum=1; 
+			dot_num(x);
 		}//첫번째 카드를 고르지 않았을 경우 첫번째 카드를  card_select[0]에 카드번호를, check_card[0]에 카드 앞면을 저장 
 		else{
 			if(card_in[check-1]==0){
@@ -401,10 +425,12 @@ void put_num(int check) {
 			else{
 				check_card[1]=card_in[check-1];
 				card_select[1]=check;
+				y=check_card[1];
 				printf("\n");
 				printf("두번째 카드 내용: %d",check_card[1]);
 				printf("\n");
 				print_lcd("Second card: ");
+				dot_num(y);
 		
 				if(card_select[0]==card_select[1]){
 					printf("\n");
@@ -426,27 +452,7 @@ void put_num(int check) {
 	}		
 }//카드를 고르는 함수 
 
-void dot_num(int choice) {
-	unsigned char c[10][8] = { {0x3c,0x42,0x42,0x42,0x42,0x42,0x3c,0x00},
-								{0x18,0x28,0x08,0x08,0x08,0x08,0x3c,0x00},
-								{0x18,0x24,0x24,0x04,0x08,0x10,0x3c,0x00},
-								{0x18,0x24,0x04,0x18,0x04,0x24,0x18,0x00},
-								{0x08,0x18,0x28,0x48,0xfc,0x08,0x08,0x00},
-								{0x2c,0x20,0x20,0x18,0x04,0x24,0x18,0x00},
-								{0x18,0x24,0x20,0x38,0x24,0x24,0x18,0x00},
-								{0x3c,0x04,0x04,0x08,0x10,0x10,0x10,0x00},
-								{0x18,0x24,0x24,0x18,0x24,0x24,0x18,0x00},
-								{0x18,0x24,0x24,0x1c,0x04,0x04,0x18,0x00}, };
-	if ((dot_d = open(dot, O_RDWR)) < 0){
-		printf("Can't Open\n");
-		exit(0);
-	}
-	write(dot_d, &c[choice], sizeof(c[choice]));
-	sleep(1);
-	close(dot_d);
 
-
-}
 
 int main(void){
 	unsigned char c;
@@ -469,76 +475,64 @@ int main(void){
 	card_shuffle();
 	map1();
 	show_map();
-	DOT_control(0);	
 	printf("\n");
 	printf("플레이어%d의 차례입니다.",player+1);
 	printf("\n");
 	while(bools)
 	{	
-
+		DOT_control(0,1);
+		FND_Out(0,player1_score,0,player2_score);
 		print_please();	
 		d = tactsw_get(10);
 		switch(d){
 			case KEY_NUM1:
 				printf("%d",1);
 				put_num(1);
-				dot_num(1);
 				break;
 			case KEY_NUM2:
 				printf("%d",2);
 				put_num(2);
-				dot_num(2);
 				break;
 			case KEY_NUM3:
 				printf("%d",3);				
 				put_num(3);
-				dot_num(3);
 				break;
 			case KEY_NUM4:
 				printf("%d",4);
 				put_num(4);
-				dot_num(4);
 				close(dot_d);
 				break;
 			case KEY_NUM5:
 				printf("%d",5);
 				put_num(5);
-				dot_num(5);
 				break;	
 			case KEY_NUM6:
 				printf("%d",6);
 				put_num(6);
-				dot_num(6);
 				break;
 			case KEY_NUM7:
 				printf("%d",7);
 				put_num(7);
-				dot_num(7);
 				break;
 			case KEY_NUM8:
 				printf("%d",8);
 				put_num(8);
-				dot_num(8);
 				break;
 			case KEY_NUM9:
 				printf("%d",9);
 				put_num(9);
-				dot_num(9);
 				break;
 			case KEY_NUM10:
 				printf("%d",10);
 				put_num(10);
-				dot_num(0);
 				break;
 			case KEY_NUM11:
 				printf("%d",11);
 				put_num(11);
-				dot_num(0);
 				break;
 			case KEY_NUM12:
 				printf("%d",12);
 				put_num(12);
-				dot_num(0);
 				break;
 			}
 		if(num1==6){
