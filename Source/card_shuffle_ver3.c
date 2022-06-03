@@ -183,7 +183,7 @@ void DOT_control(int rps_col, int time_sleep) {
 	if (dot_d < 0) { printf("dot Error\n"); } // 오류 
 
 	write(dot_d, &rps[rps_col], sizeof(rps)); // 입력 
-
+	close(dot_d);
 }
 
 void print_lcd(char* av) {
@@ -317,6 +317,9 @@ void change_player(void) {
 	}//플레이어가 짝이 맞는 카드를 고르지 못했을 경우 다른 플레이어에게 차례를 넘기는 함수 
 }
 
+void score_plus(void) {
+	if()
+}
 void checkcard(int a, int b) {
 	a=a-1;//첫번째 카드 
 	b=b-1;//두번째 카드  
@@ -470,7 +473,6 @@ int main(void){
 	printf("\n");
 	printf("플레이어%d의 차례입니다.",player+1);
 	printf("\n");
-	DOT_control(0, 2);	
 	while(bools)
 	{	
 		DOT_control(0,2);
@@ -481,19 +483,16 @@ int main(void){
 				printf("%d",1);
 				put_num(1);
 				dot_num(1);
-				close(dot_d);
 				break;
 			case KEY_NUM2:
 				printf("%d",2);
 				put_num(2);
 				dot_num(2);
-				close(dot_d);
 				break;
 			case KEY_NUM3:
-				printf("%d",3);
+				printf("%d",3);				
 				put_num(3);
 				dot_num(3);
-				close(dot_d);
 				break;
 			case KEY_NUM4:
 				printf("%d",4);
@@ -505,49 +504,41 @@ int main(void){
 				printf("%d",5);
 				put_num(5);
 				dot_num(5);
-				close(dot_d);
 				break;	
 			case KEY_NUM6:
 				printf("%d",6);
 				put_num(6);
 				dot_num(6);
-				close(dot_d);
 				break;
 			case KEY_NUM7:
 				printf("%d",7);
 				put_num(7);
 				dot_num(7);
-				close(dot_d);
 				break;
 			case KEY_NUM8:
 				printf("%d",8);
 				put_num(8);
 				dot_num(8);
-				close(dot_d);
 				break;
 			case KEY_NUM9:
 				printf("%d",9);
 				put_num(9);
 				dot_num(9);
-				close(dot_d);
 				break;
 			case KEY_NUM10:
 				printf("%d",10);
 				put_num(10);
 				dot_num(0);
-				close(dot_d);
 				break;
 			case KEY_NUM11:
 				printf("%d",11);
 				put_num(11);
 				dot_num(0);
-				close(dot_d);
 				break;
 			case KEY_NUM12:
 				printf("%d",12);
 				put_num(12);
 				dot_num(0);
-				close(dot_d);
 				break;
 			}
 		if(num1==6){
