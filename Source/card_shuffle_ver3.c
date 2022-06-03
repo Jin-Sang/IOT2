@@ -11,6 +11,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include <asm/ioctls.h>
+#include <math.h>
+#include <sys/time.h>
 
 #define KEY_NUM1	1
 #define KEY_NUM2    2
@@ -44,7 +46,7 @@ int num1;//카드 12개 다맞췄을 시 게임을 종료하도록 함
 int player1_score;//플레이어1 점수 
 int player2_score; //플레이어2 점수 
 int player;//두 플레이어 구분 하기 위한 변수 
-int dot_d;
+int dot_d=0;
 char c1,c2; //맞췄을 시 화면에 카드 내용을 보여주기 위한 변수 
 char qmap[12];//카드 뒷면 
 bool bools=true;// while 함수 종료하기 위한 논리값 
@@ -52,6 +54,8 @@ static char tactswDev[] = "/dev/tactsw";
 static int  tactswFd = (-1);
 static char lcdDev[] = "/dev/clcd";
 static int  lcdFd = (-1);
+
+
 
 unsigned char rps[1][8] = {	// dot matrix
 	{ 0x00,0x54,0x00,0x54,0x00,0x54,0x00,0x54 }, // 초기값 
@@ -177,15 +181,7 @@ int FND_Out(int a, int b, int c, int d) {
 	close(fnd_fd);
 }
 
-void DOT_control(int rps_col, int time_sleep) {
 
-	dot_d = open(dot, O_RDWR);
-	if (dot_d < 0) { printf("dot Error\n"); } // 오류 
-
-	write(dot_d, &rps[rps_col], sizeof(rps)); // 입력 
-	sleep(time_sleep);
-	close(dot_d);
-}
 
 void print_lcd(char* av) {
 
@@ -208,31 +204,6 @@ void print_lcd(char* av) {
 
 	close(lcdFd);
 
-}
-
-unsigned char tactsw_get(int tmo)
-{
-	unsigned char b;
-
-	if (tmo) {
-		if (tmo < 0)
-			tmo = ~tmo * 1000;
-		else
-			tmo *= 1000000;
-
-		while (tmo > 0) {
-			usleep(10000);
-			read(tactswFd, &b, sizeof(b));
-			if (b) return(b);
-			tmo -= 10000;
-		}
-		return(-1);
-	}
-	else {
-
-		read(tactswFd, &b, sizeof(b));
-		return(b);
-	}
 }
 
 void map1(void) {
@@ -455,6 +426,11 @@ void put_num(int check) {
 
 
 int main(void){
+	struct timeval dotst,dotend,tactst,tactend,fndst,fndend;
+	int dot_d = 0;
+    int tact = 0;
+    int fnd_d = 0;
+	unsigned char t=0;    
 	unsigned char c;
 	unsigned char d;
 	int dev;
@@ -475,12 +451,13 @@ int main(void){
 	card_shuffle();
 	map1();
 	show_map();
+	gettimeofday(&dotst, NULL);
 	printf("\n");
 	printf("플레이어%d의 차례입니다.",player+1);
 	printf("\n");
 	while(bools)
 	{	
-		DOT_control(0,1);
+		
 		FND_Out(0,player1_score,0,player2_score);
 		print_please();	
 		d = tactsw_get(10);
