@@ -44,7 +44,7 @@ int num1;//카드 12개 다맞췄을 시 게임을 종료하도록 함
 int player1_score;//플레이어1 점수 
 int player2_score; //플레이어2 점수 
 int player;//두 플레이어 구분 하기 위한 변수 
-
+int dot_d;
 char c1,c2; //맞췄을 시 화면에 카드 내용을 보여주기 위한 변수 
 char qmap[12];//카드 뒷면 
 bool bools=true;// while 함수 종료하기 위한 논리값 
@@ -178,7 +178,6 @@ int FND_Out(int a, int b, int c, int d) {
 }
 
 void DOT_control(int rps_col, int time_sleep) {
-	int dot_d;
 
 	dot_d = open(dot, O_RDWR);
 	if (dot_d < 0) { printf("dot Error\n"); } // 오류 
@@ -426,6 +425,27 @@ void put_num(int check) {
 	}		
 }//카드를 고르는 함수 
 
+void dot_num(int choice) {
+	unsigned char c[10][8] = { {0x3c,0x42,0x42,0x42,0x42,0x42,0x3c,0x00},
+								{0x18,0x28,0x08,0x08,0x08,0x08,0x3c,0x00},
+								{0x18,0x24,0x24,0x04,0x08,0x10,0x3c,0x00},
+								{0x18,0x24,0x04,0x18,0x04,0x24,0x18,0x00},
+								{0x08,0x18,0x28,0x48,0xfc,0x08,0x08,0x00},
+								{0x2c,0x20,0x20,0x18,0x04,0x24,0x18,0x00},
+								{0x18,0x24,0x20,0x38,0x24,0x24,0x18,0x00},
+								{0x3c,0x04,0x04,0x08,0x10,0x10,0x10,0x00},
+								{0x18,0x24,0x24,0x18,0x24,0x24,0x18,0x00},
+								{0x18,0x24,0x24,0x1c,0x04,0x04,0x18,0x00}, };
+	if ((dot_d = open(dot, O_RDWR)) < 0){
+		printf("Can't Open\n");
+		exit(0);
+	}
+	write(dot_d, &c[choice], sizeof(c[choice]));
+	sleep(1);
+	close(dot_d);
+
+
+}
 
 int main(void){
 	unsigned char c;
@@ -457,56 +477,68 @@ int main(void){
 	{
 		DOT_control(0, 1);
 		FND_Out(0,player1_score,0,player2_score);
-		print_please();		
+		print_please();	
 		d = tactsw_get(10);
 		switch(d){
 			case KEY_NUM1:
 				printf("%d",1);
 				put_num(1);
+				dot_num(1);
 				break;
 			case KEY_NUM2:
 				printf("%d",2);
 				put_num(2);
+				dot_num(12;
 				break;
 			case KEY_NUM3:
 				printf("%d",3);
 				put_num(3);
+				dot_num(3);
 				break;
 			case KEY_NUM4:
 				printf("%d",4);
 				put_num(4);
+				dot_num(4);
 				break;
 			case KEY_NUM5:
 				printf("%d",5);
 				put_num(5);
+				dot_num(5);
 				break;	
 			case KEY_NUM6:
 				printf("%d",6);
 				put_num(6);
+				dot_num(6);
 				break;
 			case KEY_NUM7:
 				printf("%d",7);
 				put_num(7);
+				dot_num(7);
 				break;
 			case KEY_NUM8:
 				printf("%d",8);
 				put_num(8);
+				dot_num(8);
 				break;
 			case KEY_NUM9:
 				printf("%d",9);
 				put_num(9);
+				dot_num(9);
 				break;
 			case KEY_NUM10:
 				printf("%d",10);
 				put_num(10);
+				dot_num(0);
 				break;
 			case KEY_NUM11:
 				printf("%d",11);
 				put_num(11);
+				dot_num(0);
 				break;
 			case KEY_NUM12:
 				printf("%d",12);
 				put_num(12);
+				dot_num(0);
 				break;
 		}
 		if(num1==6){
