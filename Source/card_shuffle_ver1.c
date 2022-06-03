@@ -54,10 +54,128 @@ static char lcdDev[] = "/dev/clcd";
 static int  lcdFd = (-1);
 
 unsigned char rps[1][8] = {	// dot matrix
-	{ 0x00,0x38,0x38,0x38,0x38,0x00,0x00,0x00 }, // 초기값 
+	{ 0x00,0x54,0x00,0x54,0x00,0x54,0x00,0x54 }, // 초기값 
 
 };
+unsigned char card_led[1][3] = {
+	{0x40,0x10,0x04},
+};
+void card_off(int a) {
+	int a1=a;
+	int back1,back2,back3;
+	if (a1<4){
+		back1=rps[0][1];
+	}
+	else if(a1<7){
+		back1=rps[0][3];
+	}
+	else if(a1<10){
+		back1=rps[0][5];
+	}
+	else {
+		back1=rps[0][7];
+	}
+	switch(a1){
+		case(1):{
+			back2=card_led[0][0];
+			back3=back1-back2;
+			rps[0][1]=back3;
+			break;
+			}
+		case(2):{
+			back2=card_led[0][1];
+			back3=back1-back2;
+			rps[0][1]=back3;
+			break;
+			}
+		case(3):{
+			back2=card_led[0][2];
+			back3=back1-back2;
+			rps[0][1]=back3;
+			break;
+			}
+		case(4):{
+			back2=card_led[0][0];
+			back3=back1-back2;
+			rps[0][3]=back3;
+			break;
+			}
+		case(5):{
+			back2=card_led[0][1];
+			back3=back1-back2;
+			rps[0][3]=back3;
+			break;
+			}
+		case(6):{
+			back2=card_led[0][2];
+			back3=back1-back2;
+			rps[0][3]=back3;
+			break;
+			}
+		case(7):{
+			back2=card_led[0][0];
+			back3=back1-back2;
+			rps[0][5]=back3;
+			break;
+			}
+		case(8):{
+			back2=card_led[0][1];
+			back3=back1-back2;
+			rps[0][5]=back3;
+			break;
+			}
+		case(9):{
+			back2=card_led[0][2];
+			back3=back1-back2;
+			rps[0][5]=back3;
+			break;
+			}
+		case(10):{
+			back2=card_led[0][0];
+			back3=back1-back2;
+			rps[0][7]=back3;
+			break;
+			}
+		case(11):{
+			back2=card_led[0][1];
+			back3=back1-back2;
+			rps[0][7]=back3;
+			break;
+			}
+		case(12):{
+			back2=card_led[0][2];
+			back3=back1-back2;
+			rps[0][7]=back3;
+			break;
+			}			
+	}
+}
 
+int FND_Out(int a, int b, int c, int d) {
+
+	unsigned char FND_DATA_TBL[] = {
+			0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0x88,
+			0x83,0xC6,0xA1,0x86,0x8E,0xC0,0xF9,0xA4,0xB0,0x99,0x89
+	};
+
+	int fnd_fd = 0;
+
+	unsigned char fnd_num[4];
+
+	fnd_num[0] = FND_DATA_TBL[a];
+	fnd_num[1] = FND_DATA_TBL[b];
+	fnd_num[2] = FND_DATA_TBL[c];
+	fnd_num[3] = FND_DATA_TBL[d];
+
+	fnd_fd = open(fnd_dev, O_RDWR);
+
+	if (fnd_fd < 0) {
+		printf("Can't Open Device\n");
+	}
+	write(fnd_fd, &fnd_num, sizeof(fnd_num));
+	sleep(1);
+	close(fnd_fd);
+}
 
 void DOT_control(int rps_col, int time_sleep) {
 	int dot_d;
@@ -213,6 +331,8 @@ void checkcard(int a, int b) {
 		printf("짝을 맞췄습니다!\n");
 		printf("\n");
 		printf("시도횟수: %d 맞춘횟수: %d",count, answer);
+		card_off(a+1);
+		card_off(b+1);
 		show_num(a,b);
 		reset_check();//check_card[],card_select[] 초기화 
 		card_in[a]=0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
@@ -269,7 +389,7 @@ void put_num(int check) {
 			printf("\n");
 			printf("첫번째 카드 내용: %d", check_card[0]);
 			printf("\n");
-			print_lcd("First card");
+			print_lcd("First card: %d",check_card[0]);
 			ordernum=1; 
 		}//첫번째 카드를 고르지 않았을 경우 첫번째 카드를  card_select[0]에 카드번호를, check_card[0]에 카드 앞면을 저장 
 		else{
@@ -284,7 +404,7 @@ void put_num(int check) {
 				printf("\n");
 				printf("두번째 카드 내용: %d",check_card[1]);
 				printf("\n");
-				print_lcd("Second card");
+				print_lcd("Second card: %d",check_card[1]);
 		
 				if(card_select[0]==card_select[1]){
 					printf("\n");
@@ -323,7 +443,7 @@ int main(void){
 		fprintf(stderr, "cannot open LED Device (%d)", dev);
 		exit(2);
 	}
-	DOT_control(0, 100);
+	DOT_control(0, 2);
 	print_waiting();
 	card_shuffle();
 	map1();
@@ -335,6 +455,8 @@ int main(void){
 	
 	while(bools)
 	{
+		DOT_control(0, 1);
+		FND_Out(0,player1_score,0,player2_score);
 		print_please();		
 		d = tactsw_get(10);
 		switch(d){
