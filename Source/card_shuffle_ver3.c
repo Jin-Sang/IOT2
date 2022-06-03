@@ -48,6 +48,7 @@ int player2_score; //플레이어2 점수
 int player;//두 플레이어 구분 하기 위한 변수 
 char c1,c2; //맞췄을 시 화면에 카드 내용을 보여주기 위한 변수 
 char qmap[12];//카드 뒷면 
+int dot_d = 0;
 bool bools=true;// while 함수 종료하기 위한 논리값 
 static char tactswDev[] = "/dev/tactsw";
 static char lcdDev[] = "/dev/clcd";
