@@ -183,8 +183,8 @@ void DOT_control(int rps_col, int time_sleep) {
 	if (dot_d < 0) { printf("dot Error\n"); } // 오류 
 
 	write(dot_d, &rps[rps_col], sizeof(rps)); // 입력 
-	sleep(time_sleep);
-	close(dot_d);
+	usleep(100000);
+	
 }
 
 void print_lcd(char* av) {
@@ -469,7 +469,7 @@ int main(void){
 	card_shuffle();
 	map1();
 	show_map();
-	DOT_control(0,2);	
+	DOT_control(0);	
 	printf("\n");
 	printf("플레이어%d의 차례입니다.",player+1);
 	printf("\n");
