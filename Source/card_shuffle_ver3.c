@@ -31,6 +31,7 @@
 #define led_dev	"/dev/led"
 #define dot "/dev/dot"
 #define fnd_dev	"/dev/fnd"
+#define tact_d "/dev/tactsw"
 
 #define dbg(x...)       printf(x)
 
@@ -433,19 +434,6 @@ int main(void){
 	unsigned char c;
 	unsigned char d;
 	int dev;
-	
-	if ((tactswFd = open(tactswDev, O_RDONLY)) < 0) {         // KEY open
-		perror("open faile /dev/key");
-		exit(-1);
-	}
-	printf("tact opend");
-
-	dev = open(led_dev, O_RDWR);
-	if (dev < 0) {
-		fprintf(stderr, "cannot open LED Device (%d)", dev);
-		exit(2);
-	}
-
 	print_waiting();
 	card_shuffle();
 	map1();
