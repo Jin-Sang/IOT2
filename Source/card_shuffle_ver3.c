@@ -376,7 +376,6 @@ void put_num(int check) {
 			printf("\n");
 			printf("첫번째 카드 내용: %d", check_card[0]);
 			printf("\n");
-			print_lcd("First card: ");
 			ordernum=1; 
 		}//첫번째 카드를 고르지 않았을 경우 첫번째 카드를  card_select[0]에 카드번호를, check_card[0]에 카드 앞면을 저장 
 		else{
@@ -392,7 +391,6 @@ void put_num(int check) {
 				printf("\n");
 				printf("두번째 카드 내용: %d",check_card[1]);
 				printf("\n");
-				print_lcd("Second card: ");
 		
 				if(card_select[0]==card_select[1]){
 					printf("\n");
@@ -467,7 +465,6 @@ int main(void){
 					case KEY_NUM4:
 						printf("%d",4);
 						put_num(4);
-						close(dot_d);
 						break;
 					case KEY_NUM5:
 						printf("%d",5);
