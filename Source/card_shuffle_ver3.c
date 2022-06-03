@@ -460,7 +460,7 @@ int main(void){
 		while (1){
 			gettimeofday(&tactend,NULL);
 			read(tact,&t,sizeof(t));
-			switch(d){
+			switch(t){
 				case KEY_NUM1:
 					printf("%d",1);
 					put_num(1);
@@ -516,13 +516,14 @@ int main(void){
                     tact = close(tact);
                     break;
                 }
-		}
+			}
 
+	}
 		if(num1==6){
-			bools=false;
+		bools=false;
 		}
 		sleep(1);
-	}
+}
 	sum_score();
 
 	return 0;
