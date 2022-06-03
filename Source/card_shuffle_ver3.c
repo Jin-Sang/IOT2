@@ -437,11 +437,11 @@ int main(void){
 	printf("\n");
 	while(bools)
 	{	
-		write(dot_d,&rps,sizeof(rps));
 		if(dot_d==0){
 			dot_d= open(dot,O_RDWR);
 		}
 		gettimeofday(&dotend, NULL);
+		write(dot_d,&rps,sizeof(rps));
 		if ((dotend.tv_usec - dotst.tv_usec > 200000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 200000)))
         {
             dot_d = close(dot_d);
