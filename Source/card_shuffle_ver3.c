@@ -46,12 +46,10 @@ int num1;//카드 12개 다맞췄을 시 게임을 종료하도록 함
 int player1_score;//플레이어1 점수 
 int player2_score; //플레이어2 점수 
 int player;//두 플레이어 구분 하기 위한 변수 
-int dot_d=0;
 char c1,c2; //맞췄을 시 화면에 카드 내용을 보여주기 위한 변수 
 char qmap[12];//카드 뒷면 
 bool bools=true;// while 함수 종료하기 위한 논리값 
 static char tactswDev[] = "/dev/tactsw";
-static int  tactswFd = (-1);
 static char lcdDev[] = "/dev/clcd";
 static int  lcdFd = (-1);
 
@@ -457,61 +455,80 @@ int main(void){
 	printf("\n");
 	while(bools)
 	{	
-		
-		FND_Out(0,player1_score,0,player2_score);
+		if(dot_d==0){
+			dot_d= open(dot,O_RDWR);
+		}
+		gettimeofday(&dotend, NULL);
+		if ((dotend.tv_usec - dotst.tv_usec > 200000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 200000)))
+        {
+            dot_d = close(dot_d);
+            if (tact == 0)     //tact switch에 접근하지 않은 경우만 open
+            {
+                tact = open(tact_d, O_RDWR);
+            }
+            gettimeofday(&tactst, NULL);
 		print_please();	
-		d = tactsw_get(10);
-		switch(d){
-			case KEY_NUM1:
-				printf("%d",1);
-				put_num(1);
-				break;
-			case KEY_NUM2:
-				printf("%d",2);
-				put_num(2);
-				break;
-			case KEY_NUM3:
-				printf("%d",3);				
-				put_num(3);
-				break;
-			case KEY_NUM4:
-				printf("%d",4);
-				put_num(4);
-				close(dot_d);
-				break;
-			case KEY_NUM5:
-				printf("%d",5);
-				put_num(5);
-				break;	
-			case KEY_NUM6:
-				printf("%d",6);
-				put_num(6);
-				break;
-			case KEY_NUM7:
-				printf("%d",7);
-				put_num(7);
-				break;
-			case KEY_NUM8:
-				printf("%d",8);
-				put_num(8);
-				break;
-			case KEY_NUM9:
-				printf("%d",9);
-				put_num(9);
-				break;
-			case KEY_NUM10:
-				printf("%d",10);
-				put_num(10);
-				break;
-			case KEY_NUM11:
-				printf("%d",11);
-				put_num(11);
-				break;
-			case KEY_NUM12:
-				printf("%d",12);
-				put_num(12);
-				break;
+		while (1){
+			gettimeofday(&tactend,NULL);
+			read(tact,&t,sizeof(t));
+			switch(d){
+				case KEY_NUM1:
+					printf("%d",1);
+					put_num(1);
+					break;
+				case KEY_NUM2:
+					printf("%d",2);
+					put_num(2);
+					break;
+				case KEY_NUM3:
+					printf("%d",3);				
+					put_num(3);
+					break;
+				case KEY_NUM4:
+					printf("%d",4);
+					put_num(4);
+					close(dot_d);
+					break;
+				case KEY_NUM5:
+					printf("%d",5);
+					put_num(5);
+					break;	
+				case KEY_NUM6:
+					printf("%d",6);
+					put_num(6);
+					break;
+				case KEY_NUM7:
+					printf("%d",7);
+					put_num(7);
+					break;
+				case KEY_NUM8:
+					printf("%d",8);
+					put_num(8);
+					break;
+				case KEY_NUM9:
+					printf("%d",9);
+					put_num(9);
+					break;
+				case KEY_NUM10:
+					printf("%d",10);
+					put_num(10);
+					break;
+				case KEY_NUM11:
+					printf("%d",11);
+					put_num(11);
+					break;
+				case KEY_NUM12:
+					printf("%d",12);
+					put_num(12);
+					break;
 			}
+			     if ((tactend.tv_usec - tactst.tv_usec > 200000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 200000)) || t)
+                {
+                    tact = close(tact);
+                    break;
+                }
+		}
+
 		if(num1==6){
 			bools=false;
 		}
