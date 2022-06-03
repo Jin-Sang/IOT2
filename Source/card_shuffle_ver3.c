@@ -306,27 +306,26 @@ void print_waiting(void) {
 
 void change_player(void) {
 	if(player==0){
-		player1_score=answer;
-		answer=player2_score;
 		player=1;
 	}
 	else{
-		player2_score=answer;
-		answer=player1_score;
 		player=0;
 	}//플레이어가 짝이 맞는 카드를 고르지 못했을 경우 다른 플레이어에게 차례를 넘기는 함수 
 }
 
-void score_plus(void) {
-	if()
-}
+
 void checkcard(int a, int b) {
 	a=a-1;//첫번째 카드 
 	b=b-1;//두번째 카드  
 	if(card_in[a]==card_in[b]) {
 		num1++;
-		answer++;
 		count++;
+		if(player==0){
+			player1_score++;
+		}
+		else{
+			player2_score++;
+		}
 		printf("\n");
 		printf("짝을 맞췄습니다!\n");
 		printf("\n");
@@ -469,13 +468,13 @@ int main(void){
 	card_shuffle();
 	map1();
 	show_map();
-	
+	DOT_control(0,2);	
 	printf("\n");
 	printf("플레이어%d의 차례입니다.",player+1);
 	printf("\n");
 	while(bools)
 	{	
-		DOT_control(0,2);
+
 		print_please();	
 		d = tactsw_get(10);
 		switch(d){
