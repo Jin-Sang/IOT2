@@ -481,61 +481,73 @@ int main(void){
 				printf("%d",1);
 				put_num(1);
 				dot_num(1);
+				close(dot_d);
 				break;
 			case KEY_NUM2:
 				printf("%d",2);
 				put_num(2);
 				dot_num(2);
+				close(dot_d);
 				break;
 			case KEY_NUM3:
 				printf("%d",3);
 				put_num(3);
 				dot_num(3);
+				close(dot_d);
 				break;
 			case KEY_NUM4:
 				printf("%d",4);
 				put_num(4);
 				dot_num(4);
+				close(dot_d);
 				break;
 			case KEY_NUM5:
 				printf("%d",5);
 				put_num(5);
 				dot_num(5);
+				close(dot_d);
 				break;	
 			case KEY_NUM6:
 				printf("%d",6);
 				put_num(6);
 				dot_num(6);
+				close(dot_d);
 				break;
 			case KEY_NUM7:
 				printf("%d",7);
 				put_num(7);
 				dot_num(7);
+				close(dot_d);
 				break;
 			case KEY_NUM8:
 				printf("%d",8);
 				put_num(8);
 				dot_num(8);
+				close(dot_d);
 				break;
 			case KEY_NUM9:
 				printf("%d",9);
 				put_num(9);
 				dot_num(9);
+				close(dot_d);
 				break;
 			case KEY_NUM10:
 				printf("%d",10);
 				put_num(10);
 				dot_num(0);
+				close(dot_d);
 				break;
 			case KEY_NUM11:
 				printf("%d",11);
 				put_num(11);
 				dot_num(0);
+				close(dot_d);
 				break;
 			case KEY_NUM12:
 				printf("%d",12);
 				put_num(12);
 				dot_num(0);
+				close(dot_d);
 				break;
 			}
 		if(num1==6){
