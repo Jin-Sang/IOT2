@@ -36,21 +36,21 @@
 #define dbg(x...)       printf(x)
 
 #define CARDSIZE 12
-int card_in[12]; //Ä«µå ³»¿ëÀ» ´ã´Â ¹è¿­ 
-int check_card[2]; // ¼±ÅÃÇÑ Ä«µå°¡ Â¦ÀÌ ¸Â´ÂÁö ´Ù¸¥Áö È®ÀÎÇÏ±â À§ÇÑ ¹è¿­ 
-int check;//ÇÃ·¹ÀÌ¾î°¡ ¼±ÅÃÇÑ Ä«µå ¹øÈ£ 
-int card_select[2];//ÇÃ·¹ÀÌ¾î°¡ ¼±ÅÃÇÑ Ä«µå ¹øÈ£ µÎ°³ ´ã´Â ¹è¿­ 
-int ordernum; //Áö±İ °í¸£´Â Ä«µå°¡ Ã¹¹øÂ° ÀÎÁö µÎ¹øÂ°ÀÎÁö È®ÀÎ
-int count; //½ÃµµÈ½¼ö  
-int answer;//¸ÂÃáÈ½¼ö  
-int num1;//Ä«µå 12°³ ´Ù¸ÂÃèÀ» ½Ã °ÔÀÓÀ» Á¾·áÇÏµµ·Ï ÇÔ 
-int player1_score;//ÇÃ·¹ÀÌ¾î1 Á¡¼ö 
-int player2_score; //ÇÃ·¹ÀÌ¾î2 Á¡¼ö 
-int player;//µÎ ÇÃ·¹ÀÌ¾î ±¸ºĞ ÇÏ±â À§ÇÑ º¯¼ö 
-char c1, c2; //¸ÂÃèÀ» ½Ã È­¸é¿¡ Ä«µå ³»¿ëÀ» º¸¿©ÁÖ±â À§ÇÑ º¯¼ö 
-char qmap[12];//Ä«µå µŞ¸é 
+int card_in[12]; //ì¹´ë“œ ë‚´ìš©ì„ ë‹´ëŠ” ë°°ì—´ 
+int check_card[2]; // ì„ íƒí•œ ì¹´ë“œê°€ ì§ì´ ë§ëŠ”ì§€ ë‹¤ë¥¸ì§€ í™•ì¸í•˜ê¸° ìœ„í•œ ë°°ì—´ 
+int check;//í”Œë ˆì´ì–´ê°€ ì„ íƒí•œ ì¹´ë“œ ë²ˆí˜¸ 
+int card_select[2];//í”Œë ˆì´ì–´ê°€ ì„ íƒí•œ ì¹´ë“œ ë²ˆí˜¸ ë‘ê°œ ë‹´ëŠ” ë°°ì—´ 
+int ordernum; //ì§€ê¸ˆ ê³ ë¥´ëŠ” ì¹´ë“œê°€ ì²«ë²ˆì§¸ ì¸ì§€ ë‘ë²ˆì§¸ì¸ì§€ í™•ì¸
+int count; //ì‹œë„íšŸìˆ˜  
+int answer;//ë§ì¶˜íšŸìˆ˜  
+int num1;//ì¹´ë“œ 12ê°œ ë‹¤ë§ì·„ì„ ì‹œ ê²Œì„ì„ ì¢…ë£Œí•˜ë„ë¡ í•¨ 
+int player1_score;//í”Œë ˆì´ì–´1 ì ìˆ˜ 
+int player2_score; //í”Œë ˆì´ì–´2 ì ìˆ˜ 
+int player;//ë‘ í”Œë ˆì´ì–´ êµ¬ë¶„ í•˜ê¸° ìœ„í•œ ë³€ìˆ˜ 
+char c1, c2; //ë§ì·„ì„ ì‹œ í™”ë©´ì— ì¹´ë“œ ë‚´ìš©ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ë³€ìˆ˜ 
+char qmap[12];//ì¹´ë“œ ë’·ë©´ 
 int dot_d = 0;
-bool bools = true;// while ÇÔ¼ö Á¾·áÇÏ±â À§ÇÑ ³í¸®°ª 
+bool bools = true;// while í•¨ìˆ˜ ì¢…ë£Œí•˜ê¸° ìœ„í•œ ë…¼ë¦¬ê°’ 
 static char tactswDev[] = "/dev/tactsw";
 static char lcdDev[] = "/dev/clcd";
 static int  lcdFd = (-1);
@@ -111,7 +111,7 @@ void match_up() {
 		if ((dotend1.tv_usec - dotst1.tv_usec > 200000) || (dotend1.tv_sec > dotst1.tv_sec && (dotend1.tv_usec + 1000000 - dotst1.tv_usec > 200000)))
 		{
 			dot_d = close(dot_d);
-			if (tact == 0)     //tact switch¿¡ Á¢±ÙÇÏÁö ¾ÊÀº °æ¿ì¸¸ open
+			if (tact == 0)     //tact switchì— ì ‘ê·¼í•˜ì§€ ì•Šì€ ê²½ìš°ë§Œ open
 			{
 				tact = open(tact_d, O_RDWR);
 			}
@@ -126,7 +126,7 @@ void match_up() {
 					break;
 
 				case KEY_NUM5:
-					printf("%c\n",alphP);
+					printf("%c\n",alphP[i]);
 					break;
 
 				case KEY_NUM6:
