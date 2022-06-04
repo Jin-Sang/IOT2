@@ -67,7 +67,7 @@ void match_up() {
 	char n1[3];
 	char n2[2];
 	int i = 0;
-	char pla1[2];
+	
 	char alphP[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	unsigned char alph[26][8] = { {0x18, 0x24, 0x42, 0x42, 0x7E, 0x42, 0x42, 0x42},	// A
