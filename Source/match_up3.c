@@ -63,11 +63,12 @@ void match_up() {
     unsigned char c;
     unsigned char d;
 	struct timeval dotst1, dotend1, tactst1, tactend1;
-	char pla1[3];
-	char n1[3];
-	char n2[2];
 	int i = 0;
-	char alphP[27] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	
+	char n1[1];
+	char n2[1];
+	char pla1[3]=" ";
+	char alphP[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	unsigned char alph[26][8] = { {0x18, 0x24, 0x42, 0x42, 0x7E, 0x42, 0x42, 0x42},	// A
 								{0x3c, 0x22, 0x22, 0x3c, 0x22, 0x22, 0x22, 0x3c},	//B?
@@ -125,9 +126,13 @@ void match_up() {
 					i = i - 1;
 					break;
 
-				case KEY_NUM5:
-					printf("%c\n",alphP);
+				case KEY_NUM5:{	
+					strncpy(n1, alphP+i,1);
+					strcat(pla1,n1);					
+					printf("%s\n",pla1);					
 					break;
+				}
+
 
 				case KEY_NUM6:
 					i = i + 1;
@@ -147,7 +152,6 @@ void match_up() {
 }
 
 int main(void){
-	printf("test");
 	match_up();
 	return 0;
 }
