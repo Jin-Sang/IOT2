@@ -67,7 +67,7 @@ void match_up() {
 	char pla1[3];
 	char n1[1];
 	int i = 0;
-	unsigned char alphP[26] = { 'A', 'B', 'C', 'D', 'E', 'F','G','H','I','J','K','L','M','N', 'O','P','Q','R','S','T','U','V','W','X','Y','Z' };
+	unsigned char alphP[26][1] = { {'A'}, {'B'}, {'C'}, {'D'}, {'E'}, {'F'}, {'G'},{'H'},{'I'},{'J'},{'K'},{'L'},{'M'},{'N'}, {'O'},{'P'},{'Q'},{'R'},{'S'},{'T'},{'U'},{'V'},{'W'},{'X'},{'Y'},{'Z'} };
 
 	unsigned char alph[26][8] = { {0x18, 0x24, 0x42, 0x42, 0x7E, 0x42, 0x42, 0x42},	// A
 								{0x3c, 0x22, 0x22, 0x3c, 0x22, 0x22, 0x22, 0x3c},	//B 
