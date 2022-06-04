@@ -145,8 +145,8 @@ void match_up() {
 					append(pla1, alphP[i]);					
 					printf("%s\n",pla1);
 					}
-					if else ( count < 5){
-						append(pla1, alphP[i]);					
+					else if ( count < 5){
+						append(pla2, alphP[i]);					
 						printf("%s\n",pla2);
 					} else {
 						return 0;
