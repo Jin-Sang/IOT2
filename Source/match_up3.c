@@ -74,9 +74,12 @@ void match_up() {
 	struct timeval dotst1, dotend1, tactst1, tactend1;
 	int i = 0;
 	
+	int count = 0;
+	
 	char n1[1];
 	char n2[1];
 	char pla1[3]=" ";
+	char pla2[3]=" ";
 	char alphP[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	unsigned char alph[26][8] = { {0x18, 0x24, 0x42, 0x42, 0x7E, 0x42, 0x42, 0x42},	// A
@@ -136,8 +139,19 @@ void match_up() {
 					break;
 
 				case KEY_NUM5:{	
+					count = count + 1;
+					if (count < 3){
+						
 					append(pla1, alphP[i]);					
-					printf("%s\n",pla1);					
+					printf("%s\n",pla1);
+					}
+					if else ( count < 5){
+						append(pla1, alphP[i]);					
+						printf("%s\n",pla2);
+					} else {
+						return 0;
+					}
+					 
 					break;
 				}
 
