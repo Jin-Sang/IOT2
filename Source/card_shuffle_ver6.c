@@ -152,13 +152,8 @@ int intro_game() {
 					}
 					else{
 						strcat(playervs,pla1);
-						printf("%s\n",playervs);
 						strcat(playervs,vs);
-						printf("%s\n",playervs);
 						strcat(playervs,pla2);
-						printf("%s\n",playervs);
-						printf("%s\n",pla1);
-						printf("%s\n");
 						return 0;
 					}
 					break;
