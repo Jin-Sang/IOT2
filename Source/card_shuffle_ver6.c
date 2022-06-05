@@ -558,7 +558,7 @@ int main(void) {
 	unsigned char d;
 	int dev;
 	intro_game();
-	char fight[20]="   fight!!!   ";
+	
 	print_lcd(playervs);
 	print_waiting();
 	card_shuffle();
