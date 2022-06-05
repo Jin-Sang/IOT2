@@ -316,7 +316,7 @@ void print_lcd(char clcd_text[]) {
 		printf("clcd error\n");
 	}
 
-	write(clcd_d, clcd_text, strlen(clcd_text));
+	write(clcd_d, clcd_text, 32);
 	close(clcd_d);
 
 }
@@ -558,6 +558,7 @@ int main(void) {
 	unsigned char d;
 	int dev;
 	intro_game();
+	char fight[20]="   fight!!!   ";
 	print_lcd(playervs);
 	print_waiting();
 	card_shuffle();
