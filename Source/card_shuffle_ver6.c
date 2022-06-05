@@ -59,12 +59,27 @@ char pla1[3] = " ";
 char pla2[3] = " ";
 char playervs[20] ="  ";
 char vs[5] =" vs ";
+char lcd_score[20] = " "; 
 
 void append_name(char* dst, char c) {
 	char* p = dst;
 	while (*p != '\0') p++; // 문자열 끝 탐색
 	*p = c;
 	*(p + 1) = '\0';
+}
+
+void lcd_score(){
+	
+	char s1[10];
+	char s2[10];
+	
+	sprintf(s1, "%d", player1_score);
+	sprintf(s2, "%d", player2_score);
+	
+	strcat(lcd_score, s1);
+	strcat(lcd_score, vs);
+	strcat(lcd_score, s2);
+	
 }
 
 int intro_game() {
