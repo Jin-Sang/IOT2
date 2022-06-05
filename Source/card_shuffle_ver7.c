@@ -447,7 +447,7 @@ void checkcard(int a, int b) {
 		printf("\n");
 		printf("짝을 맞췄습니다!\n");
 		printf("\n");
-		dot_smile(0);
+		dot_smile(0); // 웃음 표시
 		printf("플레이어%d의 점수: %d", player + 1, player1_score);
 		card_off(a + 1);
 		card_off(b + 1);
@@ -455,7 +455,11 @@ void checkcard(int a, int b) {
 		reset_check();//check_card[],card_select[] 초기화 
 		card_in[a] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
 		card_in[b] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
-		show_map();//현재 남은 카드 배치를 보여줌 
+		show_map();//현재 남은 카드 배치를 보여줌
+		lcd_score();	
+		strcat(texttext,playervs);
+		strcat(texttext,lcd_score1);
+		print_lcd(texttext);
 	}//짝이 맞을경우 카드를 뒤집어 숫자를 보여주고 check_card[],card_select[] 초기화  
 	else {
 		printf("\n");
