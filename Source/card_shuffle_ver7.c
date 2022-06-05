@@ -55,13 +55,10 @@ bool bools=true;// while 함수 종료하기 위한 논리값
 static char tactswDev[] = "/dev/tactsw";
 static char lcdDev[] = "/dev/clcd";
 static int  lcdFd = (-1);
-char pla1[3] = " ";
-char pla2[3] = " ";
-char playervs[16] ="   ";
-char spaceword[4]= "    ";
+char pla1[3] = "";
+char pla2[3] = "";
+char playervs[16] ="    ";
 char texttext[32]="";
-char vs[5] =" vs";
-char vs1[5] = " : ";
 char lcd_score1[16] = ""; 
 
 void lcd_score(){
@@ -72,11 +69,11 @@ void lcd_score(){
 	sprintf(s1, "%d", player1_score);
 	sprintf(s2, "%d", player2_score);
 	printf("%s\n",s1);
-	strcat(lcd_score1,spaceword);
+	strcat(lcd_score1,"     ");
 	strcat(lcd_score1, s1);
-	strcat(lcd_score1, vs1);
+	strcat(lcd_score1," vs ");
 	strcat(lcd_score1, s2);
-	strcat(lcd_score1,spaceword);	
+	strcat(lcd_score1,"     ");	
 	printf("%s",lcd_score1);
 }
 
@@ -172,9 +169,9 @@ int intro_game() {
 					}
 					else{
 						strcat(playervs,pla1);
-						strcat(playervs,vs);
+						strcat(playervs," vs ");
 						strcat(playervs,pla2);
-						strcat(playervs,spaceword);
+						strcat(playervs,"    ");
 						printf("%s\n",playervs);
 						printf("%s\n",pla1);
 						printf("%s\n",pla2);
@@ -580,7 +577,7 @@ int main(void) {
 	int dev;
 	print_lcd("   Game Start   ");
 	intro_game();
-	lcd_score();
+	lcd_score();	
 	strcat(texttext,playervs);
 	strcat(texttext,lcd_score1);
 	print_lcd(texttext);
