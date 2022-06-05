@@ -32,6 +32,7 @@
 #define dot "/dev/dot"
 #define fnd_dev	"/dev/fnd"
 #define tact_d "/dev/tactsw"
+#define clcd "/dev/clcd"
 
 #define dbg(x...)       printf(x)
 
@@ -64,7 +65,7 @@ void append_name(char* dst, char c) {
 	*(p + 1) = '\0';
 }
 
-void intro_game() {
+int intro_game() {
 	int dot_d = 0;
 	int tact = 0;
 	int fnd_d = 0;
@@ -112,7 +113,7 @@ void intro_game() {
 
 	gettimeofday(&dotst1, NULL);
 
-	while (1)
+	while (count<5)
 	{
 		if (dot_d == 0) {
 			dot_d = open(dot, O_RDWR);
@@ -145,17 +146,15 @@ void intro_game() {
 						append_name(pla1, alphP[i]);
 						printf("%s\n", pla1);
 					}
-					else if (count < 5) {
+					else if (count<5) {
 						append_name(pla2, alphP[i]);
 						printf("%s\n", pla2);
 					}
-					else {
+					else{
 						return 0;
 					}
-
 					break;
 				}
-
 
 				case KEY_NUM6:
 					i = i + 1;
@@ -184,93 +183,93 @@ unsigned char card_led[1][3] = {
 	{0x40,0x10,0x04},
 };
 void card_off(int a) {
-	int a1=a;
-	int back1,back2,back3;
-	if (a1<4){
-		back1=rps[0][1];
+	int a1 = a;
+	int back1, back2, back3;
+	if (a1 < 4) {
+		back1 = rps[0][1];
 	}
-	else if(a1<7){
-		back1=rps[0][3];
+	else if (a1 < 7) {
+		back1 = rps[0][3];
 	}
-	else if(a1<10){
-		back1=rps[0][5];
+	else if (a1 < 10) {
+		back1 = rps[0][5];
 	}
 	else {
-		back1=rps[0][7];
+		back1 = rps[0][7];
 	}
-	switch(a1){
-		case(1):{
-			back2=card_led[0][0];
-			back3=back1-back2;
-			rps[0][1]=back3;
-			break;
-			}
-		case(2):{
-			back2=card_led[0][1];
-			back3=back1-back2;
-			rps[0][1]=back3;
-			break;
-			}
-		case(3):{
-			back2=card_led[0][2];
-			back3=back1-back2;
-			rps[0][1]=back3;
-			break;
-			}
-		case(4):{
-			back2=card_led[0][0];
-			back3=back1-back2;
-			rps[0][3]=back3;
-			break;
-			}
-		case(5):{
-			back2=card_led[0][1];
-			back3=back1-back2;
-			rps[0][3]=back3;
-			break;
-			}
-		case(6):{
-			back2=card_led[0][2];
-			back3=back1-back2;
-			rps[0][3]=back3;
-			break;
-			}
-		case(7):{
-			back2=card_led[0][0];
-			back3=back1-back2;
-			rps[0][5]=back3;
-			break;
-			}
-		case(8):{
-			back2=card_led[0][1];
-			back3=back1-back2;
-			rps[0][5]=back3;
-			break;
-			}
-		case(9):{
-			back2=card_led[0][2];
-			back3=back1-back2;
-			rps[0][5]=back3;
-			break;
-			}
-		case(10):{
-			back2=card_led[0][0];
-			back3=back1-back2;
-			rps[0][7]=back3;
-			break;
-			}
-		case(11):{
-			back2=card_led[0][1];
-			back3=back1-back2;
-			rps[0][7]=back3;
-			break;
-			}
-		case(12):{
-			back2=card_led[0][2];
-			back3=back1-back2;
-			rps[0][7]=back3;
-			break;
-			}			
+	switch (a1) {
+	case(1): {
+		back2 = card_led[0][0];
+		back3 = back1 - back2;
+		rps[0][1] = back3;
+		break;
+	}
+	case(2): {
+		back2 = card_led[0][1];
+		back3 = back1 - back2;
+		rps[0][1] = back3;
+		break;
+	}
+	case(3): {
+		back2 = card_led[0][2];
+		back3 = back1 - back2;
+		rps[0][1] = back3;
+		break;
+	}
+	case(4): {
+		back2 = card_led[0][0];
+		back3 = back1 - back2;
+		rps[0][3] = back3;
+		break;
+	}
+	case(5): {
+		back2 = card_led[0][1];
+		back3 = back1 - back2;
+		rps[0][3] = back3;
+		break;
+	}
+	case(6): {
+		back2 = card_led[0][2];
+		back3 = back1 - back2;
+		rps[0][3] = back3;
+		break;
+	}
+	case(7): {
+		back2 = card_led[0][0];
+		back3 = back1 - back2;
+		rps[0][5] = back3;
+		break;
+	}
+	case(8): {
+		back2 = card_led[0][1];
+		back3 = back1 - back2;
+		rps[0][5] = back3;
+		break;
+	}
+	case(9): {
+		back2 = card_led[0][2];
+		back3 = back1 - back2;
+		rps[0][5] = back3;
+		break;
+	}
+	case(10): {
+		back2 = card_led[0][0];
+		back3 = back1 - back2;
+		rps[0][7] = back3;
+		break;
+	}
+	case(11): {
+		back2 = card_led[0][1];
+		back3 = back1 - back2;
+		rps[0][7] = back3;
+		break;
+	}
+	case(12): {
+		back2 = card_led[0][2];
+		back3 = back1 - back2;
+		rps[0][7] = back3;
+		break;
+	}
 	}
 }
 
@@ -302,51 +301,41 @@ int FND_Out(int a, int b, int c, int d) {
 
 
 
-void print_lcd(char* av) {
+void print_lcd(char clcd_text[]) {
+	int clcd_d;
 
-	int n;
-	char        buf[MAXCHR];
-
-	lcdFd = open(lcdDev, O_RDWR);
-	if (lcdFd < 0) {
-		fprintf(stderr, "cannot open LCD (%d)", lcdFd);
-		exit(2);
+	clcd_d = open(clcd, O_RDWR);
+	if (clcd_d < 0){
+		printf("clcd error\n");
 	}
 
-	memset(buf, 0, sizeof(buf));
-
-	n = strlen(av);
-
-	memcpy(buf, av, n);
-
-	write(lcdFd, buf, MAXCHR);
-
-	close(lcdFd);
+	write(clcd_d, clcd_text, strlen(clcd_text));
+	close(clcd_d);
 
 }
 
 void map1(void) {
 	int i;
-	for (i=0; i<12; i++){
-		qmap[i]='?';
+	for (i = 0; i < 12; i++) {
+		qmap[i] = '?';
 	}
 }//카드 내용을 가리기 위해 카드 뒷면으로 사용할 '?' 배열 
- 
+
 
 void card_shuffle(void) {
 	srand(time(NULL));//게임을 시작할때마다 다르게 섞이도록 하기 위한 srand()함수 
-	int i,j,x;
-	memset(card_in,0,sizeof(card_in));
-	for(i=1; i<7; i++) //1~6 숫자를  
+	int i, j, x;
+	memset(card_in, 0, sizeof(card_in));
+	for (i = 1; i < 7; i++) //1~6 숫자를  
 	{
-		for(j=0; j<2; j++)//두 개의 카드에 집어 넣음 
+		for (j = 0; j < 2; j++)//두 개의 카드에 집어 넣음 
 		{
 			do
 			{
-				x=rand()%12;
+				x = rand() % 12;
 			} while (card_in[x] != 0);
-			
-			card_in[x]=i;
+
+			card_in[x] = i;
 
 		}
 	}
@@ -355,37 +344,37 @@ void card_shuffle(void) {
 void show_map(void) {
 	printf("\n");
 	int i;
-	for (i=0; i<12; i++){
-		if(i%3==0){
+	for (i = 0; i < 12; i++) {
+		if (i % 3 == 0) {
 			printf("\n");
 		}
 		printf("%c ", qmap[i]);
-		}
+	}
 	printf("\n");
 }//플레이어에게 카드나열한걸 보여주는 맵. 처음 시작시에는 카드 뒷면 '?'를 보여줌 
 
-void show_num(int a, int b){
-		c1=card_in[a]+'0';
-		c2=card_in[b]+'0';
-		qmap[a]=c1;
-		qmap[b]=c2;
+void show_num(int a, int b) {
+	c1 = card_in[a] + '0';
+	c2 = card_in[b] + '0';
+	qmap[a] = c1;
+	qmap[b] = c2;
 }//플레이어가 카드 짝을 맞췄을 시 '?" 를 지우고 카드 내용을 보여줌 
 
-void reset_check (void) {
-		check_card[0]=0;
-		check_card[1]=0;
-		card_select[0]=0;
-		card_select[1]=0;
+void reset_check(void) {
+	check_card[0] = 0;
+	check_card[1] = 0;
+	card_select[0] = 0;
+	card_select[1] = 0;
 } //짝을 맞췄거나 틀렸을경우 선택한 카드를 초기화하는 함수 
 
 void print_please(void) {
-	if(ordernum==1){
+	if (ordernum == 1) {
 		printf("\n");
-		printf("두번째 카드를 골라주세요:  "); 
+		printf("두번째 카드를 골라주세요:  ");
 	}
-	else{
+	else {
 		printf("\n");
-		printf("첫번째 카드를 골라주세요: "); 
+		printf("첫번째 카드를 골라주세요: ");
 	}//지금 고르는 게 몇번째인지 보여주기 위한 함수 
 }
 
@@ -396,70 +385,72 @@ void print_waiting(void) {
 }//게임 시작시 카드 섞는것처럼 보여줌 
 
 void change_player(void) {
-	if(player==0){
-		player=1;
+	if (player == 0) {
+		player = 1;
 	}
-	else{
-		player=0;
+	else {
+		player = 0;
 	}//플레이어가 짝이 맞는 카드를 고르지 못했을 경우 다른 플레이어에게 차례를 넘기는 함수 
 }
 
-void smile(){
-	int dot_d, i;
-	unsigned char c[2][8] = {{0x00,0x66,0x66,0x00,0x00,0x22,0x1c,0x00},
-				{0x00,0x66,0x66,0x00,0x00,0x1c,0x22,0x00}};
-	   if((dot_d = open(dot, O_RDWR)) < 0){
+void dot_smile(int right) {
+	int i;
+	unsigned char c[2][8] = { {0x00,0x66,0x66,0x00,0x00,0x22,0x1c,0x00},
+				{0x00,0x66,0x66,0x00,0x00,0x1c,0x22,0x00} };
+	if ((dot_d = open(dot, O_RDWR)) < 0) {
 		printf("Can't Open\n");
-		   exit(0);    }
-	   for(i=0;i<4;i++) {
-		write(dot_d,&c[i%2],sizeof(c[i%2]));
-	    	sleep(2);    }
-	   	close(dot_d);
+		exit(0);
+	}
+	write(dot_d, &c[right], sizeof(c[right]));
+	sleep(2);
+	close(dot_d);
 } // dot_matrix에 웃음 표시
 
 void checkcard(int a, int b) {
-	a=a-1;//첫번째 카드 
-	b=b-1;//두번째 카드  
-	if(card_in[a]==card_in[b]) {
+	a = a - 1;//첫번째 카드 
+	b = b - 1;//두번째 카드  
+	if (card_in[a] == card_in[b]) {
 		num1++;
-		if(player==0){
+		if (player == 0) {
 			player1_score++;
-			answer=player1_score;
+			answer = player1_score;
 		}
-		else{
+		else {
 			player2_score++;
-			answer=player2_score;
+			answer = player2_score;
 		}
 		printf("\n");
 		printf("짝을 맞췄습니다!\n");
 		printf("\n");
-		printf("플레이어%d의 점수: %d",player+1, answer);
-		card_off(a+1);
-		card_off(b+1);
-		show_num(a,b);
+		dot_smile(0);
+		printf("플레이어%d의 점수: %d", player + 1, player1_score);
+		card_off(a + 1);
+		card_off(b + 1);
+		show_num(a, b);
 		reset_check();//check_card[],card_select[] 초기화 
-		card_in[a]=0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
-		card_in[b]=0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
+		card_in[a] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
+		card_in[b] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
 		show_map();//현재 남은 카드 배치를 보여줌 
 	}//짝이 맞을경우 카드를 뒤집어 숫자를 보여주고 check_card[],card_select[] 초기화  
 	else {
 		printf("\n");
 		printf("틀렸습니다 차례가 넘어갑니다.\n");
 		printf("\n");
+		dot_smile(1);
 		change_player();//상대방에게 순서를 넘겨줌 
 		reset_check();//check_card[],card_select[] 초기화
-		printf("플레이어%d의 차례입니다.\n",player+1);
-		
+		printf("플레이어%d의 차례입니다.\n", player + 1);
+
 	}
 }//고른 두 개의 카드가 짝이 맞는지 체크하는 함수 
 
 void sum_score(void) {
-	if(player1_score>player2_score){
+	if (player1_score > player2_score) {
 		printf("\n");
 		printf("플레이어1이 승리하였습니다!");
 		printf("\n");
 	}
-	else if(player1_score==player2_score){
+	else if (player1_score == player2_score) {
 		printf("\n");
 		printf("아쉽습니다 비겼습니다...");
 		printf("\n");
@@ -483,169 +474,170 @@ void dot_num(int choice) {
 								{0x3c,0x04,0x04,0x08,0x10,0x10,0x10,0x00},
 								{0x18,0x24,0x24,0x18,0x24,0x24,0x18,0x00},
 								{0x18,0x24,0x24,0x1c,0x04,0x04,0x18,0x00}, };
-	dot_d= open(dot,O_RDWR);
+	dot_d = open(dot, O_RDWR);
 
 	write(dot_d, &c[choice], sizeof(c[choice]));
 	sleep(1);
 	dot_d = close(dot_d);
 }
 
-void put_num(int check) { 
-	int x,y;
-	if(card_in[check-1]==0){
+void put_num(int check) {
+	int x, y;
+	if (card_in[check - 1] == 0) {
 		printf("\n");
 		printf("이미 맞춘 카드입니다.\n");
-		if(card_select[0]==0){	
-			ordernum=0;		
+		if (card_select[0] == 0) {
+			ordernum = 0;
 		}
-		else{
-			ordernum=1;
+		else {
+			ordernum = 1;
 		}
 	}//고른 카드가 이미 짝을 맞춘 카드인지를 체크하는 조건 문 
-	else{
-		if(card_select[0]==0){
-			check_card[0]=card_in[check-1];
-			card_select[0]=check;
-			x=check_card[0];
+	else {
+		if (card_select[0] == 0) {
+			check_card[0] = card_in[check - 1];
+			card_select[0] = check;
+			x = check_card[0];
 			printf("\n");
 			printf("첫번째 카드 내용: %d", check_card[0]);
 			printf("\n");
-			ordernum=1; 
+			ordernum = 1;
 			dot_num(x);
 		}//첫번째 카드를 고르지 않았을 경우 첫번째 카드를  card_select[0]에 카드번호를, check_card[0]에 카드 앞면을 저장 
-		else{
-			if(card_in[check-1]==0){
-				ordernum=1;
+		else {
+			if (card_in[check - 1] == 0) {
+				ordernum = 1;
 				printf("\n");
 				printf("이미 맞춘 카드입니다.\n");
 			}//고른 카드가 이미 짝을 맞춘 카드인지를 체크하는 조건 문
-			else{
-				check_card[1]=card_in[check-1];
-				card_select[1]=check;
-				y=check_card[1];
+			else {
+				check_card[1] = card_in[check - 1];
+				card_select[1] = check;
+				y = check_card[1];
 				printf("\n");
-				printf("두번째 카드 내용: %d",check_card[1]);
+				printf("두번째 카드 내용: %d", check_card[1]);
 				printf("\n");
 				dot_num(y);
-		
-				if(card_select[0]==card_select[1]){
+
+				if (card_select[0] == card_select[1]) {
 					printf("\n");
 					printf("중복된 카드를 골랐습니다 다시 고르세요.\n");
 					printf("\n");
-					check_card[1]=0;
-					card_select[1]=0;
-					}			
-						}//첫번째와 두번째 카드를 같은 카드를 골랐을 경우 두번째 카드 정보를 담은 check_card[1],card_select[1]을 초기화후 다시 고르도록 함 
-								
-			if(card_select[0]!=0&&card_select[1]!=0){
+					check_card[1] = 0;
+					card_select[1] = 0;
+				}
+			}//첫번째와 두번째 카드를 같은 카드를 골랐을 경우 두번째 카드 정보를 담은 check_card[1],card_select[1]을 초기화후 다시 고르도록 함 
+
+			if (card_select[0] != 0 && card_select[1] != 0) {
 				printf("\n");
 				printf("zzzzz");
 				printf("\n");
-				ordernum=0;
-				checkcard(card_select[0],card_select[1]);
+				ordernum = 0;
+				checkcard(card_select[0], card_select[1]);
 			}//서로 다른 카드 두개를 골랐으면 두 카드를 비교 
-		}		
-	}		
+		}
+	}
 }//카드를 고르는 함수 
 
 
 
-int main(void){
-	struct timeval dotst,dotend,tactst,tactend,fndst,fndend;
+int main(void) {
+	struct timeval dotst, dotend, tactst, tactend, fndst, fndend;
 	int dot_d = 0;
-    int tact = 0;
-    int fnd_d = 0;
-	unsigned char t=0;    
+	int tact = 0;
+	int fnd_d = 0;
+	unsigned char t = 0;
 	unsigned char c;
 	unsigned char d;
 	int dev;
 	intro_game();
-	print_lcd();
+	print_lcd(pla1);
+	print_lcd(pla2);
 	print_waiting();
 	card_shuffle();
 	map1();
 	show_map();
 	gettimeofday(&dotst, NULL);
 	printf("\n");
-	printf("플레이어%d의 차례입니다.",player+1);
+	printf("플레이어%d의 차례입니다.", player + 1);
 	printf("\n");
-	while(num1<6)
+	while (num1 < 6)
 	{
-		if(dot_d==0){
-			dot_d= open(dot,O_RDWR);
+		if (dot_d == 0) {
+			dot_d = open(dot, O_RDWR);
 		}
 		gettimeofday(&dotend, NULL);
-		
-		write(dot_d,&rps,sizeof(rps));
-		
+
+		write(dot_d, &rps, sizeof(rps));
+
 		if ((dotend.tv_usec - dotst.tv_usec > 200000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 200000)))
-        {
-            dot_d = close(dot_d);
-            if (tact == 0)     //tact switch에 접근하지 않은 경우만 open
-            {
-                tact = open(tact_d, O_RDWR);
-            }
-            gettimeofday(&tactst, NULL);
-			while (1){
-				gettimeofday(&tactend,NULL);
-				read(tact,&t,sizeof(t));
-				switch(t){
-					case KEY_NUM1:
-						printf("%d",1);
-						put_num(1);
-						break;
-					case KEY_NUM2:
-						printf("%d",2);
-						put_num(2);
-						break;
-					case KEY_NUM3:
-						printf("%d",3);				
-						put_num(3);
-						break;
-					case KEY_NUM4:
-						printf("%d",4);
-						put_num(4);
-						break;
-					case KEY_NUM5:
-						printf("%d",5);
-						put_num(5);
-						break;	
-					case KEY_NUM6:
-						printf("%d",6);
-						put_num(6);
-						break;
-					case KEY_NUM7:
-						printf("%d",7);
-						put_num(7);
-						break;
-					case KEY_NUM8:
-						printf("%d",8);
-						put_num(8);
-						break;
-					case KEY_NUM9:
-						printf("%d",9);
-						put_num(9);
-						break;
-					case KEY_NUM10:
-						printf("%d",10);
-						put_num(10);
-						break;
-					case KEY_NUM11:
-						printf("%d",11);
-						put_num(11);
-						break;
-					case KEY_NUM12:
-						printf("%d",12);
-						put_num(12);
-						break;
-				}
-			    if ((tactend.tv_usec - tactst.tv_usec > 200000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 200000)) || t)
-                {
-                    tact = close(tact);
-                    break;
-                }
+		{
+			dot_d = close(dot_d);
+			if (tact == 0)     //tact switch에 접근하지 않은 경우만 open
+			{
+				tact = open(tact_d, O_RDWR);
 			}
-		gettimeofday(&dotst, NULL);
+			gettimeofday(&tactst, NULL);
+			while (1) {
+				gettimeofday(&tactend, NULL);
+				read(tact, &t, sizeof(t));
+				switch (t) {
+				case KEY_NUM1:
+					printf("%d", 1);
+					put_num(1);
+					break;
+				case KEY_NUM2:
+					printf("%d", 2);
+					put_num(2);
+					break;
+				case KEY_NUM3:
+					printf("%d", 3);
+					put_num(3);
+					break;
+				case KEY_NUM4:
+					printf("%d", 4);
+					put_num(4);
+					break;
+				case KEY_NUM5:
+					printf("%d", 5);
+					put_num(5);
+					break;
+				case KEY_NUM6:
+					printf("%d", 6);
+					put_num(6);
+					break;
+				case KEY_NUM7:
+					printf("%d", 7);
+					put_num(7);
+					break;
+				case KEY_NUM8:
+					printf("%d", 8);
+					put_num(8);
+					break;
+				case KEY_NUM9:
+					printf("%d", 9);
+					put_num(9);
+					break;
+				case KEY_NUM10:
+					printf("%d", 10);
+					put_num(10);
+					break;
+				case KEY_NUM11:
+					printf("%d", 11);
+					put_num(11);
+					break;
+				case KEY_NUM12:
+					printf("%d", 12);
+					put_num(12);
+					break;
+				}
+				if ((tactend.tv_usec - tactst.tv_usec > 200000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 200000)) || t)
+				{
+					tact = close(tact);
+					break;
+				}
+			}
+			gettimeofday(&dotst, NULL);
 		}
 
 	}
