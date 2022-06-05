@@ -285,16 +285,15 @@ void change_player(void) {
 	}//플레이어가 짝이 맞는 카드를 고르지 못했을 경우 다른 플레이어에게 차례를 넘기는 함수 
 }
 
-void smile(){
+void dot_smile(int right){
 	int dot_d, i;
 	unsigned char c[2][8] = {{0x00,0x66,0x66,0x00,0x00,0x22,0x1c,0x00},
 				{0x00,0x66,0x66,0x00,0x00,0x1c,0x22,0x00}};
 	   if((dot_d = open(dot, O_RDWR)) < 0){
 		printf("Can't Open\n");
 		   exit(0);    }
-	   for(i=0;i<4;i++) {
-		write(dot_d,&c[i%2],sizeof(c[i%2]));
-	    	sleep(2);    }
+		write(dot_d,&c[right],sizeof(c[right]));
+	    	sleep(2);}
 	   	close(dot_d);
 } // dot_matrix에 웃음 표시
 
@@ -314,6 +313,7 @@ void checkcard(int a, int b) {
 		printf("\n");
 		printf("짝을 맞췄습니다!\n");
 		printf("\n");
+		dot_smile(0)
 		printf("플레이어%d의 점수: %d",player+1, answer);
 		card_off(a+1);
 		card_off(b+1);
@@ -327,6 +327,7 @@ void checkcard(int a, int b) {
 		printf("\n");
 		printf("틀렸습니다 차례가 넘어갑니다.\n");
 		printf("\n");
+		dot_smile(1)
 		change_player();//상대방에게 순서를 넘겨줌 
 		reset_check();//check_card[],card_select[] 초기화
 		printf("플레이어%d의 차례입니다.\n",player+1);
