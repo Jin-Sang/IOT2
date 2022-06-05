@@ -55,10 +55,10 @@ bool bools=true;// while 함수 종료하기 위한 논리값
 static char tactswDev[] = "/dev/tactsw";
 static char lcdDev[] = "/dev/clcd";
 static int  lcdFd = (-1);
-char pla1[3] = " ";
-char pla2[3] = " ";
-char playervs[20] =" ";
-char vs[5] =" vs ";
+char pla1[4] = " ";
+char pla2[4] = " ";
+char playervs[20] ="  ";
+char vs[5] =" vs";
 
 void append_name(char* dst, char c) {
 	char* p = dst;
@@ -113,7 +113,7 @@ int intro_game() {
 
 	gettimeofday(&dotst1, NULL);
 
-	while (count<5)
+	while (count<7)
 	{
 		if (dot_d == 0) {
 			dot_d = open(dot, O_RDWR);
@@ -141,20 +141,24 @@ int intro_game() {
 
 				case KEY_NUM5: {
 					count = count + 1;
-					if (count < 3) {
-
+					if (count < 4) {
 						append_name(pla1, alphP[i]);
 						printf("%s\n", pla1);
+						
 					}
-					else if (count<5) {
+					else if (count<7) {
 						append_name(pla2, alphP[i]);
 						printf("%s\n", pla2);
 					}
 					else{
 						strcat(playervs,pla1);
+						printf("%s\n",playervs);
 						strcat(playervs,vs);
+						printf("%s\n",playervs);
 						strcat(playervs,pla2);
-						printf("%s",playervs);
+						printf("%s\n",playervs);
+						printf("%s\n",pla1);
+						printf("%s\n");
 						return 0;
 					}
 					break;
