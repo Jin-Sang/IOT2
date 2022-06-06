@@ -101,6 +101,7 @@ int FND_Out(int a, int b, int c, int d) {
 		sleep(1);		
 	}
 	change_player();
+	close(fnd_fd);
 }
 
 
@@ -772,6 +773,7 @@ int main(void) {
 					}
 					while(1){
 						led_player(player);
+						printf("test\n");
 					gettimeofday(&ledend, NULL);
 					
 					if ((ledend.tv_usec - ledst.tv_usec > 200000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 200000))){
@@ -780,10 +782,18 @@ int main(void) {
 						fnd_fd = open(fnd_dev, O_RDWR);
 						
 						while(1){
-							FND_Out(0,0,0,5);
-						for(i = 5; i > -1; i--){
-							printf("%d\n", i);
-						}
+							unsigned char FND_DATA_TBL[] = {
+								0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0x88,
+								0x83,0xC6,0xA1,0x86,0x8E,0xC0,0xF9,0xA4,0xB0,0x99,0x89
+									};
+							unsigned char fnd_num[4];
+
+							fnd_num[0] = FND_DATA_TBL[0];
+							fnd_num[1] = FND_DATA_TBL[0];
+							fnd_num[2] = FND_DATA_TBL[0];
+							fnd_num[3] = FND_DATA_TBL[0];
+							write(fnd_fd, &fnd_num, sizeof(fnd_num));
+							sleep(1);
 							gettimeofday(&fndend, NULL);
 							if ((fndend.tv_usec - fndst.tv_usec > 200000) || (fndend.tv_sec > fndst.tv_sec && (fndend.tv_usec + 1000000 - fndst.tv_usec > 200000))) {
                     					fnd_fd = close(fnd_fd);
