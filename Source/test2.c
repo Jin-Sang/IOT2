@@ -798,11 +798,14 @@ int main(void) {
 					if ((ledend.tv_usec - ledst.tv_usec > 200000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 200000))){
 						
 						gettimeofday(&fndst, NULL);
-						FND_Out(0,0,0,5);
-						gettimeofday(&fndend, NULL);
-						
-						if ((fndend.tv_usec - fndst.tv_usec > 200000) || (fndend.tv_sec > fndst.tv_sec && (fndend.tv_usec + 1000000 - fndst.tv_usec > 200000))){
-							break;	
+						fnd_fd = open(fnd_dev, O_RDWR);
+						for(int i = 5; i > -1; i--){
+							printf("%d\n", i);
+							gettimeofday(&fndend, NULL);
+							if ((fndend.tv_usec - fndst.tv_usec > 200000) || (fndend.tv_sec > fndst.tv_sec && (fndend.tv_usec + 1000000 - fndst.tv_usec > 200000))) {
+                    					fnd_d = close(fnd_d);
+                   					 break;
+                					}
 						}
 		
 						break;
