@@ -499,9 +499,9 @@ void print_please(void) {
 }
 
 void print_waiting(void) {
-	printf("----------------\n");
-	printf("  shuffling...\n");
-	printf("----------------\n");
+	printf("\n----------------\n");
+	printf("  shuffling...");
+	printf("\n----------------\n");
 	print_lcd("   shuffling.   ");
 }//게임 시작시 카드 섞는것처럼 보여줌 
 
@@ -511,8 +511,10 @@ void dot_smile(int right) {
 	int i;
 	unsigned char c[2][8] = { {0x00,0x66,0x66,0x00,0x00,0x42,0x3c,0x00},
 				{0x00,0x66,0x66,0x00,0x00,0x3c,0x42,0x00} };
+	dot_d = open(dot, O_RDWR);
 	write(dot_d, &c[right], sizeof(c[right]));
 	sleep(2);
+	dot_d = close(dot_d);
 } // dot_matrix에 웃음 표시
 
 void checkcard(int a, int b) {
@@ -603,9 +605,10 @@ void dot_num(int choice) {
 								{0x04,0x0C,0x14,0x24,0x7E,0x04,0x04,0x00},
 								{0x3c,0x20,0x20,0x18,0x04,0x24,0x18,0x00},
 								{0x18,0x24,0x20,0x38,0x24,0x24,0x18,0x00}, };
+	dot_d = open(dot, O_RDWR);
 	write(dot_d, &c[choice], sizeof(c[choice]));
 	sleep(1);
-a
+	dot_d = close(dot_d);
 }
 
 void put_num(int check) {
