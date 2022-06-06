@@ -60,6 +60,39 @@ char playervs[16] ="    ";
 char texttext[32]="";
 char lcd_score1[16] = ""; 
 
+int FND_Out(int a, int b, int c, int d) {
+	int i;
+	unsigned char FND_DATA_TBL[] = {
+			0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0x88,
+			0x83,0xC6,0xA1,0x86,0x8E,0xC0,0xF9,0xA4,0xB0,0x99,0x89
+	};
+
+	int fnd_fd = 0;
+
+	unsigned char fnd_num[4];
+
+	fnd_num[0] = FND_DATA_TBL[a];
+	fnd_num[1] = FND_DATA_TBL[b];
+	fnd_num[2] = FND_DATA_TBL[c];
+	fnd_num[3] = FND_DATA_TBL[d];
+
+	fnd_fd = open(fnd_dev, O_RDWR);
+	write(fnd_fd, &fnd_num, sizeof(fnd_num));
+	sleep(1);
+	if (fnd_fd < 0) {
+		printf("Can't Open Device\n");
+	}
+	for(i=5; i>0; i--){
+		d=d--;
+		fnd_num[3]=FND_DATA_TBL[d];
+		write(fnd_fd, &fnd_num, sizeof(fnd_num));
+		sleep(1);		
+	}
+	change_player();
+	close(fnd_fd);
+}
+
+
 
 void print_lcd(char clcd_text[]) {
 	int clcd_d;
@@ -765,7 +798,7 @@ int main(void) {
 					if ((ledend.tv_usec - ledst.tv_usec > 200000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 200000))){
 						
 						gettimeofday(&fndst, NULL);
-						led_player(player);
+						FND_Out(0,0,0,5);
 						gettimeofday(&fndend, NULL);
 						
 						if ((fndend.tv_usec - fndst.tv_usec > 200000) || (fndend.tv_sec > fndst.tv_sec && (fndend.tv_usec + 1000000 - fndst.tv_usec > 200000))){
