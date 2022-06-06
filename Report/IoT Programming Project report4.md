@@ -126,7 +126,7 @@ void card_off(int a) {
 }
 ```
 
-![led 꺼짐](../img/card_off.gif)
+![led꺼짐]<img src="../img/card_off" width="500" height="500"/>
 
 ### 카드 앞면 확인 
 
