@@ -50,6 +50,7 @@ int player;//두 플레이어 구분 하기 위한 변수
 char c1,c2; //맞췄을 시 화면에 카드 내용을 보여주기 위한 변수 
 char qmap[12];//카드 뒷면 
 int dot_d = 0;
+int fnd_fd = 0;
 bool bools=true;// while 함수 종료하기 위한 논리값 
 static char tactswDev[] = "/dev/tactsw";
 static char lcdDev[] = "/dev/clcd";
@@ -60,6 +61,16 @@ char playervs[16] ="    ";
 char texttext[32]="";
 char lcd_score1[16] = ""; 
 
+
+void change_player(void) {
+	if (player == 0) {
+		player = 1;
+	}
+	else {
+		player = 0;
+	}//플레이어가 짝이 맞는 카드를 고르지 못했을 경우 다른 플레이어에게 차례를 넘기는 함수 
+}
+
 int FND_Out(int a, int b, int c, int d) {
 	int i;
 	unsigned char FND_DATA_TBL[] = {
@@ -67,7 +78,7 @@ int FND_Out(int a, int b, int c, int d) {
 			0x83,0xC6,0xA1,0x86,0x8E,0xC0,0xF9,0xA4,0xB0,0x99,0x89
 	};
 
-	int fnd_fd = 0;
+
 
 	unsigned char fnd_num[4];
 
@@ -420,33 +431,6 @@ void card_off(int a) {
 	}
 }
 
-int FND_Out(int a, int b, int c, int d) {
-
-	unsigned char FND_DATA_TBL[] = {
-			0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0x88,
-			0x83,0xC6,0xA1,0x86,0x8E,0xC0,0xF9,0xA4,0xB0,0x99,0x89
-	};
-
-	int fnd_fd = 0;
-
-	unsigned char fnd_num[4];
-
-	fnd_num[0] = FND_DATA_TBL[a];
-	fnd_num[1] = FND_DATA_TBL[b];
-	fnd_num[2] = FND_DATA_TBL[c];
-	fnd_num[3] = FND_DATA_TBL[d];
-
-	fnd_fd = open(fnd_dev, O_RDWR);
-
-	if (fnd_fd < 0) {
-		printf("Can't Open Device\n");
-	}
-	write(fnd_fd, &fnd_num, sizeof(fnd_num));
-	sleep(1);
-	close(fnd_fd);
-}
-
-
 
 void map1(void) {
 	int i;
@@ -520,14 +504,7 @@ void print_waiting(void) {
 	print_lcd("   shuffling.   ");
 }//게임 시작시 카드 섞는것처럼 보여줌 
 
-void change_player(void) {
-	if (player == 0) {
-		player = 1;
-	}
-	else {
-		player = 0;
-	}//플레이어가 짝이 맞는 카드를 고르지 못했을 경우 다른 플레이어에게 차례를 넘기는 함수 
-}
+
 
 void dot_smile(int right) {
 	int i;
@@ -697,9 +674,8 @@ void put_num(int check) {
 
 int main(void) {
 	struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend;
-	int dot_d = 0;
 	int tact = 0;
-	int fnd_d = 0;
+	int i=0;
 	unsigned char t = 0;
 	unsigned char c;
 	unsigned char d;
@@ -801,11 +777,11 @@ int main(void) {
 						
 						gettimeofday(&fndst, NULL);
 						fnd_fd = open(fnd_dev, O_RDWR);
-						for(int i = 5; i > -1; i--){
+						for(i = 5; i > -1; i--){
 							printf("%d\n", i);
 							gettimeofday(&fndend, NULL);
 							if ((fndend.tv_usec - fndst.tv_usec > 200000) || (fndend.tv_sec > fndst.tv_sec && (fndend.tv_usec + 1000000 - fndst.tv_usec > 200000))) {
-                    					fnd_d = close(fnd_d);
+                    					fnd_fd = close(fnd_fd);
                    					 break;
                 					}
 						}
