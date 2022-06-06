@@ -574,7 +574,9 @@ void sum_score(void) {
 		strcat(a,pla1);
 		strcat(a," win!!    ");
 		print_lcd(a);
+		dev=open(led_dev, O_RDWR);
 		led_player(0);
+		dev=close(dev);
 		
 	}
 	else if (player1_score == player2_score) {
@@ -592,7 +594,9 @@ void sum_score(void) {
 		strcat(a,pla2);
 		strcat(a," win!!    ");
 		print_lcd(a);
+		dev = open(led_dev, O_RDWR);
 		led_player(1);
+		dev=close(dev);
 	}
 
 }//다 맞춘 후 점수 계산하는 함수 
