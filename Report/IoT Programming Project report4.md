@@ -20,155 +20,221 @@ IoT 프로그래밍 프로젝트 2조 3주차 보고서
 
   - dot_matrix와 스위치를 동시에 사용할 수 있도록 구현
 
-  - 선택한 카드가 짝이 맞는지 틀린지를 알 수있도록 dot_matrix에 이모티콘 출력
+  - 선택한 카드가 짝이 맞았을 경우 웃음 표정을, 틀렸을 경우 울상 표정을 dot_matrix에 출력
+
+  - 짝을 못맞췄을 경우 상대방에게 턴을 넘기도록 구현
+
+  - led를 이용하여 현재 누구 차례인지 알수 있도록 구현
 
 - ##### Smart4412 장치의 입출력장치에 기본 작동 방법 학습
 
+## 1. 타겟시스템 환경에 맞춰 코드 작성
 
-## 1. 알고리즘 순서도 작성
+기존 2주차 코드와 동일합니다
 
-![알고리즘 순서도](https://user-images.githubusercontent.com/80252681/171007720-70311687-6b1d-4270-8f1a-05c5568c8702.jpg)
+## 2. 추가 기능 구현
 
-## 2. 논리에 맞게 프로그램 작성
+타겟 시스템에 맞춰 코드를 작성 한 후, 추가적인 기능을 구현하였습니다
 
-먼저, 카드 뒤집기 게임의 논리에 맞게 PC에서 작동하는 프로그램을 작성하였습니다.
-
-### 4x3 카드 랜덤으로 배치.
-
-```C
-void map1(void) {
-	int i;
-	for (i = 0; i < 12; i++) {
-		qmap[i] = '?';
-	}
-}//카드 내용을 가리기 위해 카드 뒷면으로 사용할 '?' 배열 
-
-
-void card_shuffle(void) {
-	srand(time(NULL));//게임을 시작할때마다 다르게 섞이도록 하기 위한 srand()함수 
-	int i, j, x;
-	memset(card_in, 0, sizeof(card_in));
-	for (i = 1; i < 7; i++) //1~6 숫자를  
-	{
-		for (j = 0; j < 2; j++)//두 개의 카드에 집어 넣음 
-		{
-			do
-			{
-				x = rand() % 12;
-			} while (card_in[x] != 0);
-
-			card_in[x] = i;
-
-		}
-	}
-} //12개의 카드에 1~6의 숫자를 두번씩 총 12번 넣어 카드를 섞는 코드
-
-void show_map(void) {
-	printf("\n");
-	int i;
-	for (i = 0; i < 12; i++) {
-		if (i % 4 == 0) {
-			printf("\n");
-		}
-		printf("%c ", qmap[i]);
-	}
-	printf("\n");
-}//플레이어에게 카드나열한걸 보여주는 맵. 처음 시작시에는 카드 뒷면 '?'를 보여줌 
-```
-
-
-![1](https://user-images.githubusercontent.com/80252681/171071214-ba0fe04d-b057-4ef0-b44f-1a1707cbe9fe.png)
-
-
-### 짝 찾기
-
+### 짝이 맞았을 경우 해당 위치 dot_matrix led off
 
 ```C
-void show_num(int a, int b) {
-	c1 = card_in[a] + '0';
-	c2 = card_in[b] + '0';
-	qmap[a] = c1;
-	qmap[b] = c2;
-}//플레이어가 카드 짝을 맞췄을 시 '?" 를 지우고 카드 내용을 보여줌 
-
-void reset_check(void) {
-	check_card[0] = 0;
-	check_card[1] = 0;
-	card_select[0] = 0;
-	card_select[1] = 0;
-} //짝을 맞췄거나 틀렸을경우 선택한 카드를 초기화하는 함수 
-
-void change_player(void) {
-	if (player == 0) {
-		player1_score = answer;
-		answer = player2_score;
-		player = 1;
-	}
+void card_off(int a) {
+	int a1 = a;//카드 위치
+	int back1, back2, back3;
+	if (a1 < 4) {
+		back1 = rps[0][1];
+	}// 첫번째 줄(1,2,3번째 카드)
+	else if (a1 < 7) {
+		back1 = rps[0][3];
+	}// 두번째 줄(4,5,6번째 카드)
+	else if (a1 < 10) {
+		back1 = rps[0][5];
+	}// 세번째 줄(7,8,9번째 카드)
 	else {
-		player2_score = answer;
-		answer = player1_score;
-		player = 0;
-	}//플레이어가 짝이 맞는 카드를 고르지 못했을 경우 다른 플레이어에게 차례를 넘기는 함수 
+		back1 = rps[0][7];
+	}// 네번째 줄(10,11,12번째 카드)
+	switch (a1) {
+        case(1): {
+            back2 = card_led[0][0];
+            back3 = back1 - back2;
+            rps[0][1] = back3;
+            break;
+        }//1번째 카드일 경우 해당위치 led off
+        case(2): {
+            back2 = card_led[0][1];
+            back3 = back1 - back2;
+            rps[0][1] = back3;
+            break;
+        }//2번째 카드일 경우 해당위치 led off
+        case(3): {
+            back2 = card_led[0][2];
+            back3 = back1 - back2;
+            rps[0][1] = back3;
+            break;
+        }//3번째 카드일 경우 해당위치 led off
+        case(4): {
+            back2 = card_led[0][0];
+            back3 = back1 - back2;
+            rps[0][3] = back3;
+            break;
+        }//4번째 카드일 경우 해당위치 led off
+        case(5): {
+            back2 = card_led[0][1];
+            back3 = back1 - back2;
+            rps[0][3] = back3;
+            break;
+        }//5번째 카드일 경우 해당위치 led off
+        case(6): {
+            back2 = card_led[0][2];
+            back3 = back1 - back2;
+            rps[0][3] = back3;
+            break;
+        }//6번째 카드일 경우 해당위치 led off
+        case(7): {
+            back2 = card_led[0][0];
+            back3 = back1 - back2;
+            rps[0][5] = back3;
+            break;
+        }//7번째 카드일 경우 해당위치 led off
+        case(8): {
+            back2 = card_led[0][1];
+            back3 = back1 - back2;
+            rps[0][5] = back3;
+            break;
+        }//8번째 카드일 경우 해당위치 led off
+        case(9): {
+            back2 = card_led[0][2];
+            back3 = back1 - back2;
+            rps[0][5] = back3;
+            break;
+        }//9번째 카드일 경우 해당위치 led off
+        case(10): {
+            back2 = card_led[0][0];
+            back3 = back1 - back2;
+            rps[0][7] = back3;
+            break;
+        }//10번째 카드일 경우 해당위치 led off
+        case(11): {
+            back2 = card_led[0][1];
+            back3 = back1 - back2;
+            rps[0][7] = back3;
+            break;
+        }//11번째 카드일 경우 해당위치 led off
+        case(12): {
+            back2 = card_led[0][2];
+            back3 = back1 - back2;
+            rps[0][7] = back3;
+            break;
+        }//12번째 카드일 경우 해당위치 led off
+	}
 }
 ```
 
-![2](https://user-images.githubusercontent.com/80252681/171071686-945f3e66-16de-42d3-a63b-64e62f0fcc62.png)
 
-짝을 못 찾은 경우
+### 카드 앞면 확인 
 
-![3](https://user-images.githubusercontent.com/80252681/171071877-c7910154-836a-4e66-ab0b-218e3901eb15.png)
-
-짝을 찾은 경우
-
-짝을 못 찾는다면 차례가 다음 플레이어로 넘어갑니다.
-짝을 찾는다면 찾은 카드는 앞면으로 뒤집고 차례는 유지됩니다.
-
-### 점수 합산 및 승자 결정
 
 ```C
-void sum_score(void) {
-	if (player1_score > player2_score) {
-		printf("\n");
-		printf("플레이어1이 승리하였습니다!");
-		printf("\n");
-	}
-	else if (player1_score == player2_score) {
-		printf("\n");
-		printf("아쉽습니다 비겼습니다...");
-		printf("\n");
-	}
-	else {
-		printf("\n");
-		printf("플레이어2가 승리하였습니다!");
-		printf("\n");
-	}
+void dot_num(int choice) {
+	unsigned char c[7][8] = { {0x3c,0x42,0x42,0x42,0x42,0x42,0x3c,0x00}, // 0
+								{0x18,0x28,0x08,0x08,0x08,0x08,0x3c,0x00}, // 1
+								{0x18,0x24,0x24,0x04,0x08,0x10,0x3c,0x00}, // 2
+								{0x18,0x24,0x04,0x18,0x04,0x24,0x18,0x00}, // 3
+								{0x04,0x0C,0x14,0x24,0x7E,0x04,0x04,0x00}, // 4
+								{0x3c,0x20,0x20,0x18,0x04,0x24,0x18,0x00}, // 5
+								{0x18,0x24,0x20,0x38,0x24,0x24,0x18,0x00}, // 6 
+                            };
+	dot_d = open(dot, O_RDWR);
+	write(dot_d, &c[choice], sizeof(c[choice]));
+	sleep(1);
+	dot_d = close(dot_d);
+}//입력받은 카
 
-}//다 맞춘 후 점수 계산하는 함수 
+int main(void){
+    int check1, check2; //임의의 카드 번호
+    check_card[0] = card_in[check1 - 1]; // 해당 카드의 앞면 숫자
+	x = check_card[0];
+    check_card[1] = card_in[check2 - 1];
+	y = check_card[1];
+    dot_num(x);
+    dot_num(y);
+}
 ```
 
-![4](https://user-images.githubusercontent.com/80252681/171071992-a7aadbb8-7cfc-4377-a69c-9a05f6881265.png)
+### 카드 비교후 웃음,울상 표정 출력
 
-카드를 모두 뒤집었다면 점수를 합산하여 승자를 결정합니다.
+```C
+void dot_smile(int right) {
+	int i;
+	unsigned char c[2][8] = { 	
+        	{0x00,0x66,0x66,0x00,0x00,0x42,0x3c,0x00},//웃음 표정
+			{0x00,0x66,0x66,0x00,0x00,0x3c,0x42,0x00},//울상 표정
+    };
+	dot_d = open(dot, O_RDWR);
+	write(dot_d, &c[right], sizeof(c[right]));
+	sleep(2);
+	dot_d = close(dot_d);
+} // dot_matrix에 웃음 표시
+```
 
-### 예외 처리
+### LED로 플레이어 턴 표시
 
-다양한 상황에서 발생하는 예외들을 처리하는 코드도 구현하였습니다. ( card shuffle.c )
+```c
+void led_player(int player){
+	int count;
+	int a=player;
+	unsigned char data;
+	if(a==0){
+		for( count =0 ; count <16; count ++) {
+			if( count%2){
+				data = 0xF0;
+				write(dev, &data, sizeof(unsigned char));
+				usleep(10000);
+			}
+			else{
+				data = 0xFF;
+				write(dev, &data, sizeof(unsigned char));
+				usleep(10000);
+			}
+		}		
+	}//player==0, 플레이어1 차례일 경우 왼쪽 led 4개 점멸
+	else{
+		for( count =0 ; count <16; count ++) {
+			if( count%2){
+				data = 0x0F;
+				write(dev, &data, sizeof(unsigned char));
+				usleep(10000);
+			}
+			else{
+				data = 0xFF;
+				write(dev, &data, sizeof(unsigned char));
+				usleep(10000);
+			}
+		}		
+	}//player==1, 플레이어2 차례일 경우 오른쪽 led 4개 점멸
+}
+```
+
+### 틀렸을 경우 다음 플레이어에게 턴 넘기기
+
+```c
+void change_player(void) {
+	if (player == 0) {
+		player = 1;
+	}//현재 플레이어1의 차례일 경우 플레이어2의 차례로 넘김 
+	else {
+		player = 0;
+	}//현재 플레이어2의 차례일 경우 플레이어1의 차례로 넘김  
+}//플레이어가 짝이 맞는 카드를 고르지 못했을 경우 다른 플레이어에게 차례를 넘기는 함수 
+```
+
+## 3. 최종 발표일까지 계획
+
+- 구현이 가능한 기능 추가 고려
 
 
-## 3. DOT MATRIX START 화면 조작
-
-카드가 4x3로 깔려 있는 모습을 연출하여 보았습니다. (ready.c)
-
-https://user-images.githubusercontent.com/80252681/171009302-d55f3833-0401-425c-b9ad-178cbfd29168.mp4
-
-## 4. 다음 주 계획
-
-- 구현한 카드 뒤집기 프로그램을 타겟 시스템의 입출력 장치를 이용하여 구현해보기.
-- 다른 추가할 기능을 생각해 보기 
-- 다양한 기능들을 입출력장치와 연결시켜 추가할 계획.
-
-
-## 5. 참고 링크
+## 참고 링크
 
 https://blockdmask.tistory.com/400
 
