@@ -247,5 +247,3 @@ void change_player(void) {
 ## 참고 링크
 
 https://comonyo.tistory.com/18?category=217215
-
-https://user-images.githubusercontent.com/83998568/172193616-35d3aa55-33cd-4fc7-b210-59ecdf47a6b7.mp4
