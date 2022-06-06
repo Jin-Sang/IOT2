@@ -789,6 +789,10 @@ int main(void) {
 							gettimeofday(&timest, NULL);
 							timer--;
 							printf("%d\n", timer);
+							
+							if (timer == 0){
+								timer = 5;
+								change_player();
 						}
 						
 						while(1){
