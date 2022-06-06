@@ -765,7 +765,7 @@ int main(void) {
 					
 						break;
 					}
-					
+					break;
 				}
 			}
 			gettimeofday(&dotst, NULL);
