@@ -793,8 +793,10 @@ int main(void) {
 					tact = close(tact);
 					
 					gettimeofday(&ledst, NULL);
+					while(1){
 					led_player(player);
 					gettimeofday(&ledend, NULL);
+					
 					if ((ledend.tv_usec - ledst.tv_usec > 200000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 200000))){
 						
 						gettimeofday(&fndst, NULL);
@@ -807,7 +809,7 @@ int main(void) {
                    					 break;
                 					}
 						}
-		
+					}
 						break;
 					}
 					break;
