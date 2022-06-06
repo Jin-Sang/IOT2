@@ -672,12 +672,14 @@ void put_num(int check) {
 
 
 int main(void) {
-	struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend;
+	struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend, timest, timeend;
 	int tact = 0;
 	int i=0;
 	unsigned char t = 0;
 	unsigned char c;
 	unsigned char d;
+	int timer = 0;
+	
 	print_lcd("  please enter    player1 name  ");
 	intro_game();
 	lcd_score();
@@ -690,7 +692,10 @@ int main(void) {
 	show_map();
 	led_player(player);
 	gettimeofday(&dotst, NULL);
-
+	gettimeofday(&timest, NULL);
+	
+	
+	
 	while (num1 < 6)
 	{
 
@@ -779,6 +784,13 @@ int main(void) {
 						dev=close(dev);
 						gettimeofday(&fndst, NULL);
 						fnd_fd = open(fnd_dev, O_RDWR);
+						gettimeofday(&timeend, NULL);
+						
+						if ((timeend.tv_usec - timest.tv_usec > 1000000)|| (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 100000))){
+							getimeofday(&timest, NULL);
+							timer--;
+							printf("%d\n", timer);
+						}
 						
 						while(1){
 							unsigned char FND_DATA_TBL[] = {
