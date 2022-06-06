@@ -129,12 +129,12 @@ void led_player(int player){
 			if( count%2){
 				data = 0xF0;
 				write(dev, &data, sizeof(unsigned char));
-				usleep(1000);
+				usleep(10000);
 			}
 			else{
 				data = 0xFF;
 				write(dev, &data, sizeof(unsigned char));
-				usleep(1000);
+				usleep(10000);
 			}
 		}		
 	}
@@ -143,16 +143,15 @@ void led_player(int player){
 			if( count%2){
 				data = 0x0F;
 				write(dev, &data, sizeof(unsigned char));
-				usleep(1000);
+				usleep(10000);
 			}
 			else{
 				data = 0xFF;
 				write(dev, &data, sizeof(unsigned char));
-				usleep(1000);
+				usleep(10000);
 			}
 		}		
 	}
-	close(dev);
 }
 
 void led_name(int count){
@@ -702,7 +701,7 @@ int main(void) {
 
 		write(dot_d, &rps, sizeof(rps));
 
-		if ((dotend.tv_usec - dotst.tv_usec > 200000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 200000)))
+		if ((dotend.tv_usec - dotst.tv_usec > 100000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 100000)))
 		{
 			dot_d = close(dot_d);
 			if (tact == 0)     //tact switch에 접근하지 않은 경우만 open
@@ -763,7 +762,7 @@ int main(void) {
 					put_num(12);
 					break;
 				}
-				if ((tactend.tv_usec - tactst.tv_usec > 200000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 200000)) || t)
+				if ((tactend.tv_usec - tactst.tv_usec > 100000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 100000)) || t)
 				{
 					tact = close(tact);
 					
@@ -776,7 +775,7 @@ int main(void) {
 						printf("test\n");
 					gettimeofday(&ledend, NULL);
 					
-					if ((ledend.tv_usec - ledst.tv_usec > 200000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 200000))){
+					if ((ledend.tv_usec - ledst.tv_usec > 100000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 100000))){
 						dev=close(dev);
 						gettimeofday(&fndst, NULL);
 						fnd_fd = open(fnd_dev, O_RDWR);
@@ -793,9 +792,8 @@ int main(void) {
 							fnd_num[2] = FND_DATA_TBL[0];
 							fnd_num[3] = FND_DATA_TBL[0];
 							write(fnd_fd, &fnd_num, sizeof(fnd_num));
-							sleep(1);
 							gettimeofday(&fndend, NULL);
-							if ((fndend.tv_usec - fndst.tv_usec > 200000) || (fndend.tv_sec > fndst.tv_sec && (fndend.tv_usec + 1000000 - fndst.tv_usec > 200000))) {
+							if ((fndend.tv_usec - fndst.tv_usec > 100000) || (fndend.tv_sec > fndst.tv_sec && (fndend.tv_usec + 1000000 - fndst.tv_usec > 100000))) {
                     					fnd_fd = close(fnd_fd);
                    					 break;
                 					}							
