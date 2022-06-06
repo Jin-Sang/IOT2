@@ -249,3 +249,6 @@ void change_player(void) {
 
 ## 참고 링크
 
+https://user-images.githubusercontent.com/80252681/172192642-eb90d888-76ea-493e-b4b4-6d45075c6eac.mp4
+
+
