@@ -51,6 +51,7 @@ char c1,c2; //맞췄을 시 화면에 카드 내용을 보여주기 위한 변�
 char qmap[12];//카드 뒷면 
 int dot_d = 0;
 int fnd_fd = 0;
+int dev=0;
 bool bools=true;// while 함수 종료하기 위한 논리값 
 static char tactswDev[] = "/dev/tactsw";
 static char lcdDev[] = "/dev/clcd";
@@ -100,7 +101,6 @@ int FND_Out(int a, int b, int c, int d) {
 		sleep(1);		
 	}
 	change_player();
-	close(fnd_fd);
 }
 
 
@@ -120,10 +120,9 @@ void print_lcd(char clcd_text[]) {
 
 
 void led_player(int player){
-	int dev,led_device, count;
+	int count;
 	int a=player;
 	unsigned char data;
-	dev = open(led_dev, O_RDWR);
 	if(a==0){
 		for( count =0 ; count <16; count ++) {
 			if( count%2){
@@ -679,7 +678,6 @@ int main(void) {
 	unsigned char t = 0;
 	unsigned char c;
 	unsigned char d;
-	int dev;
 	print_lcd("  please enter    player1 name  ");
 	intro_game();
 	lcd_score();
@@ -769,24 +767,33 @@ int main(void) {
 					tact = close(tact);
 					
 					gettimeofday(&ledst, NULL);
+					if(dev==0){
+						dev = open(led_dev, O_RDWR);
+					}
 					while(1){
-					led_player(player);
+						led_player(player);
 					gettimeofday(&ledend, NULL);
 					
 					if ((ledend.tv_usec - ledst.tv_usec > 200000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 200000))){
-						
+						dev=close(dev);
 						gettimeofday(&fndst, NULL);
 						fnd_fd = open(fnd_dev, O_RDWR);
+						
+						while(1){
+							FND_Out(0,0,0,5);
 						for(i = 5; i > -1; i--){
 							printf("%d\n", i);
+						}
 							gettimeofday(&fndend, NULL);
 							if ((fndend.tv_usec - fndst.tv_usec > 200000) || (fndend.tv_sec > fndst.tv_sec && (fndend.tv_usec + 1000000 - fndst.tv_usec > 200000))) {
                     					fnd_fd = close(fnd_fd);
                    					 break;
-                					}
+                					}							
 						}
+
+           				break;
 					}
-						break;
+
 					}
 					break;
 				}
