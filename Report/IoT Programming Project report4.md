@@ -126,7 +126,7 @@ void card_off(int a) {
 }
 ```
 
-![led꺼짐]<img src="../img/card_off.gif" width="500" height="500"/>
+![led꺼짐]<img src="../img/card_off.gif" width="500" height="700"/>
 
 ### 카드 앞면 확인 
 
@@ -158,8 +158,8 @@ int main(void){
 }
 ```
 
-![카드앞면](../img/card_num.gif)
-
+![2번]<img src="../img/num_2.gif" width="500" height="700"/>
+![6번]<img src="../img/num_6.gif" width="500" height="700"/>
 ### 카드 비교후 웃음,울상 표정 출력
 
 ```C
@@ -176,7 +176,7 @@ void dot_smile(int right) {
 } // dot_matrix에 웃음 표시
 ```
 
-![1](../img/smilesad.gif)
+![smile]<img src="../img/smilesad.gif" width="500" height="700"/>
 
 ### LED로 플레이어 턴 표시
 
