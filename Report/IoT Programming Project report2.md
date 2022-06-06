@@ -33,7 +33,7 @@ IoT 프로그래밍 프로젝트 2조 1주차 보고서
 ## 1. 기존 프로젝트 실행
 
 - 기존 프로젝트의 파일들은 Smart4412 장치와는 다른 장치에서 실행되도록 짜여졌기 때문에 우선적으로 Smart4412 장치에서 테스트 하였음
-- 리듬게임파일을 실행하였으나 Smart4412에 버저가 없어 실행이 불가능 한것을 확인<br> ![1](C:\Users\eldkf\OneDrive\Documents\GitHub\IOT2\img\1.PNG)
+- 리듬게임파일을 실행하였으나 Smart4412에 버저가 없어 실행이 불가능 한것을 확인<br> ![1](.\img\1.PNG)
 - 타겟시스템이 정상적으로 실행되는지를 확인하기 위해 다른 프로젝트 실행파일을 가져와 테스트하였음<br>![2](C:\Users\eldkf\OneDrive\Documents\GitHub\IOT2\img\2.PNG)<img src="C:\Users\eldkf\OneDrive\Documents\GitHub\IOT2\img\3.jpg" width="500" height="500"/>
 
 
