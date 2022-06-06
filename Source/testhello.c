@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#define dot_path "/dev/dot"
+#define dot "/dev/dot"
 
-int main(){
+void thank_you(){
 int dot, i, j, k=0, cnt=0, flag=0;
 unsigned char alph[28][8] = {{0x00, 0x7e, 0x02, 0x12, 0x12, 0x13, 0x7e, 0x00}, // 고
                              {0x00, 0xf4, 0x94, 0x96, 0x94, 0x94, 0xf4, 0x00}, // 마
@@ -14,7 +14,7 @@ unsigned char alph[28][8] = {{0x00, 0x7e, 0x02, 0x12, 0x12, 0x13, 0x7e, 0x00}, /
 
 unsigned char p[8];
 int idx[12] = {4,4,4,4,0,1,2,3,4,4,4,4};
-if((dot = open(dot_path, O_RDWR)) < 0){
+if((dot_d = open(dot, O_RDWR)) < 0){
   printf("Can't Open\n");
   exit(0);
   }
@@ -33,6 +33,6 @@ if((dot = open(dot_path, O_RDWR)) < 0){
           }
           flag=0;
           k++;}
-          close(dot);
-          return 0;
+          dot_d = close(dot_d);
+          
           }
