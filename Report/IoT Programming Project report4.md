@@ -30,7 +30,7 @@ IoT 프로그래밍 프로젝트 2조 3주차 보고서
 
 ## 1. 타겟시스템 환경에 맞춰 코드 작성
 
-기존 2주차 코드와 동일합니다
+코드 작성 후 Source 디렉터리에 card_shuffle_ver4.c로 저장하였습니다
 
 ## 2. 추가 기능 구현
 
@@ -131,6 +131,7 @@ void card_off(int a) {
 }
 ```
 
+https://user-images.githubusercontent.com/83998568/172184950-664c9e37-020f-4156-9d70-5ebd1c5d3c35.mp4
 
 ### 카드 앞면 확인 
 
@@ -149,7 +150,7 @@ void dot_num(int choice) {
 	write(dot_d, &c[choice], sizeof(c[choice]));
 	sleep(1);
 	dot_d = close(dot_d);
-}//입력받은 카
+}//입력받은 카드
 
 int main(void){
     int check1, check2; //임의의 카드 번호
@@ -177,6 +178,8 @@ void dot_smile(int right) {
 	dot_d = close(dot_d);
 } // dot_matrix에 웃음 표시
 ```
+
+![1](../img/1.mp4)
 
 ### LED로 플레이어 턴 표시
 
@@ -216,6 +219,16 @@ void led_player(int player){
 }
 ```
 
+플레이어1의 턴일 경우 
+
+![플레이어1턴](../img/led1.jpg)
+
+
+
+플레이어2의 턴일 경우
+
+![플레이어2턴](../img/led2.jpg)
+
 ### 틀렸을 경우 다음 플레이어에게 턴 넘기기
 
 ```c
@@ -236,8 +249,3 @@ void change_player(void) {
 
 ## 참고 링크
 
-https://blockdmask.tistory.com/400
-
-https://hayate1212.tistory.com/19
-
-https://codepractice.tistory.com/107
