@@ -515,7 +515,6 @@ void dot_smile(int right) {
 	}
 	write(dot_d, &c[right], sizeof(c[right]));
 	sleep(2);
-	close(dot_d);
 } // dot_matrix에 웃음 표시
 
 void checkcard(int a, int b) {
@@ -545,6 +544,7 @@ void checkcard(int a, int b) {
 		show_map();//현재 남은 카드 배치를 보여줌
 		texttext[0]='\0';
 		lcd_score1[0]='\0';
+		timer=5;
 		lcd_score();	
 		strcat(texttext,playervs);
 		strcat(texttext,lcd_score1);
@@ -558,6 +558,7 @@ void checkcard(int a, int b) {
 		change_player();//상대방에게 순서를 넘겨줌 
 		reset_check();//check_card[],card_select[] 초기화
 		led_player(player);
+		timer=5;
 		printf("플레이어%d의 차례입니다.\n", player + 1);
 
 	}
@@ -608,7 +609,6 @@ void dot_num(int choice) {
 
 	write(dot_d, &c[choice], sizeof(c[choice]));
 	sleep(1);
-	dot_d = close(dot_d);
 }
 
 void put_num(int check) {
@@ -793,6 +793,7 @@ int main(void) {
 							if (timer == 0){
 								timer = 5;
 								change_player();
+							}
 						}
 						
 						while(1){
@@ -825,6 +826,7 @@ int main(void) {
 		}
 
 	}
+
 	sum_score();
 
 	return 0;
