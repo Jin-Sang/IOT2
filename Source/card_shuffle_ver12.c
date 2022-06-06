@@ -39,22 +39,22 @@
 #define CARDSIZE 12
 
 int timer = 5;
-int card_in[12]; //ì¹´ë“œ ë‚´ìš©ì„ ë‹´ëŠ” ë°°ì—´ 
-int check_card[2]; // ì„ íƒí•œ ì¹´ë“œê°€ ì§ì´ ë§ëŠ”ì§€ ë‹¤ë¥¸ì§€ í™•ì¸í•˜ê¸° ìœ„í•œ ë°°ì—´ 
-int check=0;//í”Œë ˆì´ì–´ê°€ ì„ íƒí•œ ì¹´ë“œ ë²ˆí˜¸ 
-int card_select[2];//í”Œë ˆì´ì–´ê°€ ì„ íƒí•œ ì¹´ë“œ ë²ˆí˜¸ ë‘ê°œ ë‹´ëŠ” ë°°ì—´ 
-int ordernum=0; //ì§€ê¸ˆ ê³ ë¥´ëŠ” ì¹´ë“œê°€ ì²«ë²ˆì§¸ ì¸ì§€ ë‘ë²ˆì§¸ì¸ì§€ í™•ì¸ 
-int answer=0;//ë§ì¶˜íšŸìˆ˜  
-int num1;//ì¹´ë“œ 12ê°œ ë‹¤ë§ì·„ì„ ì‹œ ê²Œì„ì„ ì¢…ë£Œí•˜ë„ë¡ í•¨ 
-int player1_score=0;//í”Œë ˆì´ì–´1 ì ìˆ˜ 
-int player2_score=0; //í”Œë ˆì´ì–´2 ì ìˆ˜ 
-int player;//ë‘ í”Œë ˆì´ì–´ êµ¬ë¶„ í•˜ê¸° ìœ„í•œ ë³€ìˆ˜ 
-char c1,c2; //ë§ì·„ì„ ì‹œ í™”ë©´ì— ì¹´ë“œ ë‚´ìš©ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ë³€ìˆ˜ 
-char qmap[12];//ì¹´ë“œ ë’·ë©´ 
+int card_in[12]; //Ä«µå ³»¿ëÀ» ´ã´Â ¹è¿­ 
+int check_card[2]; // ¼±ÅÃÇÑ Ä«µå°¡ Â¦ÀÌ ¸Â´ÂÁö ´Ù¸¥Áö È®ÀÎÇÏ±â À§ÇÑ ¹è¿­ 
+int check=0;//ÇÃ·¹ÀÌ¾î°¡ ¼±ÅÃÇÑ Ä«µå ¹øÈ£ 
+int card_select[2];//ÇÃ·¹ÀÌ¾î°¡ ¼±ÅÃÇÑ Ä«µå ¹øÈ£ µÎ°³ ´ã´Â ¹è¿­ 
+int ordernum=0; //Áö±İ °í¸£´Â Ä«µå°¡ Ã¹¹øÂ° ÀÎÁö µÎ¹øÂ°ÀÎÁö È®ÀÎ 
+int answer=0;//¸ÂÃáÈ½¼ö  
+int num1;//Ä«µå 12°³ ´Ù¸ÂÃèÀ» ½Ã °ÔÀÓÀ» Á¾·áÇÏµµ·Ï ÇÔ 
+int player1_score=0;//ÇÃ·¹ÀÌ¾î1 Á¡¼ö 
+int player2_score=0; //ÇÃ·¹ÀÌ¾î2 Á¡¼ö 
+int player;//µÎ ÇÃ·¹ÀÌ¾î ±¸ºĞ ÇÏ±â À§ÇÑ º¯¼ö 
+char c1,c2; //¸ÂÃèÀ» ½Ã È­¸é¿¡ Ä«µå ³»¿ëÀ» º¸¿©ÁÖ±â À§ÇÑ º¯¼ö 
+char qmap[12];//Ä«µå µŞ¸é 
 int dot_d = 0;
 int fnd_fd = 0;
 int dev=0;
-bool bools=true;// while í•¨ìˆ˜ ì¢…ë£Œí•˜ê¸° ìœ„í•œ ë…¼ë¦¬ê°’ 
+bool bools=true;// while ÇÔ¼ö Á¾·áÇÏ±â À§ÇÑ ³í¸®°ª 
 static char tactswDev[] = "/dev/tactsw";
 static char lcdDev[] = "/dev/clcd";
 static int  lcdFd = (-1);
@@ -71,7 +71,7 @@ void change_player(void) {
 	}
 	else {
 		player = 0;
-	}//í”Œë ˆì´ì–´ê°€ ì§ì´ ë§ëŠ” ì¹´ë“œë¥¼ ê³ ë¥´ì§€ ëª»í–ˆì„ ê²½ìš° ë‹¤ë¥¸ í”Œë ˆì´ì–´ì—ê²Œ ì°¨ë¡€ë¥¼ ë„˜ê¸°ëŠ” í•¨ìˆ˜ 
+	}//ÇÃ·¹ÀÌ¾î°¡ Â¦ÀÌ ¸Â´Â Ä«µå¸¦ °í¸£Áö ¸øÇßÀ» °æ¿ì ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿¡°Ô Â÷·Ê¸¦ ³Ñ±â´Â ÇÔ¼ö 
 }
 
 int FND_Out(int a, int b, int c, int d) {
@@ -210,7 +210,7 @@ void lcd_score(){
 
 void append_name(char* dst, char c) {
 	char* p = dst;
-	while (*p != '\0') p++; // ë¬¸ìì—´ ë íƒìƒ‰
+	while (*p != '\0') p++; // ¹®ÀÚ¿­ ³¡ Å½»ö
 	*p = c;
 	*(p + 1) = '\0';
 }
@@ -284,7 +284,7 @@ int intro_game() {
 		if ((dotend1.tv_usec - dotst1.tv_usec > 200000) || (dotend1.tv_sec > dotst1.tv_sec && (dotend1.tv_usec + 1000000 - dotst1.tv_usec > 200000)))
 		{
 			dot_d = close(dot_d);
-			if (tact == 0)     //tact switchì— ì ‘ê·¼í•˜ì§€ ì•Šì€ ê²½ìš°ë§Œ open
+			if (tact == 0)     //tact switch¿¡ Á¢±ÙÇÏÁö ¾ÊÀº °æ¿ì¸¸ open
 			{
 				tact = open(tact_d, O_RDWR);
 			}
@@ -335,7 +335,7 @@ int intro_game() {
 
 
 unsigned char rps[1][8] = {	// dot matrix
-	{ 0x00,0x54,0x00,0x54,0x00,0x54,0x00,0x54 }, // ì´ˆê¸°ê°’ 
+	{ 0x00,0x54,0x00,0x54,0x00,0x54,0x00,0x54 }, // ÃÊ±â°ª 
 
 };
 unsigned char card_led[1][3] = {
@@ -438,16 +438,16 @@ void map1(void) {
 	for (i = 0; i < 12; i++) {
 		qmap[i] = '?';
 	}
-}//ì¹´ë“œ ë‚´ìš©ì„ ê°€ë¦¬ê¸° ìœ„í•´ ì¹´ë“œ ë’·ë©´ìœ¼ë¡œ ì‚¬ìš©í•  '?' ë°°ì—´ 
+}//Ä«µå ³»¿ëÀ» °¡¸®±â À§ÇØ Ä«µå µŞ¸éÀ¸·Î »ç¿ëÇÒ '?' ¹è¿­ 
 
 
 void card_shuffle(void) {
-	srand(time(NULL));//ê²Œì„ì„ ì‹œì‘í• ë•Œë§ˆë‹¤ ë‹¤ë¥´ê²Œ ì„ì´ë„ë¡ í•˜ê¸° ìœ„í•œ srand()í•¨ìˆ˜ 
+	srand(time(NULL));//°ÔÀÓÀ» ½ÃÀÛÇÒ¶§¸¶´Ù ´Ù¸£°Ô ¼¯ÀÌµµ·Ï ÇÏ±â À§ÇÑ srand()ÇÔ¼ö 
 	int i, j, x;
 	memset(card_in, 0, sizeof(card_in));
-	for (i = 1; i < 7; i++) //1~6 ìˆ«ìë¥¼  
+	for (i = 1; i < 7; i++) //1~6 ¼ıÀÚ¸¦  
 	{
-		for (j = 0; j < 2; j++)//ë‘ ê°œì˜ ì¹´ë“œì— ì§‘ì–´ ë„£ìŒ 
+		for (j = 0; j < 2; j++)//µÎ °³ÀÇ Ä«µå¿¡ Áı¾î ³ÖÀ½ 
 		{
 			do
 			{
@@ -459,7 +459,7 @@ void card_shuffle(void) {
 		}
 	}
 	sleep(2);
-} //12ê°œì˜ ì¹´ë“œì— 1~6ì˜ ìˆ«ìë¥¼ ë‘ë²ˆì”© ì´ 12ë²ˆ ë„£ì–´ ì¹´ë“œë¥¼ ì„ëŠ” ì½”ë“œ
+} //12°³ÀÇ Ä«µå¿¡ 1~6ÀÇ ¼ıÀÚ¸¦ µÎ¹ø¾¿ ÃÑ 12¹ø ³Ö¾î Ä«µå¸¦ ¼¯´Â ÄÚµå
 
 void show_map(void) {
 	printf("\n");
@@ -471,31 +471,31 @@ void show_map(void) {
 		printf("%c ", qmap[i]);
 	}
 	printf("\n");
-}//í”Œë ˆì´ì–´ì—ê²Œ ì¹´ë“œë‚˜ì—´í•œê±¸ ë³´ì—¬ì£¼ëŠ” ë§µ. ì²˜ìŒ ì‹œì‘ì‹œì—ëŠ” ì¹´ë“œ ë’·ë©´ '?'ë¥¼ ë³´ì—¬ì¤Œ 
+}//ÇÃ·¹ÀÌ¾î¿¡°Ô Ä«µå³ª¿­ÇÑ°É º¸¿©ÁÖ´Â ¸Ê. Ã³À½ ½ÃÀÛ½Ã¿¡´Â Ä«µå µŞ¸é '?'¸¦ º¸¿©ÁÜ 
 
 void show_num(int a, int b) {
 	c1 = card_in[a] + '0';
 	c2 = card_in[b] + '0';
 	qmap[a] = c1;
 	qmap[b] = c2;
-}//í”Œë ˆì´ì–´ê°€ ì¹´ë“œ ì§ì„ ë§ì·„ì„ ì‹œ '?" ë¥¼ ì§€ìš°ê³  ì¹´ë“œ ë‚´ìš©ì„ ë³´ì—¬ì¤Œ 
+}//ÇÃ·¹ÀÌ¾î°¡ Ä«µå Â¦À» ¸ÂÃèÀ» ½Ã '?" ¸¦ Áö¿ì°í Ä«µå ³»¿ëÀ» º¸¿©ÁÜ 
 
 void reset_check(void) {
 	check_card[0] = 0;
 	check_card[1] = 0;
 	card_select[0] = 0;
 	card_select[1] = 0;
-} //ì§ì„ ë§ì·„ê±°ë‚˜ í‹€ë ¸ì„ê²½ìš° ì„ íƒí•œ ì¹´ë“œë¥¼ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜ 
+} //Â¦À» ¸ÂÃè°Å³ª Æ²·ÈÀ»°æ¿ì ¼±ÅÃÇÑ Ä«µå¸¦ ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö 
 
 void print_please(void) {
 	if (ordernum == 1) {
 		printf("\n");
-		printf("ë‘ë²ˆì§¸ ì¹´ë“œë¥¼ ê³¨ë¼ì£¼ì„¸ìš”:  ");
+		printf("µÎ¹øÂ° Ä«µå¸¦ °ñ¶óÁÖ¼¼¿ä:  ");
 	}
 	else {
 		printf("\n");
-		printf("ì²«ë²ˆì§¸ ì¹´ë“œë¥¼ ê³¨ë¼ì£¼ì„¸ìš”: ");
-	}//ì§€ê¸ˆ ê³ ë¥´ëŠ” ê²Œ ëª‡ë²ˆì§¸ì¸ì§€ ë³´ì—¬ì£¼ê¸° ìœ„í•œ í•¨ìˆ˜ 
+		printf("Ã¹¹øÂ° Ä«µå¸¦ °ñ¶óÁÖ¼¼¿ä: ");
+	}//Áö±İ °í¸£´Â °Ô ¸î¹øÂ°ÀÎÁö º¸¿©ÁÖ±â À§ÇÑ ÇÔ¼ö 
 }
 
 void print_waiting(void) {
@@ -503,7 +503,7 @@ void print_waiting(void) {
 	printf("  shuffling...\n");
 	printf("----------------\n");
 	print_lcd("   shuffling.   ");
-}//ê²Œì„ ì‹œì‘ì‹œ ì¹´ë“œ ì„ëŠ”ê²ƒì²˜ëŸ¼ ë³´ì—¬ì¤Œ 
+}//°ÔÀÓ ½ÃÀÛ½Ã Ä«µå ¼¯´Â°ÍÃ³·³ º¸¿©ÁÜ 
 
 
 
@@ -511,17 +511,13 @@ void dot_smile(int right) {
 	int i;
 	unsigned char c[2][8] = { {0x00,0x66,0x66,0x00,0x00,0x42,0x3c,0x00},
 				{0x00,0x66,0x66,0x00,0x00,0x3c,0x42,0x00} };
-	if ((dot_d = open(dot, O_RDWR)) < 0) {
-		printf("Can't Open\n");
-		exit(0);
-	}
 	write(dot_d, &c[right], sizeof(c[right]));
 	sleep(2);
-} // dot_matrixì— ì›ƒìŒ í‘œì‹œ
+} // dot_matrix¿¡ ¿ôÀ½ Ç¥½Ã
 
 void checkcard(int a, int b) {
-	a = a - 1;//ì²«ë²ˆì§¸ ì¹´ë“œ 
-	b = b - 1;//ë‘ë²ˆì§¸ ì¹´ë“œ  
+	a = a - 1;//Ã¹¹øÂ° Ä«µå 
+	b = b - 1;//µÎ¹øÂ° Ä«µå  
 	if (card_in[a] == card_in[b]) {
 		num1++;
 		if (player == 0) {
@@ -533,17 +529,17 @@ void checkcard(int a, int b) {
 			answer = player2_score;
 		}
 		printf("\n");
-		printf("ì§ì„ ë§ì·„ìŠµë‹ˆë‹¤!\n");
+		printf("Â¦À» ¸ÂÃè½À´Ï´Ù!\n");
 		printf("\n");
-		dot_smile(0); // ì›ƒìŒ í‘œì‹œ
-		printf("í”Œë ˆì´ì–´%dì˜ ì ìˆ˜: %d", player + 1, answer);
+		dot_smile(0); // ¿ôÀ½ Ç¥½Ã
+		printf("ÇÃ·¹ÀÌ¾î%dÀÇ Á¡¼ö: %d", player + 1, answer);
 		card_off(a + 1);
 		card_off(b + 1);
 		show_num(a, b);
-		reset_check();//check_card[],card_select[] ì´ˆê¸°í™” 
-		card_in[a] = 0;//ì´ë¯¸ ë§ì¶˜ ì¹´ë“œë¥¼ ê³ ë¥´ì§€ ëª»í•˜ë„ë¡ ì¹´ë“œë‚´ìš©ì„ 0ìœ¼ë¡œ ì„¤ì • 
-		card_in[b] = 0;//ì´ë¯¸ ë§ì¶˜ ì¹´ë“œë¥¼ ê³ ë¥´ì§€ ëª»í•˜ë„ë¡ ì¹´ë“œë‚´ìš©ì„ 0ìœ¼ë¡œ ì„¤ì • 
-		show_map();//í˜„ì¬ ë‚¨ì€ ì¹´ë“œ ë°°ì¹˜ë¥¼ ë³´ì—¬ì¤Œ
+		reset_check();//check_card[],card_select[] ÃÊ±âÈ­ 
+		card_in[a] = 0;//ÀÌ¹Ì ¸ÂÃá Ä«µå¸¦ °í¸£Áö ¸øÇÏµµ·Ï Ä«µå³»¿ëÀ» 0À¸·Î ¼³Á¤ 
+		card_in[b] = 0;//ÀÌ¹Ì ¸ÂÃá Ä«µå¸¦ °í¸£Áö ¸øÇÏµµ·Ï Ä«µå³»¿ëÀ» 0À¸·Î ¼³Á¤ 
+		show_map();//ÇöÀç ³²Àº Ä«µå ¹èÄ¡¸¦ º¸¿©ÁÜ
 		texttext[0]='\0';
 		lcd_score1[0]='\0';
 		timer=5;
@@ -551,26 +547,26 @@ void checkcard(int a, int b) {
 		strcat(texttext,playervs);
 		strcat(texttext,lcd_score1);
 		print_lcd(texttext);
-	}//ì§ì´ ë§ì„ê²½ìš° ì¹´ë“œë¥¼ ë’¤ì§‘ì–´ ìˆ«ìë¥¼ ë³´ì—¬ì£¼ê³  check_card[],card_select[] ì´ˆê¸°í™”  
+	}//Â¦ÀÌ ¸ÂÀ»°æ¿ì Ä«µå¸¦ µÚÁı¾î ¼ıÀÚ¸¦ º¸¿©ÁÖ°í check_card[],card_select[] ÃÊ±âÈ­  
 	else {
 		printf("\n");
-		printf("í‹€ë ¸ìŠµë‹ˆë‹¤ ì°¨ë¡€ê°€ ë„˜ì–´ê°‘ë‹ˆë‹¤.\n");
+		printf("Æ²·È½À´Ï´Ù Â÷·Ê°¡ ³Ñ¾î°©´Ï´Ù.\n");
 		printf("\n");
 		dot_smile(1);
-		change_player();//ìƒëŒ€ë°©ì—ê²Œ ìˆœì„œë¥¼ ë„˜ê²¨ì¤Œ 
-		reset_check();//check_card[],card_select[] ì´ˆê¸°í™”
+		change_player();//»ó´ë¹æ¿¡°Ô ¼ø¼­¸¦ ³Ñ°ÜÁÜ 
+		reset_check();//check_card[],card_select[] ÃÊ±âÈ­
 		led_player(player);
 		timer=5;
-		printf("í”Œë ˆì´ì–´%dì˜ ì°¨ë¡€ì…ë‹ˆë‹¤.\n", player + 1);
+		printf("ÇÃ·¹ÀÌ¾î%dÀÇ Â÷·ÊÀÔ´Ï´Ù.\n", player + 1);
 
 	}
-}//ê³ ë¥¸ ë‘ ê°œì˜ ì¹´ë“œê°€ ì§ì´ ë§ëŠ”ì§€ ì²´í¬í•˜ëŠ” í•¨ìˆ˜ 
+}//°í¸¥ µÎ °³ÀÇ Ä«µå°¡ Â¦ÀÌ ¸Â´ÂÁö Ã¼Å©ÇÏ´Â ÇÔ¼ö 
 
 void sum_score(void) {
 	char a[32]="";
 	if (player1_score > player2_score) {
 		printf("\n");
-		printf("í”Œë ˆì´ì–´1ì´ ìŠ¹ë¦¬í•˜ì˜€ìŠµë‹ˆë‹¤!");
+		printf("ÇÃ·¹ÀÌ¾î1ÀÌ ½Â¸®ÇÏ¿´½À´Ï´Ù!");
 		printf("\n");
 		strcat(a,"congratulations!    ");
 		strcat(a,pla1);
@@ -581,14 +577,14 @@ void sum_score(void) {
 	}
 	else if (player1_score == player2_score) {
 		printf("\n");
-		printf("ì•„ì‰½ìŠµë‹ˆë‹¤ ë¹„ê²¼ìŠµë‹ˆë‹¤...");
+		printf("¾Æ½±½À´Ï´Ù ºñ°å½À´Ï´Ù...");
 		printf("\n");
 		strcat(a,"    too bad.    ");
 		strcat(a,"      draw      ");
 	}
 	else {
 		printf("\n");
-		printf("í”Œë ˆì´ì–´2ê°€ ìŠ¹ë¦¬í•˜ì˜€ìŠµë‹ˆë‹¤!");
+		printf("ÇÃ·¹ÀÌ¾î2°¡ ½Â¸®ÇÏ¿´½À´Ï´Ù!");
 		printf("\n");
 		strcat(a,"congratulations!    ");
 		strcat(a,pla2);
@@ -597,7 +593,7 @@ void sum_score(void) {
 		led_player(1);
 	}
 
-}//ë‹¤ ë§ì¶˜ í›„ ì ìˆ˜ ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜ 
+}//´Ù ¸ÂÃá ÈÄ Á¡¼ö °è»êÇÏ´Â ÇÔ¼ö 
 
 void dot_num(int choice) {
 	unsigned char c[7][8] = { {0x3c,0x42,0x42,0x42,0x42,0x42,0x3c,0x00},
@@ -607,69 +603,68 @@ void dot_num(int choice) {
 								{0x04,0x0C,0x14,0x24,0x7E,0x04,0x04,0x00},
 								{0x3c,0x20,0x20,0x18,0x04,0x24,0x18,0x00},
 								{0x18,0x24,0x20,0x38,0x24,0x24,0x18,0x00}, };
-	dot_d = open(dot, O_RDWR);
-
 	write(dot_d, &c[choice], sizeof(c[choice]));
 	sleep(1);
+a
 }
 
 void put_num(int check) {
 	int x, y;
 	if (card_in[check - 1] == 0) {
 		printf("\n");
-		printf("ì´ë¯¸ ë§ì¶˜ ì¹´ë“œì…ë‹ˆë‹¤.\n");
+		printf("ÀÌ¹Ì ¸ÂÃá Ä«µåÀÔ´Ï´Ù.\n");
 		if (card_select[0] == 0) {
 			ordernum = 0;
 		}
 		else {
 			ordernum = 1;
 		}
-	}//ê³ ë¥¸ ì¹´ë“œê°€ ì´ë¯¸ ì§ì„ ë§ì¶˜ ì¹´ë“œì¸ì§€ë¥¼ ì²´í¬í•˜ëŠ” ì¡°ê±´ ë¬¸ 
+	}//°í¸¥ Ä«µå°¡ ÀÌ¹Ì Â¦À» ¸ÂÃá Ä«µåÀÎÁö¸¦ Ã¼Å©ÇÏ´Â Á¶°Ç ¹® 
 	else {
 		if (card_select[0] == 0) {
 			check_card[0] = card_in[check - 1];
 			card_select[0] = check;
 			x = check_card[0];
 			printf("\n");
-			printf("ì²«ë²ˆì§¸ ì¹´ë“œ ë‚´ìš©: %d", check_card[0]);
+			printf("Ã¹¹øÂ° Ä«µå ³»¿ë: %d", check_card[0]);
 			printf("\n");
 			ordernum = 1;
 			dot_num(x);
-		}//ì²«ë²ˆì§¸ ì¹´ë“œë¥¼ ê³ ë¥´ì§€ ì•Šì•˜ì„ ê²½ìš° ì²«ë²ˆì§¸ ì¹´ë“œë¥¼  card_select[0]ì— ì¹´ë“œë²ˆí˜¸ë¥¼, check_card[0]ì— ì¹´ë“œ ì•ë©´ì„ ì €ì¥ 
+		}//Ã¹¹øÂ° Ä«µå¸¦ °í¸£Áö ¾Ê¾ÒÀ» °æ¿ì Ã¹¹øÂ° Ä«µå¸¦  card_select[0]¿¡ Ä«µå¹øÈ£¸¦, check_card[0]¿¡ Ä«µå ¾Õ¸éÀ» ÀúÀå 
 		else {
 			if (card_in[check - 1] == 0) {
 				ordernum = 1;
 				printf("\n");
-				printf("ì´ë¯¸ ë§ì¶˜ ì¹´ë“œì…ë‹ˆë‹¤.\n");
-			}//ê³ ë¥¸ ì¹´ë“œê°€ ì´ë¯¸ ì§ì„ ë§ì¶˜ ì¹´ë“œì¸ì§€ë¥¼ ì²´í¬í•˜ëŠ” ì¡°ê±´ ë¬¸
+				printf("ÀÌ¹Ì ¸ÂÃá Ä«µåÀÔ´Ï´Ù.\n");
+			}//°í¸¥ Ä«µå°¡ ÀÌ¹Ì Â¦À» ¸ÂÃá Ä«µåÀÎÁö¸¦ Ã¼Å©ÇÏ´Â Á¶°Ç ¹®
 			else {
 				check_card[1] = card_in[check - 1];
 				card_select[1] = check;
 				y = check_card[1];
 				printf("\n");
-				printf("ë‘ë²ˆì§¸ ì¹´ë“œ ë‚´ìš©: %d", check_card[1]);
+				printf("µÎ¹øÂ° Ä«µå ³»¿ë: %d", check_card[1]);
 				printf("\n");
 				dot_num(y);
 
 				if (card_select[0] == card_select[1]) {
 					printf("\n");
-					printf("ì¤‘ë³µëœ ì¹´ë“œë¥¼ ê³¨ëìŠµë‹ˆë‹¤ ë‹¤ì‹œ ê³ ë¥´ì„¸ìš”.\n");
+					printf("Áßº¹µÈ Ä«µå¸¦ °ñ¶ú½À´Ï´Ù ´Ù½Ã °í¸£¼¼¿ä.\n");
 					printf("\n");
 					check_card[1] = 0;
 					card_select[1] = 0;
 				}
-			}//ì²«ë²ˆì§¸ì™€ ë‘ë²ˆì§¸ ì¹´ë“œë¥¼ ê°™ì€ ì¹´ë“œë¥¼ ê³¨ëì„ ê²½ìš° ë‘ë²ˆì§¸ ì¹´ë“œ ì •ë³´ë¥¼ ë‹´ì€ check_card[1],card_select[1]ì„ ì´ˆê¸°í™”í›„ ë‹¤ì‹œ ê³ ë¥´ë„ë¡ í•¨ 
+			}//Ã¹¹øÂ°¿Í µÎ¹øÂ° Ä«µå¸¦ °°Àº Ä«µå¸¦ °ñ¶úÀ» °æ¿ì µÎ¹øÂ° Ä«µå Á¤º¸¸¦ ´ãÀº check_card[1],card_select[1]À» ÃÊ±âÈ­ÈÄ ´Ù½Ã °í¸£µµ·Ï ÇÔ 
 
 			if (card_select[0] != 0 && card_select[1] != 0) {
 				printf("\n");
-				printf("ë‘ê°œì˜ ì¹´ë“œë¥¼ ê³¨ëìŠµë‹ˆë‹¤\n");
+				printf("µÎ°³ÀÇ Ä«µå¸¦ °ñ¶ú½À´Ï´Ù\n");
 				printf("\n");
 				ordernum = 0;
 				checkcard(card_select[0], card_select[1]);
-			}//ì„œë¡œ ë‹¤ë¥¸ ì¹´ë“œ ë‘ê°œë¥¼ ê³¨ëìœ¼ë©´ ë‘ ì¹´ë“œë¥¼ ë¹„êµ 
+			}//¼­·Î ´Ù¸¥ Ä«µå µÎ°³¸¦ °ñ¶úÀ¸¸é µÎ Ä«µå¸¦ ºñ±³ 
 		}
 	}
-}//ì¹´ë“œë¥¼ ê³ ë¥´ëŠ” í•¨ìˆ˜ 
+}//Ä«µå¸¦ °í¸£´Â ÇÔ¼ö 
 
 
 
@@ -694,9 +689,7 @@ int main(void) {
 	led_player(player);
 	gettimeofday(&dotst, NULL);
 	gettimeofday(&timest, NULL);
-	
-	
-	
+		
 	while (num1 < 6)
 	{
 
@@ -710,7 +703,7 @@ int main(void) {
 		if ((dotend.tv_usec - dotst.tv_usec > 100000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 100000)))
 		{
 			dot_d = close(dot_d);
-			if (tact == 0)     //tact switchì— ì ‘ê·¼í•˜ì§€ ì•Šì€ ê²½ìš°ë§Œ open
+			if (tact == 0)     //tact switch¿¡ Á¢±ÙÇÏÁö ¾ÊÀº °æ¿ì¸¸ open
 			{
 				tact = open(tact_d, O_RDWR);
 			}
@@ -832,4 +825,3 @@ int main(void) {
 
 	return 0;
 }
-
