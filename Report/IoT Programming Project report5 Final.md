@@ -128,14 +128,14 @@
 	
   - ### 현재 누구의 턴인지를 알 수 있는 led 기능
   
-  <img src="../img/1턴.gif" width="300" height="150"/> 
+  	<img src="../img/1턴.gif" width="300" height="150"/> 
   
-  1번 턴
+  	1번 턴
   
   
-  <img src="../img/2턴.gif" width="300" height="150"/>
+  	<img src="../img/2턴.gif" width="300" height="150"/>
   
-  2번 턴
+  	2번 턴
   
   - ### 짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
   	
