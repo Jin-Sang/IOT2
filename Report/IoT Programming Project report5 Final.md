@@ -353,7 +353,7 @@ unsigned char alph[28][8] = {{0x00, 0x7e, 0x02, 0x12, 0x12, 0x13, 0x7e, 0x00}, /
 			 }; // 필요한 문자 배열
 
 unsigned char p[8];
-int idx[12] = {4,4,4,4,0,1,2,3,4,4,4,4};    # 전광판에 출력할 순서
+int idx[12] = {4,4,4,4,0,1,2,3,4,4,4,4};    // 전광판에 출력할 순서
 if((dot_d = open(dot, O_RDWR)) < 0){
   printf("Can't Open\n");
   exit(0);
