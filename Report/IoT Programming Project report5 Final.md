@@ -446,6 +446,124 @@ if((dot_d = open(dot, O_RDWR)) < 0){
           }
   ```
   - ### 맞춘 도트 없애기
+  
+  ```c
+unsigned char rps[1][8] = {	
+	{ 0x00,0x54,0x00,0x54,0x00,0x54,0x00,0x54 }, // 초기값 
+};// dot matrix 카드 배열, 3개씩 4줄로 배치함
+
+unsigned char card_led[1][3] = {
+	{0x40,0x10,0x04},
+};//card_off에 사용할 dot_matrix 값 
+//0x40 = 왼쪽에서 첫번째 led값, 0x10 = 왼쪽에서 두번째 led 값, 0x04 = 왼쪽에서 세번째 led 값
+
+void card_off(int a) {
+	int a1 = a;
+	int back1, back2, back3;// back1 = 해당 카드가 위치한 줄, back2 = back1 줄에서 지울 카드 위치의 led 값back3 = 지우고 난 후의 led 값
+	if (a1 < 4) {
+		back1 = rps[0][1];
+	}// 첫번째 줄(1,2,3번째 카드)
+	else if (a1 < 7) {
+		back1 = rps[0][3];
+	}// 두번째 줄(4,5,6번째 카드)
+	else if (a1 < 10) {
+		back1 = rps[0][5];
+	}// 세번째 줄(7,8,9번째 카드)	
+	else {
+		back1 = rps[0][7];
+	}// 네번째 줄(10,11,12번째 카드)
+	switch (a1) {
+		case(1): {
+			back2 = card_led[0][0];
+			back3 = back1 - back2;
+			rps[0][1] = back3;
+			break;
+		}//1번째 카드일 경우 해당위치 led off
+		case(2): {
+			back2 = card_led[0][1];
+			back3 = back1 - back2;
+			rps[0][1] = back3;
+			break;
+		}//2번째 카드일 경우 해당위치 led off
+		case(3): {
+			back2 = card_led[0][2];
+			back3 = back1 - back2;
+			rps[0][1] = back3;
+			break;
+		}//3번째 카드일 경우 해당위치 led off
+		case(4): {
+			back2 = card_led[0][0];
+			back3 = back1 - back2;
+			rps[0][3] = back3;
+			break;
+		}//4번째 카드일 경우 해당위치 led off
+		case(5): {
+			back2 = card_led[0][1];
+			back3 = back1 - back2;
+			rps[0][3] = back3;
+			break;
+		}//5번째 카드일 경우 해당위치 led off
+		case(6): {
+			back2 = card_led[0][2];
+			back3 = back1 - back2;
+			rps[0][3] = back3;
+			break;
+		}//6번째 카드일 경우 해당위치 led off
+		case(7): {
+			back2 = card_led[0][0];
+			back3 = back1 - back2;
+			rps[0][5] = back3;
+			break;
+		}//7번째 카드일 경우 해당위치 led off
+		case(8): {
+			back2 = card_led[0][1];
+			back3 = back1 - back2;
+			rps[0][5] = back3;
+			break;
+		}//8번째 카드일 경우 해당위치 led off
+		case(9): {
+			back2 = card_led[0][2];
+			back3 = back1 - back2;
+			rps[0][5] = back3;
+			break;
+		}//9번째 카드일 경우 해당위치 led off
+		case(10): {
+			back2 = card_led[0][0];
+			back3 = back1 - back2;
+			rps[0][7] = back3;
+			break;
+		}//10번째 카드일 경우 해당위치 led off
+		case(11): {
+			back2 = card_led[0][1];
+			back3 = back1 - back2;
+			rps[0][7] = back3;
+			break;
+		}//11번째 카드일 경우 해당위치 led off
+		case(12): {
+			back2 = card_led[0][2];
+			back3 = back1 - back2;
+			rps[0][7] = back3;
+			break;
+		}//12번째 카드일 경우 해당위치 led off
+	}
+}
+
+int main(){
+    ...
+    ...
+  	while (num1 < 6)
+	{
+		if (dot_d == 0) {
+			dot_d = open(dot, O_RDWR);
+		}  
+   		write(dot_d, &rps, sizeof(rps));// 게임 실행하는 동안 while을 통해 dot_matrix에 led가 off된 카드 배치 배열을 계속해서 write해서 갱신해줌
+}
+
+```
+
+만약 두 카드의 짝이 맞다면 `Tact Switch`에서 입력받은 값을 인자로 받아서 `Dot Matrix`의 위치에서 불을 끄는 함수 입니다.
+
+`Tact Switch`에서 입력받은 값으로 `Dot Matrix`의 가로와 세로 위치를 차례로 추적하는 함수 입니다. 
 
 # 4. 참고 자료 
 카드 뒤집기 게임 참고 : https://blockdmask.tistory.com/400
