@@ -27,7 +27,6 @@
 #define KEY_NUM11   11
 #define KEY_NUM12   12
 
-#define MAXCHR	32
 #define led_dev	"/dev/led"
 #define dot "/dev/dot"
 #define fnd_dev	"/dev/fnd"
@@ -36,19 +35,17 @@
 
 #define dbg(x...)       printf(x)
 
-#define CARDSIZE 12
-
 int timer = 5;//타이머 초기값 
 int card_in[12]; //카드 내용을 담는 배열 
 int check_card[2]; // 선택한 카드가 짝이 맞는지 다른지 확인하기 위한 배열 
 int check=0;//플레이어가 선택한 카드 번호 
 int card_select[2];//플레이어가 선택한 카드 번호 두개 담는 배열 
 int ordernum=0; //지금 고르는 카드가 첫번째 인지 두번째인지 확인 
-int answer=0;//맞춘횟수  
+int answer=0;//cldc에 출력할 점수 변수
 int num1=0;//카드 12개 다맞췄을 시 게임을 종료하도록 함 
 int player1_score=0;//플레이어1 점수 
 int player2_score=0; //플레이어2 점수 
-int player;//두 플레이어 구분 하기 위한 변수 
+int player=0;//두 플레이어 구분 하기 위한 변수 
 char qmap[12];//카드 뒷면 
 int tact = 0;//switch
 int dot_d = 0;//dot_matrix 
@@ -56,10 +53,17 @@ int fnd_fd = 0;//FND
 int dev=0;//LED
 char player1_name[3] = "";//플레이어1 이름  
 char player2_name[3] = "";//플레이어2 이름  
-char playervs[16] ="    ";//(플레이어1 이름) vs (플레이어2 이름) 을 저장할 문자열
-char lcd_text[32]="";//clcd에 출력할 문자열
-char lcd_score1[16] = "";// (플레이어1 점수) vs (플레이어2 점수) 을 저장할 문자열  
+char player_text[16] ="    ";//(플레이어1 이름) vs (플레이어2 이름) 을 저장할 문자열
+char score_text[16] = "";// (플레이어1 점수) vs (플레이어2 점수) 을 저장할 문자열  
+char lcd_text[32] = "";//clcd에 출력할 문자열
 
+unsigned char rps[1][8] = {
+	{ 0x00,0x54,0x00,0x54,0x00,0x54,0x00,0x54 }, // 초기값 
+};// dot matrix 카드 배열 
+
+unsigned char card_led[1][3] = {
+	{0x40,0x10,0x04},
+};//card_off에 사용할 dot_matrix 값  
 
 void change_player(void) {
 	if (player == 0) {
@@ -82,7 +86,6 @@ void print_lcd(char clcd_text[]) {
 	close(clcd_d);
 
 }//clcd에 문자를 출력하게 해주는 함수  
-
 
 void led_player(int player){
 	int count;
@@ -160,12 +163,12 @@ void lcd_score(){
 	
 	sprintf(s1, "%d", player1_score);
 	sprintf(s2, "%d", player2_score);;
-	strcat(lcd_score1,"     ");
-	strcat(lcd_score1, s1);
-	strcat(lcd_score1," vs ");
-	strcat(lcd_score1, s2);
-	strcat(lcd_score1,"     ");	
-	printf("%s",lcd_score1);
+	strcat(score_text,"     ");
+	strcat(score_text, s1);
+	strcat(score_text," vs ");
+	strcat(score_text, s2);
+	strcat(score_text,"     ");	
+	printf("%s",score_text);
 }//현재 점수를 clcd에 출력하기 위해 문자열 배열만드는 함수  
 
 void append_name(char* dst, char c) {
@@ -178,8 +181,6 @@ void append_name(char* dst, char c) {
 int intro_game() {
 
 	unsigned char t = 0;
-	unsigned char c;
-	unsigned char d;
 	struct timeval dotst1, dotend1, tactst1, tactend1;
 	int i = 0;
 	int count = 0;
@@ -218,15 +219,16 @@ int intro_game() {
 	while (1)
 	{
 		if(count==4){
-			strcat(playervs,player1_name);
-			strcat(playervs," vs ");
-			strcat(playervs,player2_name);
-			strcat(playervs,"    ");
-			printf("%s\n",playervs);
+			strcat(player_text,player1_name);
+			strcat(player_text," vs ");
+			strcat(player_text,player2_name);
+			strcat(player_text,"    ");
+			printf("%s\n",player_text);
 			printf("%s\n",player1_name);
 			printf("%s\n",player2_name);
 			return 0;
-		}// 플레이어1,2 이름 다 입력했을 경우 playervs배열에 저장  
+		}// 플레이어1,2 이름 다 입력했을 경우 player_text배열에 저장  
+
 		if (dot_d == 0) {
 			dot_d = open(dot, O_RDWR);
 		}
@@ -281,14 +283,6 @@ int intro_game() {
 
 }
 
-
-
-unsigned char rps[1][8] = {	
-	{ 0x00,0x54,0x00,0x54,0x00,0x54,0x00,0x54 }, // 초기값 
-};// dot matrix 카드 배열 
-unsigned char card_led[1][3] = {
-	{0x40,0x10,0x04},
-};//card_off에 사용할 dot_matrix 값  
 void card_off(int a) {
 	int a1 = a;
 	int back1, back2, back3;
@@ -380,14 +374,12 @@ void card_off(int a) {
 	}
 }
 
-
 void map1(void) {
 	int i;
 	for (i = 0; i < 12; i++) {
 		qmap[i] = '?';
 	}
 }//카드 내용을 가리기 위해 카드 뒷면으로 사용할 '?' 배열 
-
 
 void card_shuffle(void) {
 	srand(time(NULL));//게임을 시작할때마다 다르게 섞이도록 하기 위한 srand()함수 
@@ -454,12 +446,10 @@ void print_waiting(void) {
 	print_lcd("   shuffling.   ");
 }//게임 시작시 카드 섞는것처럼 보여줌 
 
-
-
 void dot_smile(int right) {
 	unsigned char c[2][8] = { 
 				{0x00,0x66,0x66,0x00,0x00,0x42,0x3c,0x00}, //웃음 표정 
-				{0x00,0x66,0x66,0x00,0x00,0x3c,0x42,0x00}, //울상 표 
+				{0x00,0x66,0x66,0x00,0x00,0x3c,0x42,0x00}, //울상 표정 
 				};
 	dot_d = open(dot, O_RDWR);
 	write(dot_d, &c[right], sizeof(c[right]));
@@ -493,11 +483,11 @@ void checkcard(int a, int b) {
 		card_in[b] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
 		show_map();//현재 남은 카드 배치를 보여줌
 		lcd_text[0]='\0';
-		lcd_score1[0]='\0';
+		score_text[0]='\0';
 		timer=5;
 		lcd_score();	
-		strcat(lcd_text,playervs);
-		strcat(lcd_text,lcd_score1);
+		strcat(lcd_text,player_text);
+		strcat(lcd_text,score_text);
 		print_lcd(lcd_text);
 	}//짝이 맞을경우 카드를 뒤집어 숫자를 보여주고 check_card[],card_select[] 초기화  
 	else {
@@ -526,8 +516,7 @@ void sum_score(void) {
 		print_lcd(a);
 		dev=open(led_dev, O_RDWR);
 		led_player(0);
-		dev=close(dev);
-		
+		dev=close(dev);		
 	}
 	else if (player1_score == player2_score) {
 		printf("\n");
@@ -666,16 +655,14 @@ int main(void) {
 	struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend, timest, timeend;
 	int i=0;
 	unsigned char t = 0;
-	unsigned char c;
-	unsigned char d;
 	
 	print_lcd("  please enter    player1 name  ");
 	intro_game();
 	lcd_score();
 	print_waiting();
 	card_shuffle();	
-	strcat(lcd_text,playervs);
-	strcat(lcd_text,lcd_score1);
+	strcat(lcd_text,player_text);
+	strcat(lcd_text,score_text);
 	print_lcd(lcd_text);	
 	map1();
 	show_map();
