@@ -340,6 +340,43 @@ if (card_select[0] == card_select[1]) {
   ```
   
   `append()`함수는 문자열 끝에 문자 하나를 추가하는 함수를  구현한 것입니다.
+  
+  - ### 전광판 
+  ```C
+  void thank_you(){
+int dot, i, j, k=0, cnt=0, flag=0;
+unsigned char alph[28][8] = {{0x00, 0x7e, 0x02, 0x12, 0x12, 0x13, 0x7e, 0x00}, // 고
+                             {0x00, 0xf4, 0x94, 0x96, 0x94, 0x94, 0xf4, 0x00}, // 마
+			  				 {0x00, 0x72, 0x8a, 0x72, 0x0e, 0xfa, 0x22, 0x22}, // 워
+                             {0x00, 0x38, 0x44, 0x44, 0x38, 0x28, 0xfe, 0x00}, // 요
+			   				 {0x24, 0x5a, 0x81, 0x81, 0x81, 0x42, 0x24, 0x18} // 하트
+			 }; // 필요한 문자 배열
+
+unsigned char p[8];
+int idx[12] = {4,4,4,4,0,1,2,3,4,4,4,4};    # 전광판에 출력할 순서
+if((dot_d = open(dot, O_RDWR)) < 0){
+  printf("Can't Open\n");
+  exit(0);
+  }
+  while(k<12){
+  cnt = idx[k];
+  for(i=0;i<16;i++){
+     for(j=0;j<8;j++){
+          if(flag == 0)
+          p[j] = (alph[cnt][j] >> (7-i));
+          if(flag == 1)
+          p[j] = (alph[cnt][j] << (i-7));}  // 비트 연산을 통해 흘러가는 모습처럼 점점 오른쪽에서 왼쪽으로 흐르게 한다.
+          write(dot,&p,sizeof(p));
+          usleep(50000);
+          if(i == 7)
+          flag = 1;    // flag 1과 0을 바꿔준다.
+          }
+          flag=0;
+          k++;}
+          dot_d = close(dot_d);
+          
+          }
+  ```
   - ### 맞춘 도트 없애기
 
 # 4. 참고 자료 
