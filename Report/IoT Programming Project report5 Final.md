@@ -57,12 +57,12 @@
 
   ## 2.2 구현된 기능
   
-  - 누구의 이름을 입력하는지 알 수 있는 clcd 기능
+  - ###누구의 이름을 입력하는지 알 수 있는 clcd 기능
   
   ![1](https://user-images.githubusercontent.com/80252681/172615594-f32a0951-d14e-4526-9f9d-5b61c94253bc.jpg)
   ![1](https://user-images.githubusercontent.com/80252681/172616486-b2975aef-7991-483b-9912-fba602d75697.jpg)
 
-  - dot matrix, clcd와 tact swich를 이용하여 player들의 이름을 입력받는 기능
+  - ###dot matrix, clcd와 tact swich를 이용하여 player들의 이름을 입력받는 기능
   
   ![a1](https://user-images.githubusercontent.com/80252681/172620831-e6323cd4-e622-4043-8295-84cb75b5453c.jpg)
   ![b1](https://user-images.githubusercontent.com/80252681/172620836-c8967472-977b-487c-8930-2a0447dc2560.jpg)
@@ -72,26 +72,26 @@
   
   <img src="../img/dot_A.gif" width="150" height="200"/><img src="../img/dot_B.gif" width="150" height="200"/><img src="../img/dot_C.gif" width="150" height="200"/><img src="../img/dot_D.gif" width="150" height="200"/><img src="../img/dot_E.gif" width="150" height="200"/>
   
-  - 실시간 현재 점수 상황을 보여주는 clcd 기능
-  - 이름 입력의 진행 단계를 알 수 있는 led 기능
-  - dot matrix에 4x3 카드 랜덤 배치 기능
-  - tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
-  - 카드를 고르면 고른 카드의 숫자를 dot matrix에서 확인 가능한 기능
-  - dot matrix에서 고른 2개의 카드가 맞는지 아닌지 출력되는 기능( 표정 출력) 
-  - 해당 턴의 타이머가 나타나는 FND 기능
-  - 현재 누구의 턴인지를 알 수 있는 led 기능
-  - 짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
-  - 6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
-  - dot matrix에 전광판 출력되는 기능
+  - ###실시간 현재 점수 상황을 보여주는 clcd 기능
+  - ###이름 입력의 진행 단계를 알 수 있는 led 기능
+  - ###dot matrix에 4x3 카드 랜덤 배치 기능
+  - ###tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
+  - ###카드를 고르면 고른 카드의 숫자를 dot matrix에서 확인 가능한 기능
+  - ###dot matrix에서 고른 2개의 카드가 맞는지 아닌지 출력되는 기능( 표정 출력) 
+  - ###해당 턴의 타이머가 나타나는 FND 기능
+  - ###현재 누구의 턴인지를 알 수 있는 led 기능
+  - ###짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
+  - ###6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
+  - ###dot matrix에 전광판 출력되는 기능
 
 
   ## 2. 3 작동 실행 영상
 
 
 # 3. 독창성, 창의성, 독창성
-  - 동시에 4개의 장치에 접근하는 기능 
-  - 타이머 시간 측정 부분
-  - 스코어 판 문자열 만드는 거
-  - 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )?
+  - ###동시에 4개의 장치에 접근하는 기능 
+  - ###타이머 시간 측정 부분
+  - ###스코어 판 문자열 만드는 거
+  - ###여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )?
 
 # 4. 참고 자료 
