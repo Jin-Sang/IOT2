@@ -113,6 +113,8 @@
 	
   - ### 카드를 고르면 고른 카드의 숫자를 dot matrix에서 확인 가능한 기능
   
+  	<img src="../img/숫자나오는.gif" width="500" height="300"/>
+  
   - ### 해당 턴의 타이머가 나타나는 FND 기능
   	
 	https://user-images.githubusercontent.com/80252681/172683164-af5f9215-1eb5-4c4f-ae92-c05a2f440ba5.mp4
