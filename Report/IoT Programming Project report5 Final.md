@@ -111,7 +111,39 @@
 # 3. 독창성, 창의성, 독창성
   - ### 동시에 4개의 장치에 접근하는 기능 
   ```C
-	struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend, timest, timeend;
+  struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend, timest, timeend;
+  
+  gettimeofday(&dotst, NULL);
+  
+  while (num1 < 6) // 카드쌍이 6개가 맞처질 때까지 반복
+	{
+	gettimeofday(&dotend, NULL);
+	
+	if ((dotend.tv_usec - dotst.tv_usec > 100000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 100000)))
+	{
+	gettimeofday(&tactst, NULL);
+	while (1) {
+		gettimeofday(&tactend, NULL);
+		}
+	if ((tactend.tv_usec - tactst.tv_usec > 100000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 100000)) || t)
+			{
+				
+					
+				gettimeofday(&ledst, NULL);
+					
+				while(1){
+				gettimeofday(&ledend, NULL);
+				if ((ledend.tv_usec - ledst.tv_usec > 100000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 100000)))					{
+						gettimeofday(&fndst, NULL);
+						
+						while(1){
+						gettimeofday(&fndend, NULL);}
+						}
+					}
+				}
+					gettimeofday(&dotst, NULL);
+				}
+
   ```
   - ### 타이머 시간 측정 부분
   - ### 스코어 판 문자열 만드는 거
