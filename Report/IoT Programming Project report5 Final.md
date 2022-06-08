@@ -620,11 +620,7 @@ if (card_select[0] == card_select[1]) {
 
 
 # 4. 참고 자료 
-카드 뒤집기 게임 참고 : https://blockdmask.tistory.com/400
-
-https://hayate1212.tistory.com/19
-
-https://codepractice.tistory.com/107
+카드 뒤집기 게임 참고 : https://blockdmask.tistory.com/400, https://codepractice.tistory.com/107
 
 리듬 게임 : https://github.com/2MinJoo/Embedded_rhythm_game
 
