@@ -78,10 +78,10 @@
   
   https://user-images.githubusercontent.com/80252681/172630403-81b4945e-0c5e-4f45-bb4a-dc4af297bd71.mp4
   
- 	 Tact Swich : <br>
-  	4번키 : 이전 알파벳<br>
-  	5번키 : 알파벳 선택<br>
-  	6번키 : 다음 알파벳 <br>
+ 	 Tact Swich : 
+  	4번키 : 이전 알파벳
+  	5번키 : 알파벳 선택
+  	6번키 : 다음 알파벳
   
   - ### dot matrix에서 고른 2개의 카드가 맞는지 아닌지 출력되는 기능( 표정 출력 ) 
   
