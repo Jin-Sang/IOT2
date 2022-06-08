@@ -59,14 +59,14 @@
   
   - ### 누구의 이름을 입력하는지 알 수 있는 clcd 기능
   
-  Tact Swich의 입력 순서에 따라 누구의 이름을 입력해야하는지를 표시 해줍니다.
+  	Tact Swich의 입력 순서에 따라 누구의 이름을 입력해야하는지를 표시 해줍니다.
   
   ![1](https://user-images.githubusercontent.com/80252681/172615594-f32a0951-d14e-4526-9f9d-5b61c94253bc.jpg)
   ![1](https://user-images.githubusercontent.com/80252681/172616486-b2975aef-7991-483b-9912-fba602d75697.jpg)
 
   - ### dot matrix, clcd와 tact swich를 이용하여 player들의 이름을 입력받는 기능
   
-  Tact Swich의 입력에 따라 Dot Matrix에서 원하는 알파벳을 선택할 수 있습니다.
+  	Tact Swich의 입력에 따라 Dot Matrix에서 원하는 알파벳을 선택할 수 있습니다.
   
   ![a1](https://user-images.githubusercontent.com/80252681/172620831-e6323cd4-e622-4043-8295-84cb75b5453c.jpg)
   ![b1](https://user-images.githubusercontent.com/80252681/172620836-c8967472-977b-487c-8930-2a0447dc2560.jpg)
@@ -78,24 +78,26 @@
   
   https://user-images.githubusercontent.com/80252681/172630403-81b4945e-0c5e-4f45-bb4a-dc4af297bd71.mp4
   
-  Tact Swich : <br>
-  4번키 : 이전 알파벳<br>
-  5번키 : 알파벳 선택<br>
-  6번키 : 다음 알파벳 <br>
+ 	 Tact Swich : <br>
+  	4번키 : 이전 알파벳<br>
+  	5번키 : 알파벳 선택<br>
+  	6번키 : 다음 알파벳 <br>
   
   - ### dot matrix에서 고른 2개의 카드가 맞는지 아닌지 출력되는 기능( 표정 출력 ) 
   
-  - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
+ 
   
   ![웃음](https://user-images.githubusercontent.com/80252681/172681249-50a80fdb-08d4-4888-9142-7d332a3595e3.jpg)
   
   ![울상](https://user-images.githubusercontent.com/80252681/172681300-36b604f9-e77c-470c-a940-034b08b0aed2.jpg)
+  
+  - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
     
-    점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
+   	점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
     
-    <img src="../img/scoreupload.gif" width="500" height="300"/>
+   	<img src="../img/scoreupload.gif" width="500" height="300"/>
     
-    <img src="../img/scoreupload2.gif" width="500" height="300"/>
+   	<img src="../img/scoreupload2.gif" width="500" height="300"/>
 
     
     
