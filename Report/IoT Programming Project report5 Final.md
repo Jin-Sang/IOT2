@@ -108,8 +108,7 @@
 	
   - ### dot matrix에 4x3 카드 랜덤 배치 기능
   
- 	![랜덤배치](https://user-images.githubusercontent.com/80252681/172689398-45e261d7-94a2-4468-8362-18f637d921fd.jpg)
-	
+ 	![랜덤배치](https://user-images.githubusercontent.com/80252681/172689666-d0270ef5-dcbd-4388-a2e0-84f7244e33d6.jpg)
 	<img src="../img/랜덤배치.gif" width="200" height="200"/>
 	
   - ### tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
