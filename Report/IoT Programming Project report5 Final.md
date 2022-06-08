@@ -108,7 +108,7 @@
   ## 2. 3 작동 실행 영상
 
 
-# 3. 독창성, 창의성, 독창성
+# 3. 독창성, 창의성, 난이도
   - ### 동시에 4개의 장치에 접근하는 기능 
   ```C
   struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend ; # 입력장치들에 접근하는 시간들을 기록하는 구조체 변수  
