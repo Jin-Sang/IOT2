@@ -87,9 +87,9 @@
   
  
   
-  ![웃음](https://user-images.githubusercontent.com/80252681/172681249-50a80fdb-08d4-4888-9142-7d332a3595e3.jpg)
+  ![웃음](https://user-images.githubusercontent.com/80252681/172681249-50a80fdb-08d4-4888-9142-7d332a3595e3.jpg)<img src="../img/웃는다.gif" width="200" height="150"/>
   
-  ![울상](https://user-images.githubusercontent.com/80252681/172681300-36b604f9-e77c-470c-a940-034b08b0aed2.jpg)
+  ![울상](https://user-images.githubusercontent.com/80252681/172681300-36b604f9-e77c-470c-a940-034b08b0aed2.jpg)<img src="../img/운다.gif" width="200" height="150"/>
   
   - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
     
