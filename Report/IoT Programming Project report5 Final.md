@@ -217,7 +217,7 @@ if (card_select[0] == card_select[1]) {
 
   - ### 플레이어의 이름을 입력 
   ```C
-  void match_up() {
+  void intro_game() {
 	int dot_d = 0;
     int tact = 0;
     int fnd_d = 0;
