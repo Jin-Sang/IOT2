@@ -58,7 +58,9 @@
   ## 2.2 입출력 장치와 함께 구현한 기능 (독창성) 
   
   - ### 4개의 입출력장치에 동시 접근 기능
-  	FND, Dot Matrix, Clcd, Led 4개의 장치에 번갈아가며 동시 접근  
+  	FND, Dot Matrix, Clcd, Led 4개의 장치에 번갈아가며 동시 접근 ( lcd도 화면에 출력 중 )  
+	
+	https://user-images.githubusercontent.com/80252681/172694318-ef1f22e8-16b1-4a1d-a001-0f6b24fe9dc3.mp4
 	
   - ### 누구의 이름을 입력하는지 알 수 있는 clcd 기능
   
