@@ -121,6 +121,10 @@
 	
 	
   - ### 현재 누구의 턴인지를 알 수 있는 led 기능
+  
+  <img src="../img/1턴.gif" width="500" height="300"/>
+  <img src="../img/2턴.gif" width="500" height="300"/>
+  
   - ### 짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
   - ### 6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
   - ### dot matrix에 전광판 출력되는 기능
