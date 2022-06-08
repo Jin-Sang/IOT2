@@ -103,7 +103,7 @@
     
   - ### 이름 입력의 진행 단계를 알 수 있는 led 기능
   
-	<img src="../img/이름led.gif" width="500" height="300"/>
+	<img src="../img/이름진행.gif" width="500" height="300"/>
   
 	
   - ### dot matrix에 4x3 카드 랜덤 배치 기능
