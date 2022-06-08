@@ -113,7 +113,7 @@
 	
   - ### 카드를 고르면 고른 카드의 숫자를 dot matrix에서 확인 가능한 기능
   
-  	<img src="../img/숫자나오는.gif" width="500" height="300"/>
+  	<img src="../img/숫자나오는.gif" width="300" height="300"/>
   
   - ### 해당 턴의 타이머가 나타나는 FND 기능
   	
@@ -122,8 +122,8 @@
 	
   - ### 현재 누구의 턴인지를 알 수 있는 led 기능
   
-  <img src="../img/1턴.gif" width="500" height="300"/>
-  <img src="../img/2턴.gif" width="500" height="300"/>
+  <img src="../img/1턴.gif" width="300" height="150"/>
+  <img src="../img/2턴.gif" width="300" height="150"/>
   
   - ### 짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
   - ### 6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
