@@ -380,3 +380,10 @@ if((dot_d = open(dot, O_RDWR)) < 0){
   - ### 맞춘 도트 없애기
 
 # 4. 참고 자료 
+카드 뒤집기 게임 참고 :
+
+https://blockdmask.tistory.com/400
+
+https://hayate1212.tistory.com/19
+
+https://codepractice.tistory.com/107
