@@ -147,6 +147,8 @@
 	
   - ### dot matrix에 전광판 출력되는 기능
 
+	<img src="../img/전광판.gif" width="300" height="150"/>
+
 
   ## 2. 3 작동 실행 영상
   	
