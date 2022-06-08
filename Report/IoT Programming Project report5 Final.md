@@ -185,105 +185,7 @@
   ```
 `gettimeofday` 를 이용하여 타이머 측정 시작과 해제 시간을 측정하고 그것에 따라 `timer` 변수의 값을 바꾸어줍니다. 그 값은 바로 `FND`의 4번째 칸인 `초 타이머` 역할을 하여 타이머 기능을 합니다. 
 
-  - ### 스코어 판 문자열 만드는 거
- 
-  ```c
-char player1_name[3] = "";//플레이어1 이름  
-char player2_name[3] = "";//플레이어2 이름  
-char playervs[16] ="    ";//(플레이어1 이름) vs (플레이어2 이름) 을 저장할 문자열
-char lcd_text[32]="";//clcd에 출력할 문자열
-char lcd_score1[16] = "";// (플레이어1 점수) vs (플레이어2 점수) 을 저장할 문자열 
-
-void print_lcd(char clcd_text[]) {
-	int clcd_d;
-
-	clcd_d = open(clcd, O_RDWR);
-	if (clcd_d < 0){
-		printf("clcd error\n");
-	}
-
-	write(clcd_d, clcd_text, 32);
-	close(clcd_d);
-
-}//clcd에 문자를 출력하게 해주는 함수  
-
-
-void lcd_score(){
-	
-	char s1[10]; // 문자열로 변환한 점수를 담을 배열
-	char s2[10]; // 문자열로 변환한 점수를 담을 배열
-	
-	sprintf(s1, "%d", player1_score);//점수를 문자로 변환
-	sprintf(s2, "%d", player2_score);//점수를 문자로 변환
-	strcat(lcd_score1,"     ");
-	strcat(lcd_score1, s1);
-	strcat(lcd_score1," vs ");
-	strcat(lcd_score1, s2);
-	strcat(lcd_score1,"     ");	
-	printf("%s",lcd_score1);
-}//현재 점수를 clcd에 출력하기 위해 문자열 배열만드는 함수  
-void checkcard(int a, int b) {
-	a = a - 1;//첫번째 카드 
-	b = b - 1;//두번째 카드  
-	if (card_in[a] == card_in[b]) {
-		num1++;
-		if (player == 0) {
-			player1_score++;
-			answer = player1_score;
-		}//현재 플레이어1이 플레이중이면 플레이어1 점수 증가
-		else {
-			player2_score++;
-			answer = player2_score;
-		}//현재 플레이어1이 플레이중이면 플레이어1 점수 증가
-		printf("\n");
-		printf("짝을 맞췄습니다!\n");
-		printf("\n");
-		dot_smile(0); // 웃음 표시
-		printf("플레이어%d의 점수: %d", player + 1, answer);
-		...
-        ...    
-        ...
-		lcd_text[0]='\0';//clcd에 출력할 배열 초기화
-		lcd_score1[0]='\0';//점수 문자열 배열 초기화
-		lcd_score();//점수를 문자열 배열에 저장함
-		strcat(lcd_text,playervs);//이름 배열과
-		strcat(lcd_text,lcd_score1);//점수 배열 합침
-		print_lcd(lcd_text);//clcd에 출력
-	}
-}
-```
-
-`strcat()` 함수를 이용하여 문자열 합치기 , `\0`를 통한 초기화 를 활용하여 점수가 바뀔 때마다 clcd에 표현할 문자를 업데이트 합니다.
-   
-  - ### 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )
-  
-  ```c
-int card_in[12]; //카드 12개 앞면 숫자 배열 
-int card_select[2];//플레이어가 선택한 카드 번호 두개 담는 배열 
-
-card_in[a] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
-card_in[b] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
-
-if (card_in[check - 1] == 0) {
-	printf("\n");
-	printf("이미 맞춘 카드입니다.\n");   
-}//고른 카드가 이미 짝을 맞춘 카드인지를 체크하는 조건문 
-//맞췄을 경우 card_in[i]의 값을 0으로 설정하기 때문에 이후에 조건문을 통해 맞춘 카드인지 아닌지를 판별
-
-
-if (card_select[0] == card_select[1]) {
-	printf("\n");
-	printf("중복된 카드를 골랐습니다 다시 고르세요.\n");
-	printf("\n");
-	check_card[1] = 0;
-	card_select[1] = 0;
-}//첫번째와 두번째 카드를 같은 카드를 골랐을 경우 두번째 카드 정보를 담은 check_card[1],card_select[1]을 초기화후 다시 고르도록 함 
-//card_select배열 안에 고른 카드의 번호를 담기 때문에 [0]과 [1]에 같은 값이 담겨져 있다면 중복된 카드를 골랐다고 판단함
-```
-
-카드 게임상에서 발생할 수 있는 여러 가지 예외 처리 상황을 구현해 게임 진행 상에 문제가 없도록 하였습니다.
-
-  - ### 플레이어의 이름을 입력 
+ - ### 플레이어의 이름을 입력 
   ```C
   void intro_game() {
 	int dot_d = 0;
@@ -445,6 +347,106 @@ if((dot_d = open(dot, O_RDWR)) < 0){
           
           }
   ```
+
+  - ### 스코어 판 문자열 만드는 거
+ 
+  ```c
+char player1_name[3] = "";//플레이어1 이름  
+char player2_name[3] = "";//플레이어2 이름  
+char playervs[16] ="    ";//(플레이어1 이름) vs (플레이어2 이름) 을 저장할 문자열
+char lcd_text[32]="";//clcd에 출력할 문자열
+char lcd_score1[16] = "";// (플레이어1 점수) vs (플레이어2 점수) 을 저장할 문자열 
+
+void print_lcd(char clcd_text[]) {
+	int clcd_d;
+
+	clcd_d = open(clcd, O_RDWR);
+	if (clcd_d < 0){
+		printf("clcd error\n");
+	}
+
+	write(clcd_d, clcd_text, 32);
+	close(clcd_d);
+
+}//clcd에 문자를 출력하게 해주는 함수  
+
+
+void lcd_score(){
+	
+	char s1[10]; // 문자열로 변환한 점수를 담을 배열
+	char s2[10]; // 문자열로 변환한 점수를 담을 배열
+	
+	sprintf(s1, "%d", player1_score);//점수를 문자로 변환
+	sprintf(s2, "%d", player2_score);//점수를 문자로 변환
+	strcat(lcd_score1,"     ");
+	strcat(lcd_score1, s1);
+	strcat(lcd_score1," vs ");
+	strcat(lcd_score1, s2);
+	strcat(lcd_score1,"     ");	
+	printf("%s",lcd_score1);
+}//현재 점수를 clcd에 출력하기 위해 문자열 배열만드는 함수  
+void checkcard(int a, int b) {
+	a = a - 1;//첫번째 카드 
+	b = b - 1;//두번째 카드  
+	if (card_in[a] == card_in[b]) {
+		num1++;
+		if (player == 0) {
+			player1_score++;
+			answer = player1_score;
+		}//현재 플레이어1이 플레이중이면 플레이어1 점수 증가
+		else {
+			player2_score++;
+			answer = player2_score;
+		}//현재 플레이어1이 플레이중이면 플레이어1 점수 증가
+		printf("\n");
+		printf("짝을 맞췄습니다!\n");
+		printf("\n");
+		dot_smile(0); // 웃음 표시
+		printf("플레이어%d의 점수: %d", player + 1, answer);
+		...
+        ...    
+        ...
+		lcd_text[0]='\0';//clcd에 출력할 배열 초기화
+		lcd_score1[0]='\0';//점수 문자열 배열 초기화
+		lcd_score();//점수를 문자열 배열에 저장함
+		strcat(lcd_text,playervs);//이름 배열과
+		strcat(lcd_text,lcd_score1);//점수 배열 합침
+		print_lcd(lcd_text);//clcd에 출력
+	}
+}
+```
+
+`strcat()` 함수를 이용하여 문자열 합치기 , `\0`를 통한 초기화 를 활용하여 점수가 바뀔 때마다 clcd에 표현할 문자를 업데이트 합니다.
+   
+  - ### 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )
+  
+  ```c
+int card_in[12]; //카드 12개 앞면 숫자 배열 
+int card_select[2];//플레이어가 선택한 카드 번호 두개 담는 배열 
+
+card_in[a] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
+card_in[b] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
+
+if (card_in[check - 1] == 0) {
+	printf("\n");
+	printf("이미 맞춘 카드입니다.\n");   
+}//고른 카드가 이미 짝을 맞춘 카드인지를 체크하는 조건문 
+//맞췄을 경우 card_in[i]의 값을 0으로 설정하기 때문에 이후에 조건문을 통해 맞춘 카드인지 아닌지를 판별
+
+
+if (card_select[0] == card_select[1]) {
+	printf("\n");
+	printf("중복된 카드를 골랐습니다 다시 고르세요.\n");
+	printf("\n");
+	check_card[1] = 0;
+	card_select[1] = 0;
+}//첫번째와 두번째 카드를 같은 카드를 골랐을 경우 두번째 카드 정보를 담은 check_card[1],card_select[1]을 초기화후 다시 고르도록 함 
+//card_select배열 안에 고른 카드의 번호를 담기 때문에 [0]과 [1]에 같은 값이 담겨져 있다면 중복된 카드를 골랐다고 판단함
+```
+
+카드 게임상에서 발생할 수 있는 여러 가지 예외 처리 상황을 구현해 게임 진행 상에 문제가 없도록 하였습니다.
+
+ 
   - ### 맞춘 도트 없애기
   
   ```c
