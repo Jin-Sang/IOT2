@@ -405,3 +405,6 @@ https://codepractice.tistory.com/107
 웃음 울상 표정 : https://comonyo.tistory.com/18?category=217215
 
 전광판 : https://comonyo.tistory.com/18?category=217215
+
+4조 장치 접근  : https://github.com/min020/smart4412tku/blob/main/src/week2/spaceship.c
+
