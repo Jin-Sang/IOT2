@@ -328,7 +328,7 @@ if (card_select[0] == card_select[1]) {
 }
 
   ```
-  일단 `Match_up()`함수에서도 같은 방식으로 `Tact Swich`와 `Dot Matrix`를 번갈아가며 동시에 접근합니다. 이 때 `Tact Swich`를 입력받으면 4번을 입력하면 인덱스 값을 1 빼고, 5를 누르면 해당 값을 이름 문자열에 추가합니다. 이 때 몇번 째 입력인지를 감지하는 `count` 변수를 사용하여 `player1`과 `player2`의 이름을 구분합니다.
+  일단 `intro_game()`함수에서도 같은 방식으로 `Tact Swich`와 `Dot Matrix`를 번갈아가며 동시에 접근합니다. 이 때 `Tact Swich`를 입력받으면 4번을 입력하면 인덱스 값을 1 빼고, 5를 누르면 해당 값을 이름 문자열에 추가합니다. 이 때 몇번 째 입력인지를 감지하는 `count` 변수를 사용하여 `player1`과 `player2`의 이름을 구분합니다.
   
   ```C
   void append(char *dst, char c) {
