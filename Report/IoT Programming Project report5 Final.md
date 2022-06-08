@@ -83,29 +83,10 @@
   	5번키 : 알파벳 선택
   	6번키 : 다음 알파벳
   
-  - ### dot matrix에서 고른 2개의 카드가 맞는지 아닌지 출력되는 기능( 표정 출력 ) 
-  
- 
-  
-  ![웃음](https://user-images.githubusercontent.com/80252681/172681249-50a80fdb-08d4-4888-9142-7d332a3595e3.jpg)<img src="../img/웃는다.gif" width="200" height="200"/>
-  
-  ![울상](https://user-images.githubusercontent.com/80252681/172681300-36b604f9-e77c-470c-a940-034b08b0aed2.jpg)<img src="../img/운다.gif" width="200" height="200"/>
-  
-  - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
-    
-   	점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
-    
-   	<img src="../img/scoreupload.gif" width="500" height="300"/>
-    
-   	<img src="../img/scoreupload2.gif" width="500" height="300"/>
-
-    
-    
   - ### 이름 입력의 진행 단계를 알 수 있는 led 기능
   
 	<img src="../img/이름진행.gif" width="500" height="300"/>
   
-	
   - ### dot matrix에 4x3 카드 랜덤 배치 기능
   
  	![랜덤배치](https://user-images.githubusercontent.com/80252681/172689666-d0270ef5-dcbd-4388-a2e0-84f7244e33d6.jpg)
@@ -116,14 +97,37 @@
   - ### tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
 
 	<img src="../img/택트위치와도트.gif" width="500" height="300"/>
-	
+
   - ### 카드를 고르면 고른 카드의 숫자를 dot matrix에서 확인 가능한 기능
   
   	<img src="../img/숫자나오는.gif" width="300" height="300"/>
+	  
+  - ### dot matrix에서 고른 2개의 카드가 맞는지 아닌지 출력되는 기능( 표정 출력 ) 
   
+ 
+  ![웃음](https://user-images.githubusercontent.com/80252681/172681249-50a80fdb-08d4-4888-9142-7d332a3595e3.jpg)<img src="../img/웃는다.gif" width="200" height="200"/>
+  
+  ![울상](https://user-images.githubusercontent.com/80252681/172681300-36b604f9-e77c-470c-a940-034b08b0aed2.jpg)<img src="../img/운다.gif" width="200" height="200"/>
+  
+  - ### 짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
+  	
+	<img src="../img/도트꺼짐.gif" width="300" height="300"/>
+	
+  
+  - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
+    
+   	점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
+    
+   	<img src="../img/scoreupload.gif" width="500" height="300"/>
+    
+   	<img src="../img/scoreupload2.gif" width="500" height="300"/>
+
+	  
   - ### 해당 턴의 타이머가 나타나는 FND 기능
   	
 	https://user-images.githubusercontent.com/80252681/172683164-af5f9215-1eb5-4c4f-ae92-c05a2f440ba5.mp4
+	
+	
 	
 	
   - ### 현재 누구의 턴인지를 알 수 있는 led 기능
@@ -137,10 +141,7 @@
   
   	2번 턴
   
-  - ### 짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
-  	
-	<img src="../img/도트꺼짐.gif" width="300" height="300"/>
-	
+
   - ### 6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
   - 
   	<img src="../img/승자.gif" width="500" height="300"/>
