@@ -184,8 +184,162 @@
 	write(fnd_fd, &fnd_num, sizeof(fnd_num));
   ```
 `gettimeofday` 를 이용하여 타이머 측정 시작과 해제 시간을 측정하고 그것에 따라 `timer` 변수의 값을 바꾸어줍니다. 그 값은 바로 `FND`의 4번째 칸인 `초 타이머` 역할을 하여 타이머 기능을 합니다. 
+
   - ### 스코어 판 문자열 만드는 거
-  - ### 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )?
+  - 
+  - ### 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )
+  
+  ```c
+int card_in[12]; //카드 12개 앞면 숫자 배열 
+int card_select[2];//플레이어가 선택한 카드 번호 두개 담는 배열 
+
+card_in[a] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
+card_in[b] = 0;//이미 맞춘 카드를 고르지 못하도록 카드내용을 0으로 설정 
+
+if (card_in[check - 1] == 0) {
+	printf("\n");
+	printf("이미 맞춘 카드입니다.\n");   
+}//고른 카드가 이미 짝을 맞춘 카드인지를 체크하는 조건문 
+//맞췄을 경우 card_in[i]의 값을 0으로 설정하기 때문에 이후에 조건문을 통해 맞춘 카드인지 아닌지를 판별
+
+
+if (card_select[0] == card_select[1]) {
+	printf("\n");
+	printf("중복된 카드를 골랐습니다 다시 고르세요.\n");
+	printf("\n");
+	check_card[1] = 0;
+	card_select[1] = 0;
+}//첫번째와 두번째 카드를 같은 카드를 골랐을 경우 두번째 카드 정보를 담은 check_card[1],card_select[1]을 초기화후 다시 고르도록 함 
+//card_select배열 안에 고른 카드의 번호를 담기 때문에 [0]과 [1]에 같은 값이 담겨져 있다면 중복된 카드를 골랐다고 판단함
+```
+
+카드 게임상에서 발생할 수 있는 여러 가지 예외 처리 상황을 구현해 게임 진행 상에 문제가 없도록 하였습니다.
+
+  - ### 플레이어의 이름을 입력 
+  ```C
+  void match_up() {
+	int dot_d = 0;
+    int tact = 0;
+    int fnd_d = 0;
+    unsigned char t = 0;
+    unsigned char c;
+    unsigned char d;
+	struct timeval dotst1, dotend1, tactst1, tactend1;
+	int i = 0;
+	
+	int count = 0;
+	
+	char n1[1];
+	char n2[1];
+	char pla1[3]=" ";
+	char pla2[3]=" ";
+	char alphP[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";      // dot matrix에서 알파벳을 나타내는 순서와 같이 되어 있음.
+							// 같은 인덱스끼리 같은 알파벳을 뜻함.
+
+	unsigned char alph[26][8] = { {0x18, 0x24, 0x42, 0x42, 0x7E, 0x42, 0x42, 0x42},	// A
+								{0x3c, 0x22, 0x22, 0x3c, 0x22, 0x22, 0x22, 0x3c},	//B?
+								{0x1C, 0x22, 0x20, 0x20, 0x20, 0x20, 0x22, 0x1C},	//C?
+								{0x38, 0x44, 0x42, 0x42, 0x42, 0x42, 0x44, 0x38},	//D?
+								{0x3E, 0x20, 0x20, 0x3E, 0x20, 0x20, 0x20, 0x3E},	//E?
+								{0x3E, 0x20, 0x20, 0x3E, 0x20, 0x20, 0x20, 0x20},	//F?
+								{0x1C, 0x22, 0x42, 0x40, 0x40, 0x47, 0x42, 0x3C},	//G?
+								{0x42, 0x42, 0x42, 0x7E, 0x42, 0x42, 0x42, 0x42},	//H??
+								{0x1C, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x1C},	//I?
+								{0x1C, 0x08, 0x08, 0x08, 0x08, 0x48, 0x48, 0x30},	//J?
+								{0x44, 0x48, 0x50, 0x60, 0x50, 0x48, 0x44, 0x44},	//K?
+								{0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x3E},	//L?
+								{0x81, 0xC3, 0xA5, 0x99, 0x81, 0x81, 0x81, 0x81},	//M??
+								{0x42, 0x62, 0x52, 0x4A, 0x46, 0x42, 0x42, 0x42},	//N
+								{0x3C, 0x42, 0x81, 0x81, 0x81, 0x81, 0x42, 0x3C},	//O
+								{0x7C, 0x42, 0x42, 0x42, 0x7C, 0x40, 0x40, 0x40},	//P
+								{0x38, 0x44, 0x82, 0x82, 0x82, 0x8A, 0x44, 0x3A},	//Q
+								{0x7C, 0x42, 0x42, 0x42, 0x7C, 0x48, 0x44, 0x42},	//R
+								{0x3C, 0x42, 0x40, 0x3C, 0x02, 0x02, 0x42, 0x3C},	//S?
+								{0x3E, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08},	//T?
+								{0x42, 0x42, 0x42, 0x42, 0x42, 0x42, 0x42, 0x3C},	//U
+								{0x81, 0x42, 0x42, 0x42, 0x24, 0x24, 0x24, 0x18},	//V
+								{0x81, 0x99, 0x99, 0x99, 0x99, 0x99, 0x5A, 0x24},	//W
+								{0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81},	//X
+								{0x81, 0x81, 0x42, 0x42, 0x3C, 0x18, 0x18, 0x18},	//Y
+								{0xFF, 0x03, 0x02, 0x04, 0x08, 0x10, 0x60, 0xFF},	//Z?
+	};
+
+	gettimeofday(&dotst1, NULL);
+
+	while (1)
+	{
+		if (dot_d == 0) {
+			dot_d = open(dot, O_RDWR);
+		}
+		gettimeofday(&dotend1, NULL);
+
+		write(dot_d, &alph[i], sizeof(alph[i]));
+
+		if ((dotend1.tv_usec - dotst1.tv_usec > 200000) || (dotend1.tv_sec > dotst1.tv_sec && (dotend1.tv_usec + 1000000 - dotst1.tv_usec > 200000)))
+		{
+			dot_d = close(dot_d);
+			if (tact == 0)     //tact switch에 접근하지 않은 경우만 open
+			{
+				tact = open(tact_d, O_RDWR);
+			}
+			gettimeofday(&tactst1, NULL);
+			while (1) {
+				gettimeofday(&tactend1, NULL);
+				read(tact, &t, sizeof(t));
+				switch (t) {
+
+				case KEY_NUM4:
+					i = i - 1;
+					break;
+
+				case KEY_NUM5:{	
+					count = count + 1;
+					if (count < 3){
+						
+					append(pla1, alphP[i]);					
+					printf("%s\n",pla1);
+					}
+					else if ( count < 5){
+						append(pla2, alphP[i]);					
+						printf("%s\n",pla2);
+					} else {
+						return 0;
+					}
+					 
+					break;
+				}
+
+
+				case KEY_NUM6:
+					i = i + 1;
+					break;
+				}
+				if ((tactend1.tv_usec - tactst1.tv_usec > 200000) || (tactend1.tv_sec > tactst1.tv_sec && (tactend1.tv_usec + 1000000 - tactst1.tv_usec > 200000)) || t)
+				{
+					tact = close(tact);
+					break;
+				}
+			}
+			gettimeofday(&dotst1, NULL);
+		}
+
+	}
+	
+}
+
+  ```
+  일단 `Match_up()`함수에서도 같은 방식으로 `Tact Swich`와 `Dot Matrix`를 번갈아가며 동시에 접근합니다. 이 때 `Tact Swich`를 입력받으면 4번을 입력하면 인덱스 값을 1 빼고, 5를 누르면 해당 값을 이름 문자열에 추가합니다. 이 때 몇번 째 입력인지를 감지하는 `count` 변수를 사용하여 `player1`과 `player2`의 이름을 구분합니다.
+  
+  ```C
+  void append(char *dst, char c) {
+    char *p = dst;
+    while (*p != '\0') p++; // 문자열 끝을 찾을 때까지 p 증가 즉, 끝 탐색
+    *p = c;    // 끝의 문자 추가하고
+    *(p+1) = '\0'; // 다시 마지막 빈 문자를 마지막에 넣어줌
+}
+  ```
+  
+  `append()`함수는 문자열 끝에 문자 하나를 추가하는 함수를  구현한 것입니다.
   - ### 맞춘 도트 없애기
 
 # 4. 참고 자료 
