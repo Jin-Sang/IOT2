@@ -127,6 +127,8 @@
 
 
   ## 2. 3 작동 실행 영상
+  	
+	https://youtu.be/pyZV8NKfzEg
 
 
 # 3. 독창성을 구현한 난이도
