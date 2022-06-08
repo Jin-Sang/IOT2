@@ -111,40 +111,53 @@
 # 3. 독창성, 창의성, 독창성
   - ### 동시에 4개의 장치에 접근하는 기능 
   ```C
-  struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend, timest, timeend;
+  struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend ; # 입력장치들에 접근하는 시간들을 기록하는 구조체 변수  
   
-  gettimeofday(&dotst, NULL);
+  gettimeofday(&dotst, NULL);   // 맨처음 dot matrix에 접근할 때 시간 저장
   
-  while (num1 < 6) // 카드쌍이 6개가 맞처질 때까지 반복
-	{
-	gettimeofday(&dotend, NULL);
+  while (num1 < 6) // 카드쌍이 6개가 맞을 때까지 반복
+{
+	gettimeofday(&dotend, NULL);  # dot matrix를 해제할 때마다 시간 저장
 	
-	if ((dotend.tv_usec - dotst.tv_usec > 100000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 100000)))
-	{
-	gettimeofday(&tactst, NULL);
-	while (1) {
-		gettimeofday(&tactend, NULL);
+	if ((dotend.tv_usec - dotst.tv_usec > 100000) || (dotend.tv_sec > dotst.tv_sec && (dotend.tv_usec + 1000000 - dotst.tv_usec > 100000))){
+	// dot matrix에 접근을 0.1초 이상하지 않는다.
+	
+		gettimeofday(&tactst, NULL);  // tact switch에 접근 할 때마다 시간 저장 
+	
+		while (1) {
+		gettimeofday(&tactend, NULL);  // tact switch에 해제 할 때마다 시간 저장 
 		}
-	if ((tactend.tv_usec - tactst.tv_usec > 100000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 100000)) || t)
-			{
+	
+		if ((tactend.tv_usec - tactst.tv_usec > 100000) || (tactend.tv_sec > tactst.tv_sec && (tactend.tv_usec + 1000000 - tactst.tv_usec > 100000)) || t){
+		// tact switch에 접근을 0.1초 이상 하지 않는다.		
+					
+			gettimeofday(&ledst, NULL); led에 접근 할 때마다 시간 저장
+					
+			while(1){
 				
-					
-				gettimeofday(&ledst, NULL);
-					
-				while(1){
-				gettimeofday(&ledend, NULL);
-				if ((ledend.tv_usec - ledst.tv_usec > 100000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 100000)))					{
-						gettimeofday(&fndst, NULL);
+				gettimeofday(&ledend, NULL); // led에 해제 할 때마다 시간 저장 
+				
+				if ((ledend.tv_usec - ledst.tv_usec > 100000) || (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 100000)){
+				//led에 접근을 0.1초 이상 하지 않는다.
+				
+				
+					gettimeofday(&fndst, NULL);  // fnd에 접근할 때마다 시간 저장
 						
-						while(1){
-						gettimeofday(&fndend, NULL);}
-						}
+					while(1){
+						gettimeofday(&fndend, NULL);}  // fnd에 해제할 때마다 시간 저장
 					}
 				}
-					gettimeofday(&dotst, NULL);
-				}
+			}
+		}
+	}
+	gettimeofday(&dotst, NULL);    // dot matrix에 접근을 할때 마다 시간 저장 
+					// 맨처음 dot matrix접근 시간을 while문 밖에서 해주고 while문을 반복할 때마다 여기서 갱신해준다.
+}
 
   ```
+  
+  위의 요약한 코드와 같이 gettimeofday를 이용하여 접근 장치에 접근/해제 시간을 측정하고 4중 if문과 while문(if문의 시간 제한에 걸리게 함)을 통해 각 장치에 접근 시간을 제한하여 번갈아가며 접근한다. 
+  
   - ### 타이머 시간 측정 부분
   - ### 스코어 판 문자열 만드는 거
   - ### 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )?
