@@ -87,7 +87,7 @@
     
     점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
     
-    <img src="../img/scoreupload.gif" width="150" height="200"/>
+    <img src="../img/scoreupload.gif" width="500" height="300"/>
 
     
     
