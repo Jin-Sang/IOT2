@@ -70,7 +70,11 @@
   ![d1](https://user-images.githubusercontent.com/80252681/172620842-317b70eb-1b1b-4b58-b205-670c3b7965ca.jpg)
   ![e1](https://user-images.githubusercontent.com/80252681/172620846-1f704626-c07e-4754-aa84-b42eae72d6c4.jpg)
   
-  <img src="../img/dot_A.gif" width="150" height="150"/>
+  <img src="../img/dot_A.gif" width="150" height="200"/>
+  <img src="../img/dot_B.gif" width="150" height="200"/>
+  <img src="../img/dot_C.gif" width="150" height="200"/>
+  <img src="../img/dot_D.gif" width="150" height="200"/>
+  <img src="../img/dot_E.gif" width="150" height="200"/>
   
   - 실시간 현재 점수 상황을 보여주는 clcd 기능
   - 이름 입력의 진행 단계를 알 수 있는 led 기능
