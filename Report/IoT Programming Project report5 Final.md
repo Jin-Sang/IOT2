@@ -111,6 +111,8 @@
  	![랜덤배치](https://user-images.githubusercontent.com/80252681/172689666-d0270ef5-dcbd-4388-a2e0-84f7244e33d6.jpg)
 	<img src="../img/랜덤배치.gif" width="200" height="200"/>
 	
+	`4x3` 모양의 배열로 카드가 랜덤 배치된다. 
+	
   - ### tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
 
 	<img src="../img/택트위치와도트.gif" width="500" height="300"/>
@@ -126,8 +128,14 @@
 	
   - ### 현재 누구의 턴인지를 알 수 있는 led 기능
   
-  <img src="../img/1턴.gif" width="300" height="150"/>
+  <img src="../img/1턴.gif" width="300" height="150"/> 
+  
+  1번 턴
+  
+  
   <img src="../img/2턴.gif" width="300" height="150"/>
+  
+  2번 턴
   
   - ### 짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
   - ### 6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
