@@ -139,7 +139,7 @@
   
   - ### 짝이 맞춰진 카드 쌍은 실시간으로 dot matrix에서 사라지는 기능 
   	
-	<img src="../img/카드꺼짐.gif" width="300" height="150"/>
+	<img src="../img/도트꺼짐.gif" width="300" height="150"/>
 	
   - ### 6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
   - ### dot matrix에 전광판 출력되는 기능
