@@ -86,6 +86,7 @@
   - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
     
     점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
+    
     https://user-images.githubusercontent.com/80252681/172635277-7c80add3-87e0-4c16-ac86-f2528338e915.mp4
     
     
