@@ -102,6 +102,10 @@
     
     
   - ### 이름 입력의 진행 단계를 알 수 있는 led 기능
+  
+	<img src="../img/이름led.gif" width="150" height="200"/><img src="../img/dotm_E.gif" width="150" height="200"/>
+  
+	
   - ### dot matrix에 4x3 카드 랜덤 배치 기능
   - ### tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
   - ### 카드를 고르면 고른 카드의 숫자를 dot matrix에서 확인 가능한 기능
