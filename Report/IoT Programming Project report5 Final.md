@@ -156,9 +156,34 @@
 
   ```
   
-  위의 요약한 코드와 같이 gettimeofday를 이용하여 접근 장치에 접근/해제 시간을 측정하고 4중 if문과 while문(if문의 시간 제한에 걸리게 함)을 통해 각 장치에 접근 시간을 제한하여 번갈아가며 접근한다. 
+  위의 요약한 코드와 같이 `gettimeofday`를 이용하여 접근 장치에 접근/해제 시간을 측정하고 4중 `if`문과 `while`문(`if`문의 시간 제한에 걸리게 함)을 통해 각 장치에 접근 시간을 제한하여 번갈아가며 접근한다. 
   
   - ### 타이머 시간 측정 부분
+  ```C
+  int timer = 5;//타이머 초기값 
+  
+  struct timeval timest, timeend;   // 타이머 시간을 측정
+  
+  gettimeofday(&timeend, NULL); // 시간 측정 종료할 때 마다 측정
+  
+  if ((timeend.tv_usec - timest.tv_usec > 1000000)|| (ledend.tv_sec > ledst.tv_sec && (ledend.tv_usec + 1000000 - ledst.tv_usec > 100000))){
+	gettimeofday(&timest, NULL);   // 시간 측정을 시작할 때 마다 측정
+	timer--;
+	printf("%d\n", timer);
+							
+	if (timer == 0){   // 타이머가 0이 되면
+	timer = 5;   //  시간을 다시 5초로 갱신합니다.
+	change_player();  //   턴을 상대에게 넘깁니다.
+	}
+	
+	
+	fnd_num[0] = FND_DATA_TBL[0];
+	fnd_num[1] = FND_DATA_TBL[0];
+	fnd_num[2] = FND_DATA_TBL[0];
+	fnd_num[3] = FND_DATA_TBL[timer];      # FND 4번 째 값을 갱신해준다.
+	write(fnd_fd, &fnd_num, sizeof(fnd_num));
+  ```
+`gettimeofday` 를 이용하여 타이머 측정 시작과 해제 시간을 측정하고 그것에 따라 `timer` 변수의 값을 바꾸어줍니다. 그 값은 바로 fnd의 4번째 칸인 `초 타이머` 역할을 하여 타이머 기능을 합니다. 
   - ### 스코어 판 문자열 만드는 거
   - ### 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )?
   - ### 맞춘 도트 없애기
