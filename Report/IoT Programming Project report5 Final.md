@@ -76,7 +76,7 @@
   
   <img src="../img/dot_A.gif" width="150" height="200"/><img src="../img/dot_B.gif" width="150" height="200"/><img src="../img/dot_C.gif" width="150" height="200"/><img src="../img/dot_D.gif" width="150" height="200"/><img src="../img/dot_E.gif" width="150" height="200"/>
   
-  https://user-images.githubusercontent.com/80252681/172629025-4e26a97c-0513-413b-917a-698e6341fd3a.mp4
+  https://user-images.githubusercontent.com/80252681/172630403-81b4945e-0c5e-4f45-bb4a-dc4af297bd71.mp4
   
   Tact Swich : <br>
   4번키 : 이전 알파벳<br>
@@ -84,6 +84,9 @@
   6번키 : 다음 알파벳 <br>
   
   - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
+    
+    점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
+    
   - ### 이름 입력의 진행 단계를 알 수 있는 led 기능
   - ### dot matrix에 4x3 카드 랜덤 배치 기능
   - ### tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
