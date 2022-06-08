@@ -187,6 +187,74 @@
 
   - ### 스코어 판 문자열 만드는 거
   - 
+  ```c
+char player1_name[3] = "";//플레이어1 이름  
+char player2_name[3] = "";//플레이어2 이름  
+char playervs[16] ="    ";//(플레이어1 이름) vs (플레이어2 이름) 을 저장할 문자열
+char lcd_text[32]="";//clcd에 출력할 문자열
+char lcd_score1[16] = "";// (플레이어1 점수) vs (플레이어2 점수) 을 저장할 문자열 
+
+void print_lcd(char clcd_text[]) {
+	int clcd_d;
+
+	clcd_d = open(clcd, O_RDWR);
+	if (clcd_d < 0){
+		printf("clcd error\n");
+	}
+
+	write(clcd_d, clcd_text, 32);
+	close(clcd_d);
+
+}//clcd에 문자를 출력하게 해주는 함수  
+
+
+void lcd_score(){
+	
+	char s1[10]; // 문자열로 변환한 점수를 담을 배열
+	char s2[10]; // 문자열로 변환한 점수를 담을 배열
+	
+	sprintf(s1, "%d", player1_score);//점수를 문자로 변환
+	sprintf(s2, "%d", player2_score);//점수를 문자로 변환
+	strcat(lcd_score1,"     ");
+	strcat(lcd_score1, s1);
+	strcat(lcd_score1," vs ");
+	strcat(lcd_score1, s2);
+	strcat(lcd_score1,"     ");	
+	printf("%s",lcd_score1);
+}//현재 점수를 clcd에 출력하기 위해 문자열 배열만드는 함수  
+void checkcard(int a, int b) {
+	a = a - 1;//첫번째 카드 
+	b = b - 1;//두번째 카드  
+	if (card_in[a] == card_in[b]) {
+		num1++;
+		if (player == 0) {
+			player1_score++;
+			answer = player1_score;
+		}//현재 플레이어1이 플레이중이면 플레이어1 점수 증가
+		else {
+			player2_score++;
+			answer = player2_score;
+		}//현재 플레이어1이 플레이중이면 플레이어1 점수 증가
+		printf("\n");
+		printf("짝을 맞췄습니다!\n");
+		printf("\n");
+		dot_smile(0); // 웃음 표시
+		printf("플레이어%d의 점수: %d", player + 1, answer);
+		...
+        ...    
+        ...
+		lcd_text[0]='\0';//clcd에 출력할 배열 초기화
+		lcd_score1[0]='\0';//점수 문자열 배열 초기화
+		lcd_score();//점수를 문자열 배열에 저장함
+		strcat(lcd_text,playervs);//이름 배열과
+		strcat(lcd_text,lcd_score1);//점수 배열 합침
+		print_lcd(lcd_text);//clcd에 출력
+	}
+}
+```
+
+`strcat()` 함수를 이용하여 문자열 합치기 , `\0`를 통한 초기화 를 활용하여 점수가 바뀔 때마다 clcd에 표현할 문자를 업데이트 합니다.
+   
   - ### 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )
   
   ```c
