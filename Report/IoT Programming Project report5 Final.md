@@ -143,7 +143,7 @@
 	
   - ### 6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
   - 
-  	<img src="../img/승자.gif" width="400" height="100"/>
+  	<img src="../img/승자.gif" width="300" height="150"/>
 	
   - ### dot matrix에 전광판 출력되는 기능
 
