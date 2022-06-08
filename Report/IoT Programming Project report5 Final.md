@@ -110,7 +110,7 @@
   
  	![랜덤배치](https://user-images.githubusercontent.com/80252681/172689398-45e261d7-94a2-4468-8362-18f637d921fd.jpg)
 	
-	<img src="../img/택트위치와도트.gif" width="200" height="200"/>
+	<img src="../img/랜덤배치.gif" width="200" height="200"/>
 	
   - ### tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
 
