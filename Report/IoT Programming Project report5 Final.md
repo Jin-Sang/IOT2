@@ -363,13 +363,13 @@ if((dot_d = open(dot, O_RDWR)) < 0){
   for(i=0;i<16;i++){
      for(j=0;j<8;j++){
           if(flag == 0)
-          p[j] = (alph[cnt][j] >> (7-i));
+          p[j] = (alph[cnt][j] >> (7-i));   // 처음부터 7번째는 >> 연산을 한다.
           if(flag == 1)
           p[j] = (alph[cnt][j] << (i-7));}  // 비트 연산을 통해 흘러가는 모습처럼 점점 오른쪽에서 왼쪽으로 흐르게 한다.
           write(dot,&p,sizeof(p));
           usleep(50000);
           if(i == 7)
-          flag = 1;    // flag 1과 0을 바꿔준다.
+          flag = 1;    // 전광판 절반을 기준으로 flag 1과 0을 바꿔준다.
           }
           flag=0;
           k++;}
@@ -389,3 +389,19 @@ https://codepractice.tistory.com/107
 리듬 게임 : https://github.com/2MinJoo/Embedded_rhythm_game
 
 드라이빙 게임 : https://github.com/mokhwasomssi/game_and_sensor_monitoring
+
+리듬 게임 : https://github.com/2MinJoo/Embedded_rhythm_game
+
+밴딩 머신 : https://github.com/Sungho95/IoT-Vending-machine
+
+입출력 조작 : https://hongci.tistory.com/83?category=219350
+
+카드 뒤집기 : https://blockdmask.tistory.com/400
+
+카드 짝 맞추기 : https://hayate1212.tistory.com/19
+
+셔플 : https://codepractice.tistory.com/107
+
+웃음 울상 표정 : https://comonyo.tistory.com/18?category=217215
+
+전광판 : https://comonyo.tistory.com/18?category=217215
