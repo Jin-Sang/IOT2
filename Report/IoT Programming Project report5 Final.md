@@ -122,13 +122,6 @@
     
    	<img src="../img/scoreupload2.gif" width="500" height="300"/>
 
-	  
-  - ### 해당 턴의 타이머가 나타나는 FND 기능
-  	
-	https://user-images.githubusercontent.com/80252681/172683164-af5f9215-1eb5-4c4f-ae92-c05a2f440ba5.mp4
-	
-	
-	
 	
   - ### 현재 누구의 턴인지를 알 수 있는 led 기능
   
@@ -140,6 +133,11 @@
   	<img src="../img/2턴.gif" width="400" height="150"/>
   
   	2번 턴
+	
+  - ### 해당 턴의 타이머가 나타나는 FND 기능
+  	
+	https://user-images.githubusercontent.com/80252681/172683164-af5f9215-1eb5-4c4f-ae92-c05a2f440ba5.mp4
+	
   
 
   - ### 6쌍이 맞춰지면 승자가 lcd에 출력되는 기능
