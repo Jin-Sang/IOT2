@@ -55,14 +55,18 @@
   7) 6쌍의 카드가 모두 맞춰 질 때 까지 4,5,6을 반복합니다.
   8) 6쌍이 맞춰지면 각 플레이어가 획득한 점수에 따라 승자가 출력됩니다.
 
-  ## 2.2 구현된 기능
+  ## 2.2 입출력 장치와 함께 구현된 기능
   
   - ### 누구의 이름을 입력하는지 알 수 있는 clcd 기능
+  
+  Tact Swich의 입력 순서에 따라 누구의 이름을 입력해야하는지를 표시 해줍니다.
   
   ![1](https://user-images.githubusercontent.com/80252681/172615594-f32a0951-d14e-4526-9f9d-5b61c94253bc.jpg)
   ![1](https://user-images.githubusercontent.com/80252681/172616486-b2975aef-7991-483b-9912-fba602d75697.jpg)
 
   - ### dot matrix, clcd와 tact swich를 이용하여 player들의 이름을 입력받는 기능
+  
+  Tact Swich의 입력에 따라 Dot Matrix에서 원하는 알파벳을 선택할 수 있습니다.
   
   ![a1](https://user-images.githubusercontent.com/80252681/172620831-e6323cd4-e622-4043-8295-84cb75b5453c.jpg)
   ![b1](https://user-images.githubusercontent.com/80252681/172620836-c8967472-977b-487c-8930-2a0447dc2560.jpg)
@@ -72,7 +76,17 @@
   
   <img src="../img/dot_A.gif" width="150" height="200"/><img src="../img/dot_B.gif" width="150" height="200"/><img src="../img/dot_C.gif" width="150" height="200"/><img src="../img/dot_D.gif" width="150" height="200"/><img src="../img/dot_E.gif" width="150" height="200"/>
   
+  https://user-images.githubusercontent.com/80252681/172630403-81b4945e-0c5e-4f45-bb4a-dc4af297bd71.mp4
+  
+  Tact Swich : <br>
+  4번키 : 이전 알파벳<br>
+  5번키 : 알파벳 선택<br>
+  6번키 : 다음 알파벳 <br>
+  
   - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
+    
+    점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
+    
   - ### 이름 입력의 진행 단계를 알 수 있는 led 기능
   - ### dot matrix에 4x3 카드 랜덤 배치 기능
   - ### tact switch를 이용하여 원하는 카드를 선택할 수 있는 기능
@@ -89,9 +103,9 @@
 
 
 # 3. 독창성, 창의성, 독창성
-  - ###동시에 4개의 장치에 접근하는 기능 
-  - ###타이머 시간 측정 부분
-  - ###스코어 판 문자열 만드는 거
-  - ###여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )?
+  - ### 동시에 4개의 장치에 접근하는 기능 
+  - ### 타이머 시간 측정 부분
+  - ### 스코어 판 문자열 만드는 거
+  - ### 여러가지 예외 처리 ( 중복 선택 및 뒤집어진 카드 선택 )?
 
 # 4. 참고 자료 
