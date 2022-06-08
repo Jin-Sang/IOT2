@@ -76,6 +76,12 @@
   
   <img src="../img/dot_A.gif" width="150" height="200"/><img src="../img/dot_B.gif" width="150" height="200"/><img src="../img/dot_C.gif" width="150" height="200"/><img src="../img/dot_D.gif" width="150" height="200"/><img src="../img/dot_E.gif" width="150" height="200"/>
   
+  https://user-images.githubusercontent.com/80252681/172627969-02eefe30-1ae8-4f44-aaf8-3359ada1c52c.mp4
+  Tact Swich : 
+  4번키 : 이전 알파벳
+  5번키 : 알파벳 선택
+  6번키 : 다음 알파벳 
+  
   - ### 실시간 현재 점수 상황을 보여주는 clcd 기능
   - ### 이름 입력의 진행 단계를 알 수 있는 led 기능
   - ### dot matrix에 4x3 카드 랜덤 배치 기능
