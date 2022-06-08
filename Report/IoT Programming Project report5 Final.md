@@ -2,7 +2,7 @@
 
 팀장: 김진상<br>팀원: 김동현 
 
-발표일 : 2022년 5월 30일<br>발표자: 김진상
+발표일 : 2022년 6월 08일<br>발표자: 김진상
 
 주제 : 1 VS 1 카드 뒤집기 게임
 
@@ -88,6 +88,8 @@
     점수를 획득하면 실시간으로 점수가 clcd에 반영됩니다.
     
     <img src="../img/scoreupload.gif" width="500" height="300"/>
+    
+    <img src="../img/scoreupload2.gif" width="500" height="300"/>
 
     
     
