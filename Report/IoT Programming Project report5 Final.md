@@ -161,7 +161,7 @@ https://youtu.be/pyZV8NKfzEg
 
 # 3. 독창성을 구현한 난이도
 
-  - ### 4개 장치 번갈 동시 접근 
+  - ### 4개 장치 번갈아 가며 동시 접근 
   ```C
   struct timeval dotst, dotend, tactst, tactend, fndst, fndend, ledst, ledend ; # 입력장치들에 접근하는 시간들을 기록하는 구조체 변수  
   
