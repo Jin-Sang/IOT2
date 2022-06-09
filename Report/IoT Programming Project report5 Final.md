@@ -7,7 +7,7 @@
 주제 : 1 VS 1 카드 뒤집기 게임
 
 # 1. 진행 일정 및 주요 내용
-<img src="../img/code_ver.PNG" width="500" height="700"/>
+<img src="../img/code_ver.PNG" width="300" height="500"/>
 
 - ## 1주차 활동 내용
   - 기존의 프로젝트 조사 : 리듬게임, 폭탄 해체 게임
